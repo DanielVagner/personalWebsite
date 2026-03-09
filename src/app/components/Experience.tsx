@@ -92,18 +92,8 @@ export function Experience() {
       period: 'Sep 2017 - Sep 2018',
       duration: '1 yr 1 mo',
       location: 'Okres Pardubice, Česká republika',
-      skills: ['Angular', 'Web Development'],
-    },
-    {
-      company: 'Web Developer a Servisní Technik',
-      position: 'Web Developer',
-      type: 'Full-time',
-      period: 'Jul 2016 - Dec 2016',
-      duration: '6 mos',
-      location: 'Okres Hradec Králové, Česká republika',
-      description: 'Angular 2+, HTML5, CSS3 (SCSS), JavaScript, PrestaShop',
       skills: ['Angular 2+', 'HTML5', 'CSS3', 'SCSS', 'JavaScript', 'PrestaShop'],
-    },
+    }
   ];
 
   const containerVariants = {

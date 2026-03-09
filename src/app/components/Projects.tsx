@@ -20,7 +20,7 @@ export function Projects() {
     {
       title: 'Findtastic - Price Comparison App',
       description: 'Mobile application for finding the best prices worldwide for US customers. Features include cross-store price comparison, deal discovery, and real-time price tracking across multiple e-commerce platforms.',
-      technologies: ['React Native', 'TypeScript', 'REST APIs', 'Mobile UI'],
+      technologies: ['Angular', 'Ionic', 'Capacitor', 'swift-libs', 'TypeScript', 'REST APIs', 'Mobile UI'],
       images: [findtasticImage1, findtasticImage2],
       category: 'Mobile Application',
       useDirectImage: true,
@@ -37,7 +37,7 @@ export function Projects() {
     {
       title: 'Tolion - Brain Health Coach',
       description: 'AI-powered brain health platform with conversational coaching, personalized activity recommendations, and advanced risk assessment. Features unique Brain Age indicator, weekly progress summaries, and science-based cognitive performance tracking.',
-      technologies: ['React Native', 'AI/ML', 'HealthKit', 'Data Analytics', 'Mobile UI'],
+      technologies: ['Angular', 'Ionic', 'Capacitor', 'AI/ML', 'HealthKit', 'Data Analytics', 'Mobile UI'],
       image: tolionImage,
       category: 'Mobile Application',
       useDirectImage: true,

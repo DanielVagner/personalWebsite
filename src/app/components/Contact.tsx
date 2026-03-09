@@ -1,4 +1,4 @@
-import { Mail, Linkedin, Github, Send } from 'lucide-react';
+import { Mail, Linkedin, Github, Send, Phone } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -61,8 +61,8 @@ export function Contact() {
     {
       icon: Mail,
       label: 'Email',
-      value: 'daniel.vagner@example.com',
-      href: 'mailto:daniel.vagner@example.com',
+      value: 'daniel.vagner@gmail.com',
+      href: 'daniel.vagner@gmail.com',
       color: 'text-red-600 dark:text-red-400',
       bg: 'bg-red-100 dark:bg-red-900',
     },
@@ -75,10 +75,9 @@ export function Contact() {
       bg: 'bg-blue-100 dark:bg-blue-900',
     },
     {
-      icon: Github,
+      icon: Phone,
       label: 'GitHub',
-      value: 'github.com/danielvagner',
-      href: 'https://github.com/danielvagner',
+      value: '+420 777 195 184',
       color: 'text-gray-900 dark:text-gray-100',
       bg: 'bg-gray-200 dark:bg-gray-700',
     },
@@ -260,7 +259,7 @@ export function Contact() {
                   </p>
 
                   <div className="flex gap-2 text-sm">
-                    {['Remote', 'Hybrid', 'Consulting'].map((tag, i) => (
+                    {['Remote', 'Consulting'].map((tag, i) => (
                       <motion.span
                         key={tag}
                         className="px-3 py-1 bg-white/20 rounded-full"
