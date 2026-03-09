@@ -1,16 +1,17 @@
-import { ExternalLink, Github } from 'lucide-react';
+import { ExternalLink} from 'lucide-react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { motion } from 'motion/react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
-import findtasticImage1 from 'figma:asset/198ad7e8b1e0ffd4f2c4919c90d97ec787a9d91b.png';
-import findtasticImage2 from 'figma:asset/ef1fa665ee5e0741fd13988651650148a0d1db5d.png';
-import hudbaNavinicichImage from 'figma:asset/17050c05bfb73ff7c841fb49068ca6c1e6c2f372.png';
-import tolionImage from 'figma:asset/20e2a7db992580d415c3eefb289a2ea82c5037d2.png';
-import tpodlahyImage from 'figma:asset/263189b62ab1dc784dfd163c0dd2bd020e79383f.png';
-import qrTicketImage from 'figma:asset/f2a2b3f8ac4d20e3ae7fe14be0a65877e649245d.png';
+import findtasticImage1 from '../../assets/findtastic-1.png';
+import findtasticImage2 from '../../assets/findtastic-2.png';
+import hudbaNavinicichImage from '../../assets/hudba-na-vinicich.png';
+import tolionImage from '../../assets/tolion.png';
+import tpodlahyImage from '../../assets/tpodlahy.png';
+import qrTicketImage from '../../assets/qr-ticket.png';
+
 
 export function Projects() {
   const { ref, isInView } = useScrollAnimation();
