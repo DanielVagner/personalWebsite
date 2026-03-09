@@ -25,11 +25,17 @@ export function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    element?.scrollIntoView({ behavior: 'smooth' });
-    setIsMobileMenuOpen(false);
-  };
+const scrollToSection = (href: string) => {
+  const element = document.querySelector(href);
+
+  setIsMobileMenuOpen(false);
+
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 250);
+  });
+};
 
   return (
     <nav
