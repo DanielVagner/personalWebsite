@@ -76,6 +76,7 @@ After the initial setup, deployment is automatic on every push to the connected 
 
 ## Notes
 
+
 - Frontend is built with Vite
 - Backend email handling is in `api/contact.ts`
 - Production environment variables should be configured in Vercel project settings
