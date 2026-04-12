@@ -3,10 +3,12 @@ import { Menu, X } from 'lucide-react';
 import { Button } from './ui/button';
 import { ThemeToggle } from './ThemeToggle';
 import { motion, AnimatePresence } from 'motion/react';
+import { useNavigate } from 'react-router';
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const navItems = [
     { label: 'Home', href: '#home' },
@@ -60,6 +62,12 @@ export function Navigation() {
                 {item.label}
               </button>
             ))}
+            <button
+              onClick={() => navigate('/cv')}
+              className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer"
+            >
+              CV
+            </button>
             <ThemeToggle />
           </div>
 
@@ -132,6 +140,15 @@ export function Navigation() {
                     {item.label}
                   </motion.button>
                 ))}
+                <motion.button
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: navItems.length * 0.05 }}
+                  onClick={() => { navigate('/cv'); setIsMobileMenuOpen(false); }}
+                  className="block w-full text-left px-4 py-3 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+                >
+                  CV
+                </motion.button>
               </motion.div>
             </motion.div>
           )}

@@ -2,6 +2,7 @@ import { Github, Linkedin, Mail, ChevronDown, Code2 } from 'lucide-react';
 import { Button } from './ui/button';
 import { motion } from 'motion/react';
 import { useState, useEffect } from 'react';
+import profilpicture from '../../assets/profilpicture.jpg';
 
 export function Hero() {
   const [codeIndex, setCodeIndex] = useState(0);
@@ -172,12 +173,12 @@ export function Hero() {
       >
         <motion.div className="mb-6" variants={itemVariants}>
           <motion.div
-            className="w-32 h-32 mx-auto mb-6 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white text-5xl shadow-2xl"
+            className="w-32 h-32 mx-auto mb-6 rounded-full shadow-2xl overflow-hidden"
             variants={avatarVariants}
             whileHover={{ scale: 1.1, rotate: 5 }}
             whileTap={{ scale: 0.95 }}
           >
-            DV
+            <img src={profilpicture} alt="Daniel Vágner" className="w-full h-full object-cover" />
           </motion.div>
         </motion.div>
         
