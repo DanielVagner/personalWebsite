@@ -12,7 +12,7 @@ import { ThemeProvider } from './providers/theme-provider';
 
 function Home() {
   return (
-    <>
+    <div style={{ overflowX: 'hidden', position: 'relative' }}>
       <Navigation />
       <Hero />
       <Skills />
@@ -21,7 +21,7 @@ function Home() {
       <Projects />
       <Contact />
       <Footer />
-    </>
+    </div>
   );
 }
 
