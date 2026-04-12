@@ -1,11 +1,40 @@
+# Daniel Vágner — Personal Website
 
-  # Personal Website for Software Architect
+Personal portfolio website built with React, TypeScript, and Tailwind CSS. Features smooth animations, dark mode, and a fully responsive layout.
 
-  This is a code bundle for Personal Website for Software Architect. The original project is available at https://www.figma.com/design/4Irq41ySotHZWKKlMW9keR/Personal-Website-for-Software-Architect.
+## Tech Stack
 
-  ## Running the code
+- **React 18** + **TypeScript**
+- **Vite** — build tool and dev server
+- **Tailwind CSS v4** — styling
+- **Framer Motion** (`motion/react`) — animations
+- **shadcn/ui** + **Radix UI** — UI components
+- **Lucide React** — icons
 
-  Run `npm i` to install the dependencies.
+## Getting Started
 
-  Run `npm run dev` to start the development server.
-  
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+## Build
+
+```bash
+npm run build
+```
+
+The output will be in the `dist/` folder.
+
+Preview the production build locally:
+
+```bash
+npm run preview
+```
