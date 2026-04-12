@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import profilpicture from '../../assets/profilpicture.jpg';
 
 export function Hero() {
+  const [imgLoaded, setImgLoaded] = useState(false);
   const [codeIndex, setCodeIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -178,7 +179,17 @@ export function Hero() {
             whileHover={{ scale: 1.1, rotate: 5 }}
             whileTap={{ scale: 0.95 }}
           >
-            <img src={profilpicture} alt="Daniel Vágner" className="w-full h-full object-cover" />
+            {!imgLoaded && (
+              <div className="w-full h-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white text-4xl font-bold">
+                DV
+              </div>
+            )}
+            <img
+              src={profilpicture}
+              alt="Daniel Vágner"
+              className={`w-full h-full object-cover transition-opacity duration-300 ${imgLoaded ? 'opacity-100' : 'opacity-0 absolute'}`}
+              onLoad={() => setImgLoaded(true)}
+            />
           </motion.div>
         </motion.div>
         

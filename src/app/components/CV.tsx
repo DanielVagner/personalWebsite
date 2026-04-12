@@ -68,10 +68,13 @@ export function CV() {
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 py-8 px-4">
       <style>{`
+        @page { margin: 0; size: A4; }
         @media print {
           .cv-toolbar { display: none !important; }
           body { background: white !important; }
-          .cv-wrapper { box-shadow: none !important; }
+          .cv-wrapper { box-shadow: none !important; border-radius: 0 !important; }
+          .cv-exp-item { page-break-inside: avoid; break-inside: avoid; }
+          .cv-section { page-break-inside: avoid; break-inside: avoid; }
         }
       `}</style>
 
@@ -118,7 +121,7 @@ export function CV() {
 
         <div className="px-10 py-8 space-y-8">
           {/* Summary */}
-          <section>
+          <section className="cv-section">
             <h2 className="text-lg font-bold text-gray-900 border-b border-gray-200 pb-2 mb-3">Summary</h2>
             <p className="text-sm text-gray-600 leading-relaxed">
               Software Architect with 10+ years of experience specializing in Angular, React, and modern front-end technologies.
@@ -128,7 +131,7 @@ export function CV() {
           </section>
 
           {/* Skills */}
-          <section>
+          <section className="cv-section">
             <h2 className="text-lg font-bold text-gray-900 border-b border-gray-200 pb-2 mb-3">Skills</h2>
             <div className="space-y-2">
               {Object.entries(skills).map(([category, items]) => (
@@ -145,11 +148,11 @@ export function CV() {
           </section>
 
           {/* Experience */}
-          <section>
+          <section className="cv-section">
             <h2 className="text-lg font-bold text-gray-900 border-b border-gray-200 pb-2 mb-4">Experience</h2>
             <div className="space-y-5">
               {experiences.map((exp, i) => (
-                <div key={i} className="flex gap-4">
+                <div key={i} className="cv-exp-item flex gap-4">
                   <div className="w-1 bg-blue-200 rounded-full shrink-0 mt-1.5" />
                   <div className="flex-1">
                     <div className="flex items-start justify-between gap-2">

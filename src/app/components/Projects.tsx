@@ -191,7 +191,7 @@ export function Projects() {
             animate={isInView ? { opacity: 1 } : { opacity: 0 }}
             transition={{ delay: 0.4 }}
           >
-            <Button variant="outline" size="lg" onClick={() => setShowAll(!showAll)}>
+            <Button size="lg" onClick={() => setShowAll(!showAll)} className="bg-blue-600 hover:bg-blue-700 text-white">
               {showAll ? 'Show Less' : `Load More (${projects.length - INITIAL_COUNT} more)`}
             </Button>
           </motion.div>
