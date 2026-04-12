@@ -26,7 +26,7 @@ export function Experience() {
       period: '2015 - Present',
       duration: '11 yrs 2 mos',
       location: 'Remote',
-      description: 'In my free time, I work as a freelancer, primarily focusing on mobile application development using Angular, TypeScript, and the Ionic Framework. I build them for iOS and Android platforms and provide support during deployment to the app stores on both platforms. I am also responsible for everything else related to the project, including quality assurance and debugging.',
+      description: 'Coding has always been my passion, not just my profession — so a few years ago I decided to take on freelance work on the side. I build native mobile apps for iOS and Android, primarily with Angular + Ionic and React Native, handling everything from development to App Store and Google Play deployment.',
       skills: ['Angular', 'TypeScript', 'Ionic', 'RxJS', 'NgXs'],
       current: true,
     },
@@ -92,8 +92,18 @@ export function Experience() {
       period: 'Sep 2017 - Sep 2018',
       duration: '1 yr 1 mo',
       location: 'Okres Pardubice, Česká republika',
+      skills: ['Angular', 'Web Development'],
+    },
+    {
+      company: 'Web Developer a Servisní Technik',
+      position: 'Web Developer',
+      type: 'Full-time',
+      period: 'Jul 2016 - Dec 2016',
+      duration: '6 mos',
+      location: 'Okres Hradec Králové, Česká republika',
+      description: 'Angular 2+, HTML5, CSS3 (SCSS), JavaScript, PrestaShop',
       skills: ['Angular 2+', 'HTML5', 'CSS3', 'SCSS', 'JavaScript', 'PrestaShop'],
-    }
+    },
   ];
 
   const containerVariants = {
@@ -113,7 +123,7 @@ export function Experience() {
       x: 0,
       transition: {
         duration: 0.6,
-        ease: 'easeOut',
+        ease: 'easeOut' as const,
       },
     },
   };
@@ -126,9 +136,9 @@ export function Experience() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl text-center mb-4">Professional Experience</h2>
+          <h2 className="text-4xl text-center mb-4">My Journey</h2>
           <p className="text-center text-gray-600 dark:text-gray-400 mb-16 max-w-2xl mx-auto">
-            Over 9 years of experience in software development, specializing in front-end architecture and modern web technologies.
+            From writing my first lines of code to architecting enterprise-grade applications — here's where I've been.
           </p>
         </motion.div>
 

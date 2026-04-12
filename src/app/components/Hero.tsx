@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, ChevronDown } from 'lucide-react';
+import { Github, Linkedin, Mail, ChevronDown, Code2 } from 'lucide-react';
 import { Button } from './ui/button';
 import { motion } from 'motion/react';
 import { useState, useEffect } from 'react';
@@ -68,7 +68,7 @@ export function Hero() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: 'easeOut' },
+      transition: { duration: 0.6, ease: 'easeOut' as const },
     },
   };
 
@@ -78,7 +78,7 @@ export function Hero() {
       scale: 1,
       rotate: 0,
       transition: {
-        type: 'spring',
+        type: 'spring' as const,
         stiffness: 200,
         damping: 15,
       },
@@ -218,7 +218,7 @@ export function Hero() {
           variants={itemVariants}
         >
           {[
-            { href: 'https://github.com/danielvagner', icon: Github },
+            { href: 'https://stackoverflow.com/users/8366174/daniel-v%c3%a1gner', icon: Code2 },
             { href: 'https://www.linkedin.com/in/danielvagner/', icon: Linkedin },
             { href: 'mailto:daniel.vagner@example.com', icon: Mail },
           ].map((link, index) => {

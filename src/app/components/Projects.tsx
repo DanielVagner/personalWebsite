@@ -1,46 +1,39 @@
-import { ExternalLink} from 'lucide-react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
+import { useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
-import { ImageWithFallback } from './figma/ImageWithFallback';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
-import findtasticImage1 from '../../assets/findtastic-1.png';
-import findtasticImage2 from '../../assets/findtastic-2.png';
+
+
 import hudbaNavinicichImage from '../../assets/hudba-na-vinicich.png';
 import tolionImage from '../../assets/tolion.png';
 import tpodlahyImage from '../../assets/tpodlahy.png';
 import qrTicketImage from '../../assets/qr-ticket.png';
+import logoFindtastic from '../../assets/logo-findtastic.png';
+import ccvis from '../../assets/ccvis.png';
+/* import mdasImage from '../../assets/mdas.png'; */
 
+const INITIAL_COUNT = 3;
 
 export function Projects() {
   const { ref, isInView } = useScrollAnimation();
+  const [showAll, setShowAll] = useState(false);
 
   const projects = [
-    {
-      title: 'Findtastic - Price Comparison App',
-      description: 'Mobile application for finding the best prices worldwide for US customers. Features include cross-store price comparison, deal discovery, and real-time price tracking across multiple e-commerce platforms.',
-      technologies: ['Angular', 'Ionic', 'Capacitor', 'swift-libs', 'TypeScript', 'REST APIs', 'Mobile UI'],
-      images: [findtasticImage1, findtasticImage2],
-      category: 'Mobile Application',
-      useDirectImage: true,
-      multipleImages: true,
-    },
     {
       title: 'Hudba na vinicích',
       description: 'Concert discovery app featuring ticket purchasing, location-based event search, and concert tracking. Users can save favorite events, buy tickets directly, view schedules, and navigate to vineyard venues.',
       technologies: ['React Native', 'TypeScript', 'Geolocation', 'Payment Gateway', 'Mobile UI'],
       image: hudbaNavinicichImage,
       category: 'Mobile Application',
-      useDirectImage: true,
     },
     {
       title: 'Tolion - Brain Health Coach',
       description: 'AI-powered brain health platform with conversational coaching, personalized activity recommendations, and advanced risk assessment. Features unique Brain Age indicator, weekly progress summaries, and science-based cognitive performance tracking.',
-      technologies: ['Angular', 'Ionic', 'Capacitor', 'AI/ML', 'HealthKit', 'Data Analytics', 'Mobile UI'],
+      technologies: ['Angular', 'Ionic + Capacitor', 'AI/ML', 'HealthKit', 'Mobile UI'],
       image: tolionImage,
       category: 'Mobile Application',
-      useDirectImage: true,
     },
     {
       title: 'TPodlahy.cz - Professional Flooring Services',
@@ -48,7 +41,6 @@ export function Projects() {
       technologies: ['React', 'TypeScript', 'HTML5', 'SCSS', 'Responsive Design'],
       image: tpodlahyImage,
       category: 'Website',
-      useDirectImage: true,
     },
     {
       title: 'QR Ticketing System',
@@ -56,7 +48,28 @@ export function Projects() {
       technologies: ['React Native', 'Offline-First', 'QR Scanning', 'Analytics', 'Export'],
       image: qrTicketImage,
       category: 'Mobile Application',
-      useDirectImage: true,
+    },
+    {
+      title: 'Findtastic - Price Comparison App',
+      description: 'Mobile application for finding the best prices worldwide for US customers. Features include cross-store price comparison, deal discovery, and real-time price tracking across multiple e-commerce platforms.',
+      technologies: ['React Native', 'TypeScript', 'REST APIs', 'Mobile UI'],
+      image: logoFindtastic,
+      category: 'Mobile Application',
+      multipleImages: true,
+    },
+    {
+      title: 'MDAS - Mobile Data Acquisition System',
+      description: 'Healthcare monitoring application for tracking medical device safety alerts and regulatory compliance. Focuses on critical issues with implantable devices including insulin pumps, pacemakers, and defibrillator systems, helping healthcare professionals stay informed about device recalls and safety notices.',
+      technologies: ['Angular 2.0', 'TypeScript', 'C#', 'Figma'],
+      image: ccvis,
+      category: 'Mobile Application',
+    },
+     {
+      title: 'CCVision - Computer Vision Object Detection',
+      description: 'Computer vision application for detecting and identifying objects in real-time. Features include image processing, object recognition, and integration with various hardware platforms.',
+      technologies: ['Angular 2.0', 'TypeScript', 'AdobeXD'],
+      image: ccvis,
+      category: 'Mobile Application',
     },
   ];
 
@@ -78,7 +91,7 @@ export function Projects() {
       scale: 1,
       transition: {
         duration: 0.5,
-        ease: 'easeOut',
+        ease: 'easeOut' as const,
       },
     },
   };
@@ -91,9 +104,9 @@ export function Projects() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl text-center mb-4">Featured Projects</h2>
+          <h2 className="text-4xl text-center mb-4">Projects</h2>
           <p className="text-center text-gray-600 dark:text-gray-400 mb-16 max-w-2xl mx-auto">
-            A selection of projects showcasing architecture, front-end excellence, and full-stack capabilities.
+            A few things I've built over the years — from mobile apps to websites.
           </p>
         </motion.div>
 
@@ -103,10 +116,12 @@ export function Projects() {
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
         >
-          {projects.map((project, index) => (
+          <AnimatePresence>
+          {(showAll ? projects : projects.slice(0, INITIAL_COUNT)).map((project, index) => (
             <motion.div
-              key={index}
+              key={project.title}
               variants={cardVariants}
+              exit={{ opacity: 0, y: 20, scale: 0.95 }}
               whileHover={{
                 y: -10,
                 transition: { duration: 0.3 },
@@ -114,36 +129,19 @@ export function Projects() {
             >
               <Card className="flex flex-col h-full hover:shadow-lg transition-shadow">
                 <motion.div
-                  className={`h-56 overflow-hidden ${project.useDirectImage ? 'bg-white dark:bg-gray-900' : 'bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900'}`}
+                  className="h-56 overflow-hidden bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900"
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.3 }}
                 >
-                  {project.useDirectImage ? (
-                    project.multipleImages ? (
-                      <div className="flex h-full gap-0">
-                        {project.images.map((img, i) => (
-                          <img
-                            key={i}
-                            src={img}
-                            alt={`${project.title} ${i + 1}`}
-                            className="w-1/2 h-full object-cover"
-                          />
-                        ))}
-                      </div>
-                    ) : (
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-full object-contain"
-                      />
-                    )
-                  ) : (
-                    <ImageWithFallback
-                      src={`https://images.unsplash.com/photo-1551650975-87deedd944c3?w=400&h=300&fit=crop`}
-                      alt={project.title}
-                      className="w-full h-full object-cover"
-                    />
-                  )}
+                  <img
+                    src={project.image as string}
+                    alt={project.title}
+                    className={`w-full h-full ${
+                      project.title === 'QR Ticketing System'
+                        ? 'object-contain'
+                        : 'object-cover'
+                    }`}
+                  />
                 </motion.div>
                 
                 <CardHeader>
@@ -180,19 +178,24 @@ export function Projects() {
                     ))}
                   </div>
                 </CardContent>
-                
-                <CardFooter className="flex gap-2">
-                  <motion.div className="flex-1" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Button size="sm" className="w-full">
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      View Project
-                    </Button>
-                  </motion.div>
-                </CardFooter>
               </Card>
             </motion.div>
           ))}
+          </AnimatePresence>
         </motion.div>
+
+        {projects.length > INITIAL_COUNT && (
+          <motion.div
+            className="flex justify-center mt-10"
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ delay: 0.4 }}
+          >
+            <Button variant="outline" size="lg" onClick={() => setShowAll(!showAll)}>
+              {showAll ? 'Show Less' : `Load More (${projects.length - INITIAL_COUNT} more)`}
+            </Button>
+          </motion.div>
+        )}
       </div>
     </section>
   );

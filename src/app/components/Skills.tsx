@@ -62,7 +62,7 @@ export function Skills() {
       y: 0,
       transition: {
         duration: 0.6,
-        ease: 'easeOut',
+        ease: 'easeOut' as const,
       },
     },
   };
@@ -75,13 +75,13 @@ export function Skills() {
       transition: {
         delay: i * 0.05,
         duration: 0.3,
-        ease: 'easeOut',
+        ease: 'easeOut' as const,
       },
     }),
   };
 
   return (
-    <section id="skills" className="min-h-screen py-20 px-6 bg-white dark:bg-gray-900" ref={ref}>
+    <section id="skills" className="py-20 px-6 bg-white dark:bg-gray-900" ref={ref}>
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -131,7 +131,7 @@ export function Skills() {
                       whileHover={{ scale: 1.1, rotate: 2 }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      <Badge variant="default" className="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 cursor-pointer">
+                      <Badge variant="default" className="px-4 py-2 text-sm bg-blue-100 text-blue-800 hover:bg-blue-200 dark:bg-blue-900/60 dark:text-blue-300 dark:hover:bg-blue-900 cursor-pointer">
                         {skill}
                       </Badge>
                     </motion.div>
@@ -171,7 +171,7 @@ export function Skills() {
                       whileHover={{ scale: 1.1, rotate: -2 }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      <Badge variant="default" className="px-4 py-2 text-sm bg-purple-600 hover:bg-purple-700 dark:bg-purple-500 dark:hover:bg-purple-600 cursor-pointer">
+                      <Badge variant="default" className="px-4 py-2 text-sm bg-purple-100 text-purple-800 hover:bg-purple-200 dark:bg-purple-900/60 dark:text-purple-300 dark:hover:bg-purple-900 cursor-pointer">
                         {skill}
                       </Badge>
                     </motion.div>

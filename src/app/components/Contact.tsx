@@ -1,4 +1,4 @@
-import { Mail, Linkedin, Github, Send, Phone } from 'lucide-react';
+import { Mail, Linkedin, Github, Send } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -9,60 +9,25 @@ import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 export function Contact() {
   const { ref, isInView } = useScrollAnimation();
-
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: '',
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState('');
-  const [submitError, setSubmitError] = useState('');
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    setIsSubmitting(true);
-    setSubmitSuccess('');
-    setSubmitError('');
-
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Failed to send message.');
-      }
-
-      setSubmitSuccess('Your message has been sent successfully.');
-      setFormData({
-        name: '',
-        email: '',
-        message: '',
-      });
-    } catch (error) {
-      setSubmitError(
-        error instanceof Error ? error.message : 'Unexpected error occurred.',
-      );
-    } finally {
-      setIsSubmitting(false);
-    }
+    // Mock form submission
+    alert('Thank you for your message! This is a demo - form submission is not connected.');
+    setFormData({ name: '', email: '', message: '' });
   };
 
   const contactLinks = [
     {
       icon: Mail,
       label: 'Email',
-      value: 'daniel.vagner@gmail.com',
-      href: 'daniel.vagner@gmail.com',
+      value: 'daniel.vagner@example.com',
+      href: 'mailto:daniel.vagner@example.com',
       color: 'text-red-600 dark:text-red-400',
       bg: 'bg-red-100 dark:bg-red-900',
     },
@@ -75,20 +40,17 @@ export function Contact() {
       bg: 'bg-blue-100 dark:bg-blue-900',
     },
     {
-      icon: Phone,
+      icon: Github,
       label: 'GitHub',
-      value: '+420 777 195 184',
+      value: 'github.com/danielvagner',
+      href: 'https://github.com/danielvagner',
       color: 'text-gray-900 dark:text-gray-100',
       bg: 'bg-gray-200 dark:bg-gray-700',
     },
   ];
 
   return (
-    <section
-      id="contact"
-      className="min-h-screen py-20 px-6 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 flex items-center"
-      ref={ref}
-    >
+    <section id="contact" className="min-h-screen py-20 px-6 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 flex items-center" ref={ref}>
       <div className="max-w-5xl mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -97,12 +59,13 @@ export function Contact() {
         >
           <h2 className="text-4xl text-center mb-4">Get In Touch</h2>
           <p className="text-center text-gray-600 dark:text-gray-400 mb-16 max-w-2xl mx-auto">
-            Interested in collaborating on a project or discussing architecture opportunities?
+            Interested in collaborating on a project or discussing architecture opportunities? 
             I'd love to hear from you.
           </p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-8">
+          {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
@@ -115,7 +78,6 @@ export function Contact() {
                   Fill out the form and I'll get back to you as soon as possible.
                 </CardDescription>
               </CardHeader>
-
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <motion.div
@@ -134,7 +96,6 @@ export function Contact() {
                       required
                     />
                   </motion.div>
-
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -152,7 +113,6 @@ export function Contact() {
                       required
                     />
                   </motion.div>
-
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -170,30 +130,21 @@ export function Contact() {
                       required
                     />
                   </motion.div>
-
-                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                    <Button type="submit" className="w-full" disabled={isSubmitting}>
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Button type="submit" className="w-full">
                       <Send className="w-4 h-4 mr-2" />
-                      {isSubmitting ? 'Sending...' : 'Send Message'}
+                      Send Message
                     </Button>
                   </motion.div>
-
-                  {submitSuccess && (
-                    <p className="text-sm text-green-600 dark:text-green-400">
-                      {submitSuccess}
-                    </p>
-                  )}
-
-                  {submitError && (
-                    <p className="text-sm text-red-600 dark:text-red-400">
-                      {submitError}
-                    </p>
-                  )}
                 </form>
               </CardContent>
             </Card>
           </motion.div>
 
+          {/* Contact Information */}
           <motion.div
             className="space-y-6"
             initial={{ opacity: 0, x: 50 }}
@@ -207,11 +158,9 @@ export function Contact() {
                   Find me on these platforms or reach out directly.
                 </CardDescription>
               </CardHeader>
-
               <CardContent className="space-y-4">
                 {contactLinks.map((link, index) => {
                   const Icon = link.icon;
-
                   return (
                     <motion.a
                       key={index}
@@ -231,7 +180,6 @@ export function Contact() {
                       >
                         <Icon className={`w-5 h-5 ${link.color}`} />
                       </motion.div>
-
                       <div>
                         <div className="font-medium">{link.label}</div>
                         <div className="text-sm text-gray-600 dark:text-gray-400">
@@ -254,12 +202,11 @@ export function Contact() {
                 <CardContent className="pt-6">
                   <h3 className="text-xl font-semibold mb-2">Available for Opportunities</h3>
                   <p className="text-blue-100 mb-4">
-                    Currently open to consulting projects and full-time positions focusing on
+                    Currently open to consulting projects and full-time positions focusing on 
                     front-end architecture and leadership roles.
                   </p>
-
                   <div className="flex gap-2 text-sm">
-                    {['Remote', 'Consulting'].map((tag, i) => (
+                    {['Remote', 'Hybrid', 'Consulting'].map((tag, i) => (
                       <motion.span
                         key={tag}
                         className="px-3 py-1 bg-white/20 rounded-full"
