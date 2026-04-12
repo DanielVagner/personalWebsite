@@ -39,8 +39,8 @@ export function Contact() {
     {
       icon: Mail,
       label: 'Email',
-      value: 'daniel.vagner@example.com',
-      href: 'mailto:daniel.vagner@example.com',
+      value: 'danielvagner05@gmail.com',
+      href: 'mailto:danielvagner05@gmail.com',
       color: 'text-red-600 dark:text-red-400',
       bg: 'bg-red-100 dark:bg-red-900',
     },

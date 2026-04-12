@@ -20,19 +20,25 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     },
   });
 
-  await transporter.sendMail({
-    from: `"${name}" <${process.env.EMAIL_USER}>`,
-    to: process.env.EMAIL_USER,
-    replyTo: email,
-    subject: `Portfolio contact: ${name}`,
-    text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
-    html: `
-      <p><strong>Name:</strong> ${name}</p>
-      <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
-      <hr />
-      <p>${message.replace(/\n/g, '<br/>')}</p>
-    `,
-  });
+  try {
+    await transporter.sendMail({
+      from: `"${name}" <${process.env.EMAIL_USER}>`,
+      to: process.env.EMAIL_USER,
+      replyTo: email,
+      subject: `Portfolio contact: ${name}`,
+      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+      html: `
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+        <hr />
+        <p>${message.replace(/\n/g, '<br/>')}</p>
+      `,
+    });
 
-  return res.status(200).json({ success: true });
+    return res.status(200).json({ success: true });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Unknown error';
+    console.error('Email error:', message);
+    return res.status(500).json({ error: message });
+  }
 }
