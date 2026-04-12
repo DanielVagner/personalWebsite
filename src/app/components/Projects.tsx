@@ -11,7 +11,7 @@ import tolionImage from '../../assets/tolion.png';
 import tpodlahyImage from '../../assets/tpodlahy.png';
 import qrTicketImage from '../../assets/qr-ticket.png';
 import logoFindtastic from '../../assets/logo-findtastic.png';
-import ccvis from '../../assets/ccvis.png';
+import ccvis from '../../assets/CCVis.png';
 /* import mdasImage from '../../assets/mdas.png'; */
 
 const INITIAL_COUNT = 3;
