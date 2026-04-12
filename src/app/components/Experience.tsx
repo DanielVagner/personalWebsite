@@ -1,4 +1,4 @@
-import { Briefcase, MapPin, Calendar } from 'lucide-react';
+import { Briefcase } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { motion } from 'motion/react';
@@ -72,7 +72,7 @@ export function Experience() {
       period: 'Oct 2022 - Dec 2022',
       duration: '3 mos',
       location: 'Pardubice, Pardubický, Česko',
-      description: 'At CCVis s.r.o. (CertiCon computer vision), I contributed to the development of a web application for SaaS subscription activation on the Microsoft Azure Marketplace. My role involved enhancing a modular platform with essential features, creating reusable components, and ensuring the application adhered to high development standards. I also played a key role in the front-end standardization process and significantly improved application performance through targeted refactoring.',
+      description: 'At CCVis s.r.o. (CertiCon computer vision), I contributed to the development of a web application for SaaS subscription activation on the Microsoft Azure Marketplace. My role involved enhancing a modular platform with essential features, creating reusable components, and ensuring the application adhered to high development standards.',
       skills: ['Angular', 'Git', 'TypeScript'],
     },
     {
@@ -106,31 +106,9 @@ export function Experience() {
     },
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-      },
-    },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, x: -50 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.6,
-        ease: 'easeOut' as const,
-      },
-    },
-  };
-
   return (
     <section id="experience" className="py-20 px-6 bg-white dark:bg-gray-900" ref={ref}>
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
@@ -142,144 +120,171 @@ export function Experience() {
           </p>
         </motion.div>
 
-        <motion.div
-          className="space-y-6"
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-        >
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={index}
-              variants={cardVariants}
-              whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
-            >
-              <Card className={exp.current ? 'border-2 border-teal-200 dark:border-teal-800' : ''}>
-                <CardHeader>
-                  <div className="flex items-start justify-between">
-                    <div className="flex gap-4">
-                      <motion.div
-                        className="p-3 bg-teal-100 dark:bg-teal-900 rounded-lg h-fit"
-                        whileHover={{ rotate: 360 }}
-                        transition={{ duration: 0.6 }}
-                      >
-                        <Briefcase className="w-6 h-6 text-teal-600 dark:text-teal-400" />
-                      </motion.div>
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <CardTitle className="text-xl">
-                            {exp.positions ? exp.positions[0].title : exp.position}
-                          </CardTitle>
-                          {exp.current && (
-                            <motion.div
-                              initial={{ scale: 0 }}
-                              animate={{ scale: 1 }}
-                              transition={{ delay: 0.3, type: 'spring' }}
-                            >
-                              <Badge variant="default" className="bg-green-600">Current</Badge>
-                            </motion.div>
-                          )}
-                        </div>
-                        <CardDescription className="text-base font-semibold text-gray-900 dark:text-gray-100">
-                          {exp.company}
-                        </CardDescription>
-                        <div className="flex flex-wrap gap-4 mt-2 text-sm text-gray-600 dark:text-gray-400">
-                          <span className="flex items-center gap-1">
-                            <Calendar className="w-4 h-4" />
-                            {exp.positions ? exp.positions[0].period : exp.period} · {exp.positions ? exp.totalDuration : exp.duration}
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <MapPin className="w-4 h-4" />
-                            {exp.location}
-                          </span>
-                          <Badge variant="outline">{exp.type}</Badge>
-                        </div>
-                      </div>
-                    </div>
+        {/* Timeline */}
+        <div className="relative">
+          {/* Vertical center line */}
+          <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-700 -translate-x-1/2 hidden md:block" />
+
+          {experiences.map((exp, index) => {
+            const isLeft = index % 2 === 0;
+            const period = exp.positions ? exp.positions[0].period : exp.period;
+            const duration = exp.positions ? exp.totalDuration : exp.duration;
+            const position = exp.positions ? exp.positions[0].title : exp.position;
+
+            return (
+              <motion.div
+                key={index}
+                className="relative flex items-start mb-12 md:mb-16"
+                initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
+                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: isLeft ? -50 : 50 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+              >
+                {/* LEFT SIDE */}
+                <div className={`hidden md:flex w-5/12 ${isLeft ? 'justify-end pr-8' : 'justify-end pr-2 items-start pt-[14px]'}`}>
+                  {isLeft ? (
+                    <TimelineCard exp={exp} position={position} period={period} duration={duration} isInView={isInView} index={index} />
+                  ) : (
+                    <span className="text-sm font-medium text-gray-500 dark:text-gray-400">{period}</span>
+                  )}
+                </div>
+
+                {/* CENTER DOT */}
+                <div className="hidden md:flex w-2/12 justify-center relative z-10">
+                  <div className={`w-12 h-12 rounded-full flex items-center justify-center shadow-md ${
+                    exp.current
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 text-gray-500 dark:text-gray-400'
+                  }`}>
+                    <Briefcase className="w-5 h-5" />
                   </div>
-                </CardHeader>
-                
-                <CardContent className="space-y-4">
-                  {/* Additional positions for same company */}
-                  {exp.positions && exp.positions.length > 1 && (
-                    <motion.div
-                      className="pl-14 space-y-3 border-l-2 border-gray-200 dark:border-gray-700 ml-5"
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      transition={{ delay: 0.2 }}
-                    >
-                      {exp.positions.slice(1).map((pos, idx) => (
-                        <div key={idx} className="pl-4">
-                          <h4 className="font-semibold">{pos.title}</h4>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">
-                            {pos.period} · {pos.duration}
-                          </p>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">{pos.location}</p>
-                        </div>
-                      ))}
-                    </motion.div>
-                  )}
+                </div>
 
-                  {/* Description */}
-                  {exp.description && (
-                    <motion.p
-                      className="text-gray-600 dark:text-gray-400 leading-relaxed"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.3 }}
-                    >
-                      {exp.description}
-                    </motion.p>
+                {/* RIGHT SIDE */}
+                <div className={`hidden md:flex w-5/12 ${!isLeft ? 'justify-start pl-8' : 'justify-start pl-2 items-start pt-[14px]'}`}>
+                  {!isLeft ? (
+                    <TimelineCard exp={exp} position={position} period={period} duration={duration} isInView={isInView} index={index} />
+                  ) : (
+                    <span className="text-sm font-medium text-gray-500 dark:text-gray-400">{period}</span>
                   )}
+                </div>
 
-                  {/* Projects */}
-                  {exp.projects && (
-                    <motion.div
-                      className="space-y-3"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.4 }}
-                    >
-                      {exp.projects.map((project, idx) => (
-                        <motion.div
-                          key={idx}
-                          className="border-l-4 border-blue-200 dark:border-blue-800 pl-4"
-                          whileHover={{ x: 5, borderColor: '#3b82f6' }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          <h4 className="font-semibold mb-1">{project.name}:</h4>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">
-                            {project.description}
-                          </p>
-                        </motion.div>
-                      ))}
-                    </motion.div>
-                  )}
-
-                  {/* Skills */}
-                  {exp.skills && (
-                    <div className="flex flex-wrap gap-2 pt-2">
-                      {exp.skills.map((skill, idx) => (
-                        <motion.div
-                          key={idx}
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: 0.5 + idx * 0.05 }}
-                          whileHover={{ scale: 1.1 }}
-                        >
-                          <Badge variant="secondary">
-                            {skill}
-                          </Badge>
-                        </motion.div>
-                      ))}
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </motion.div>
+                {/* MOBILE layout — single column */}
+                <div className="flex md:hidden w-full gap-4">
+                  <div className={`w-10 h-10 shrink-0 rounded-full flex items-center justify-center shadow-md mt-1 ${
+                    exp.current
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 text-gray-500'
+                  }`}>
+                    <Briefcase className="w-4 h-4" />
+                  </div>
+                  <div className="flex-1">
+                    <TimelineCard exp={exp} position={position} period={period} duration={duration} isInView={isInView} index={index} />
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </section>
+  );
+}
+
+type Exp = {
+  company: string;
+  position?: string;
+  positions?: { title: string; period: string; duration: string; location: string }[];
+  type: string;
+  period?: string;
+  duration?: string;
+  totalDuration?: string;
+  location: string;
+  description?: string;
+  projects?: { name: string; description: string }[];
+  skills?: string[];
+  current?: boolean;
+};
+
+function TimelineCard({
+  exp,
+  position,
+  period,
+  duration,
+  isInView,
+  index,
+}: {
+  exp: Exp;
+  position: string;
+  period: string;
+  duration?: string;
+  isInView: boolean;
+  index: number;
+}) {
+  return (
+    <Card className={`w-full ${exp.current ? 'border-blue-200 dark:border-blue-800 border-2' : ''}`}>
+      <CardHeader className="pb-3">
+        <div className="flex items-start justify-between gap-2">
+          <div>
+            <CardTitle className="text-lg">{position}</CardTitle>
+            <CardDescription className="text-base font-semibold text-gray-900 dark:text-gray-100 mt-0.5">
+              {exp.company}
+            </CardDescription>
+          </div>
+          <div className="flex flex-col items-end gap-1 shrink-0">
+            {exp.current && <Badge className="bg-green-600 text-xs">Current</Badge>}
+            <Badge variant="outline" className="text-xs">{exp.type}</Badge>
+          </div>
+        </div>
+        <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500 dark:text-gray-400 mt-1">
+          <span>{period}{duration ? ` · ${duration}` : ''}</span>
+          <span>{exp.location}</span>
+        </div>
+      </CardHeader>
+
+      <CardContent className="space-y-3 pt-0">
+        {exp.positions && exp.positions.length > 1 && (
+          <div className="space-y-2 border-l-2 border-gray-200 dark:border-gray-700 pl-3">
+            {exp.positions.slice(1).map((pos, idx) => (
+              <div key={idx}>
+                <p className="text-sm font-semibold">{pos.title}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">{pos.period} · {pos.duration}</p>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {exp.description && (
+          <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+            {exp.description}
+          </p>
+        )}
+
+        {exp.projects && (
+          <div className="space-y-2">
+            {exp.projects.map((project, idx) => (
+              <div key={idx} className="border-l-4 border-blue-200 dark:border-blue-800 pl-3">
+                <p className="text-sm font-semibold">{project.name}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">{project.description}</p>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {exp.skills && (
+          <div className="flex flex-wrap gap-1.5 pt-1">
+            {exp.skills.map((skill, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                transition={{ delay: index * 0.1 + idx * 0.04 }}
+              >
+                <Badge variant="secondary" className="text-xs">{skill}</Badge>
+              </motion.div>
+            ))}
+          </div>
+        )}
+      </CardContent>
+    </Card>
   );
 }
