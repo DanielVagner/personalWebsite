@@ -12,7 +12,7 @@ import tpodlahyImage from '../../assets/tpodlahy.png';
 import qrTicketImage from '../../assets/qr-ticket.png';
 import logoFindtastic from '../../assets/logo-findtastic.png';
 import ccvis from '../../assets/CCVis.png';
-/* import mdasImage from '../../assets/mdas.png'; */
+import mdasImage from '../../assets/mdas.png';
 
 const INITIAL_COUNT = 3;
 
@@ -58,18 +58,18 @@ export function Projects() {
       multipleImages: true,
     },
     {
-      title: 'MDAS - Mobile Data Acquisition System',
+      title: 'MDAS - Data analysis software',
       description: 'Healthcare monitoring application for tracking medical device safety alerts and regulatory compliance. Focuses on critical issues with implantable devices including insulin pumps, pacemakers, and defibrillator systems, helping healthcare professionals stay informed about device recalls and safety notices.',
-      technologies: ['Angular 2.0', 'TypeScript', 'C#', 'Figma'],
-      image: ccvis,
-      category: 'Mobile Application',
+      technologies: ['Angular 2.0', 'TypeScript', 'C#', 'Electron', 'Figma'],
+      image: mdasImage,
+      category: 'Desktop Application',
     },
      {
       title: 'CCVision - Computer Vision Object Detection',
       description: 'Computer vision application for detecting and identifying objects in real-time. Features include image processing, object recognition, and integration with various hardware platforms.',
       technologies: ['Angular 2.0', 'TypeScript', 'AdobeXD'],
       image: ccvis,
-      category: 'Mobile Application',
+      category: 'Web Application',
     },
   ];
 
@@ -129,7 +129,7 @@ export function Projects() {
             >
               <Card className="flex flex-col h-full hover:shadow-lg transition-shadow">
                 <motion.div
-                  className="h-56 overflow-hidden bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900"
+                  className="h-56 overflow-hidden bg-white dark:bg-white"
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.3 }}
                 >
