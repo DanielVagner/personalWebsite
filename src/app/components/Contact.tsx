@@ -14,12 +14,25 @@ export function Contact() {
     email: '',
     message: '',
   });
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Mock form submission
-    alert('Thank you for your message! This is a demo - form submission is not connected.');
-    setFormData({ name: '', email: '', message: '' });
+    setStatus('loading');
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) throw new Error();
+      setStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+    } catch {
+      setStatus('error');
+    }
   };
 
   const contactLinks = [
@@ -130,13 +143,23 @@ export function Contact() {
                       required
                     />
                   </motion.div>
+                  {status === 'success' && (
+                    <p className="text-sm text-green-600 dark:text-green-400 text-center">
+                      Message sent successfully!
+                    </p>
+                  )}
+                  {status === 'error' && (
+                    <p className="text-sm text-red-600 dark:text-red-400 text-center">
+                      Something went wrong. Please try again.
+                    </p>
+                  )}
                   <motion.div
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <Button type="submit" className="w-full">
+                    <Button type="submit" className="w-full" disabled={status === 'loading'}>
                       <Send className="w-4 h-4 mr-2" />
-                      Send Message
+                      {status === 'loading' ? 'Sending...' : 'Send Message'}
                     </Button>
                   </motion.div>
                 </form>
