@@ -70,7 +70,7 @@ export function About() {
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-zinc-900 dark:text-zinc-50">
             About Me
           </h2>
-          <p className="text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto leading-relaxed">
+          <p className="text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto leading-relaxed text-base">
             Passionate software architect and engineer specializing in front-end excellence
             and scalable architectures.
           </p>
@@ -89,18 +89,18 @@ export function About() {
             <h3 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100">
               My Journey
             </h3>
-            <p className="text-zinc-500 dark:text-zinc-400 leading-relaxed text-sm">
+            <p className="text-zinc-500 dark:text-zinc-400 leading-relaxed text-base">
               As a Software Architect currently at HTEC and with extensive experience at CertiCon,
               I specialize in building mobile-first health applications and enterprise solutions.
               My expertise spans the full stack, from Angular and React on the front-end to ASP.NET
               and Azure services on the back-end.
             </p>
-            <p className="text-zinc-500 dark:text-zinc-400 leading-relaxed text-sm">
+            <p className="text-zinc-500 dark:text-zinc-400 leading-relaxed text-base">
               I've contributed to major projects at companies like Bosch, implementing cutting-edge
               Micro Frontend architectures and Material Design systems. My work focuses on delivering
               high-performance, scalable applications with exceptional user experiences.
             </p>
-            <p className="text-zinc-500 dark:text-zinc-400 leading-relaxed text-sm">
+            <p className="text-zinc-500 dark:text-zinc-400 leading-relaxed text-base">
               Since 2015, I've also been running a successful freelance practice, specializing in
               mobile application development with Ionic and Angular. This dual perspective — enterprise
               architecture and hands-on development — allows me to create solutions that are both
@@ -131,7 +131,7 @@ export function About() {
                   <h4 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm mb-1 leading-tight">
                     {h.title}
                   </h4>
-                  <p className="text-xs text-zinc-500 dark:text-zinc-500 leading-relaxed">
+                  <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
                     {h.description}
                   </p>
                 </motion.div>
@@ -167,7 +167,7 @@ export function About() {
                   <h4 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm mb-1.5">
                     {item.title}
                   </h4>
-                  <p className="text-xs text-zinc-500 dark:text-zinc-500 leading-relaxed max-w-[200px]">
+                  <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-[200px]">
                     {item.desc}
                   </p>
                 </motion.div>
