@@ -1,230 +1,130 @@
-import { Code2, Palette, Database, Layout } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
-import { Badge } from './ui/badge';
+import { Code2, Database, Wrench } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+
+const categories = [
+  {
+    id: 'frontend',
+    icon: Code2,
+    title: 'Front-End Development',
+    subtitle: 'Primary expertise',
+    iconBg: 'bg-indigo-500/15 dark:bg-indigo-500/15',
+    iconColor: 'text-indigo-500 dark:text-indigo-400',
+    hoverBorder: 'hover:border-indigo-500/50 hover:text-indigo-400 dark:hover:border-indigo-400/50 dark:hover:text-indigo-300',
+    colSpan: 'md:col-span-2',
+    skills: [
+      'React', 'Angular', 'TypeScript', 'JavaScript', 'HTML5',
+      'SCSS/CSS', 'RxJS', 'Redux/NgRx', 'Ionic', 'Capacitor',
+      'Material Design', 'Micro Frontends',
+    ],
+  },
+  {
+    id: 'backend',
+    icon: Database,
+    title: 'Back-End Development',
+    subtitle: 'Microsoft Stack',
+    iconBg: 'bg-violet-500/15 dark:bg-violet-500/15',
+    iconColor: 'text-violet-500 dark:text-violet-400',
+    hoverBorder: 'hover:border-violet-500/50 hover:text-violet-400 dark:hover:border-violet-400/50 dark:hover:text-violet-300',
+    colSpan: 'md:col-span-1',
+    skills: ['C#', '.NET Core', 'ASP.NET', 'REST APIs', 'SignalR', 'Azure Services'],
+  },
+  {
+    id: 'tools',
+    icon: Wrench,
+    title: 'Tools & Ecosystem',
+    subtitle: 'Figma & Microsoft ecosystem',
+    iconBg: 'bg-emerald-500/15 dark:bg-emerald-500/15',
+    iconColor: 'text-emerald-500 dark:text-emerald-400',
+    hoverBorder: 'hover:border-emerald-500/50 hover:text-emerald-400 dark:hover:border-emerald-400/50 dark:hover:text-emerald-300',
+    colSpan: 'md:col-span-3',
+    skills: [
+      'Figma', 'Azure DevOps', 'Visual Studio', 'VS Code', 'Git',
+      'Azure AD B2C', 'Microsoft 365', 'Webpack', 'Karma/Jasmine',
+      'HealthKit', 'Garmin SDK',
+    ],
+  },
+];
 
 export function Skills() {
   const { ref, isInView } = useScrollAnimation();
 
-  const frontendSkills = [
-    'React',
-    'Angular',
-    'TypeScript',
-    'JavaScript',
-    'HTML5',
-    'SCSS/CSS',
-    'RxJS',
-    'Redux/NgRx',
-    'Ionic',
-    'Capacitor',
-    'Material Design',
-    'Micro Frontends',
-  ];
-
-  const backendSkills = [
-    'C#',
-    '.NET Core',
-    'ASP.NET',
-    'REST APIs',
-    'SignalR',
-    'Azure Services',
-  ];
-
-  const toolsSkills = [
-    'Figma',
-    'Azure DevOps',
-    'Visual Studio',
-    'VS Code',
-    'Git',
-    'Azure AD B2C',
-    'Microsoft 365',
-    'Webpack',
-    'Karma/Jasmine',
-    'HealthKit',
-    'Garmin SDK',
-  ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: 'easeOut' as const,
-      },
-    },
-  };
-
-  const badgeVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: (i: number) => ({
-      opacity: 1,
-      scale: 1,
-      transition: {
-        delay: i * 0.05,
-        duration: 0.3,
-        ease: 'easeOut' as const,
-      },
-    }),
-  };
-
   return (
-    <section id="skills" className="py-20 px-6 bg-white dark:bg-gray-900" ref={ref}>
-      <div className="max-w-6xl mx-auto">
+    <section
+      id="skills"
+      ref={ref}
+      className="relative py-24 px-6 bg-zinc-50 dark:bg-zinc-950 overflow-hidden"
+    >
+      {/* Subtle radial glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_35%_at_50%_0%,rgba(99,102,241,0.07),transparent)] dark:bg-[radial-gradient(ellipse_70%_35%_at_50%_0%,rgba(99,102,241,0.1),transparent)] pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto relative">
+
+        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
-          transition={{ duration: 0.6 }}
+          className="text-center mb-14"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.55 }}
         >
-          <h2 className="text-4xl text-center mb-4">Technical Expertise</h2>
-          <p className="text-center text-gray-600 dark:text-gray-400 mb-16 max-w-2xl mx-auto">
-            Deep expertise in front-end architecture and modern web development, 
+          <span className="inline-block text-xs font-semibold tracking-[0.2em] uppercase text-indigo-500 dark:text-indigo-400 mb-4">
+            What I work with
+          </span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-zinc-900 dark:text-zinc-50">
+            Technical Expertise
+          </h2>
+          <p className="text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto leading-relaxed">
+            Deep expertise in front-end architecture and modern web development,
             with solid back-end capabilities in the Microsoft ecosystem.
           </p>
         </motion.div>
 
-        <motion.div
-          className="grid md:grid-cols-2 gap-8 mb-8"
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-        >
-          {/* Front-End Skills - Primary Focus */}
-          <motion.div variants={cardVariants} whileHover={{ y: -5, transition: { duration: 0.2 } }}>
-            <Card className="border-2 border-blue-200 dark:border-blue-800 h-full">
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <motion.div
-                    className="p-3 bg-blue-100 dark:bg-blue-900 rounded-lg"
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.6 }}
-                  >
-                    <Code2 className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-                  </motion.div>
+        {/* Bento grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {categories.map((cat, idx) => {
+            const Icon = cat.icon;
+            return (
+              <motion.div
+                key={cat.id}
+                className={`${cat.colSpan} rounded-2xl bg-white dark:bg-white/[0.03] border border-zinc-200/80 dark:border-white/[0.06] p-6 transition-colors duration-300`}
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+              >
+                {/* Card header */}
+                <div className="flex items-center gap-3 mb-5">
+                  <div className={`w-9 h-9 rounded-xl ${cat.iconBg} flex items-center justify-center shrink-0`}>
+                    <Icon className={`w-4 h-4 ${cat.iconColor}`} />
+                  </div>
                   <div>
-                    <CardTitle>Front-End Development</CardTitle>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Primary Expertise</p>
+                    <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm leading-tight">
+                      {cat.title}
+                    </h3>
+                    <p className="text-xs text-zinc-500 dark:text-zinc-500 mt-0.5">
+                      {cat.subtitle}
+                    </p>
                   </div>
                 </div>
-              </CardHeader>
-              <CardContent>
+
+                {/* Skills */}
                 <div className="flex flex-wrap gap-2">
-                  {frontendSkills.map((skill, i) => (
-                    <motion.div
+                  {cat.skills.map((skill, i) => (
+                    <motion.span
                       key={skill}
-                      custom={i}
-                      variants={badgeVariants}
-                      initial="hidden"
-                      animate={isInView ? 'visible' : 'hidden'}
-                      whileHover={{ scale: 1.1, rotate: 2 }}
-                      whileTap={{ scale: 0.95 }}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+                      transition={{ delay: idx * 0.1 + i * 0.03, duration: 0.25 }}
+                      className={`px-3 py-1.5 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800/80 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700/50 ${cat.hoverBorder} transition-all duration-200 cursor-default`}
                     >
-                      <Badge variant="default" className="px-4 py-2 text-sm bg-blue-100 text-blue-800 hover:bg-blue-200 dark:bg-blue-900/60 dark:text-blue-300 dark:hover:bg-blue-900 cursor-pointer">
-                        {skill}
-                      </Badge>
-                    </motion.div>
+                      {skill}
+                    </motion.span>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
-          </motion.div>
+              </motion.div>
+            );
+          })}
+        </div>
 
-          {/* Back-End Skills */}
-          <motion.div variants={cardVariants} whileHover={{ y: -5, transition: { duration: 0.2 } }}>
-            <Card className="h-full">
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <motion.div
-                    className="p-3 bg-purple-100 dark:bg-purple-900 rounded-lg"
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.6 }}
-                  >
-                    <Database className="w-6 h-6 text-purple-600 dark:text-purple-400" />
-                  </motion.div>
-                  <div>
-                    <CardTitle>Back-End Development</CardTitle>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Microsoft Stack</p>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  {backendSkills.map((skill, i) => (
-                    <motion.div
-                      key={skill}
-                      custom={i}
-                      variants={badgeVariants}
-                      initial="hidden"
-                      animate={isInView ? 'visible' : 'hidden'}
-                      whileHover={{ scale: 1.1, rotate: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <Badge variant="default" className="px-4 py-2 text-sm bg-purple-100 text-purple-800 hover:bg-purple-200 dark:bg-purple-900/60 dark:text-purple-300 dark:hover:bg-purple-900 cursor-pointer">
-                        {skill}
-                      </Badge>
-                    </motion.div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        </motion.div>
-
-        {/* Design & Tools */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          whileHover={{ y: -5, transition: { duration: 0.2 } }}
-        >
-          <Card>
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <motion.div
-                  className="p-3 bg-green-100 dark:bg-green-900 rounded-lg"
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.6 }}
-                >
-                  <Layout className="w-6 h-6 text-green-600 dark:text-green-400" />
-                </motion.div>
-                <div>
-                  <CardTitle>Design Tools & Ecosystem</CardTitle>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Figma & Microsoft Ecosystem</p>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap gap-2">
-                {toolsSkills.map((tool, i) => (
-                  <motion.div
-                    key={tool}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-                    transition={{ delay: i * 0.05, duration: 0.3 }}
-                    whileHover={{ scale: 1.1, rotate: 3 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Badge variant="secondary" className="px-4 py-2 text-sm cursor-pointer">
-                      {tool}
-                    </Badge>
-                  </motion.div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
       </div>
     </section>
   );
