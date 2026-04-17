@@ -2,9 +2,11 @@ import { Github, Linkedin, Mail, ChevronDown, Code2 } from 'lucide-react';
 import { Button } from './ui/button';
 import { motion } from 'motion/react';
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import profilpicture from '../../assets/profilpicture.jpg';
 
 export function Hero() {
+  const { t } = useTranslation();
   const [imgLoaded, setImgLoaded] = useState(false);
   const [codeIndex, setCodeIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
@@ -201,26 +203,25 @@ export function Hero() {
           className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8"
           variants={itemVariants}
         >
-          Software Architect | Front-End Specialist
+          {t('hero.subtitle')}
         </motion.p>
-        
+
         <motion.p
           className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-12"
           variants={itemVariants}
         >
-          Crafting exceptional user experiences with Angular, React, and modern web technologies. 
-          Building scalable architectures across the full Microsoft ecosystem.
+          {t('hero.description')}
         </motion.p>
-        
+
         <motion.div className="flex gap-4 justify-center mb-12" variants={itemVariants}>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button size="lg" onClick={() => scrollToSection('projects')}>
-              View Projects
+              {t('hero.viewProjects')}
             </Button>
           </motion.div>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button size="lg" variant="outline" onClick={() => scrollToSection('contact')}>
-              Get in Touch
+              {t('hero.getInTouch')}
             </Button>
           </motion.div>
         </motion.div>

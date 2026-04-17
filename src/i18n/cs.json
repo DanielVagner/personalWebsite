@@ -1,0 +1,85 @@
+{
+  "nav": {
+    "home": "Úvod",
+    "skills": "Dovednosti",
+    "about": "O mně",
+    "experience": "Zkušenosti",
+    "projects": "Projekty",
+    "contact": "Kontakt"
+  },
+  "hero": {
+    "subtitle": "Softwarový Architekt | Specialista na Front-End",
+    "description": "Tvořím výjimečné uživatelské zážitky s Angular, React a moderními webovými technologiemi. Stavím škálovatelné architektury napříč celým Microsoft ekosystémem.",
+    "viewProjects": "Zobrazit projekty",
+    "getInTouch": "Kontaktujte mě"
+  },
+  "skills": {
+    "label": "S čím pracuji",
+    "title": "Technické dovednosti",
+    "description": "Hluboká odbornost ve front-end architektuře a moderním webovém vývoji, s robustními back-end schopnostmi v Microsoft ekosystému.",
+    "frontend": { "title": "Front-End vývoj", "subtitle": "Primární odbornost" },
+    "backend": { "title": "Back-End vývoj", "subtitle": "Microsoft Stack" },
+    "tools": { "title": "Nástroje & Ekosystém", "subtitle": "Figma & Microsoft ekosystém" }
+  },
+  "about": {
+    "label": "Kdo jsem",
+    "title": "O mně",
+    "description": "Vášnivý softwarový architekt a inženýr specializující se na front-end excelenci a škálovatelné architektury.",
+    "journeyTitle": "Moje cesta",
+    "p1": "Jako softwarový architekt v HTEC a s rozsáhlými zkušenostmi z CertiConu se specializuji na vývoj mobilních zdravotnických aplikací a enterprise řešení. Moje odbornost pokrývá celý stack — od Angular a React na front-endu po ASP.NET a Azure služby na back-endu.",
+    "p2": "Přispěl jsem k velkým projektům ve firmách jako Bosch, kde jsem implementoval špičkové Micro Frontend architektury a Material Design systémy. Zaměřuji se na dodávání výkonných, škálovatelných aplikací s výjimečným uživatelským zážitkem.",
+    "p3": "Od roku 2015 také vedu úspěšnou freelance praxi zaměřenou na vývoj mobilních aplikací s Ionic a Angular. Tento dvojí pohled — enterprise architektura a praktický vývoj — mi umožňuje vytvářet řešení, která jsou technicky robustní i uživatelsky přívětivá.",
+    "h1Title": "9+ let zkušeností",
+    "h1Desc": "Vedení front-end architektury a vývojových týmů",
+    "h2Title": "Architektonická excelence",
+    "h2Desc": "Softwarový architekt v CertiConu, budování enterprise řešení",
+    "h3Title": "Full-Stack schopnosti",
+    "h3Desc": "Odborník na Angular, React, TypeScript a .NET ekosystém",
+    "h4Title": "Kontinuální inovace",
+    "h4Desc": "Průkopník Micro Frontend architektur a moderních vzorů",
+    "philosophyTitle": "Filozofie",
+    "uc": "Uživatelsky orientovaný",
+    "ucDesc": "Každé architektonické rozhodnutí zohledňuje zkušenost koncového uživatele",
+    "sd": "Škálovatelný design",
+    "sdDesc": "Stavím systémy, které rostou spolu s obchodními potřebami",
+    "pf": "Výkon na prvním místě",
+    "pfDesc": "Optimalizace rychlosti bez kompromisů v kvalitě"
+  },
+  "experience": {
+    "label": "Moje cesta",
+    "title": "Zkušenosti",
+    "description": "Od prvních řádků kódu po architekturu enterprise aplikací — zde jsem byl."
+  },
+  "projects": {
+    "label": "Co jsem postavil",
+    "title": "Projekty",
+    "description": "Několik věcí, které jsem vytvořil za ta léta — od mobilních aplikací po webové stránky.",
+    "showMore": "Zobrazit dalších {{count}}",
+    "showLess": "Zobrazit méně"
+  },
+  "contact": {
+    "label": "Pojďme si promluvit",
+    "title": "Kontaktujte mě",
+    "description": "Máte zájem o spolupráci na projektu nebo diskusi o architektonických příležitostech? Rád se s vámi spojím.",
+    "formTitle": "Napište mi",
+    "formDesc": "Vyplňte formulář a ozvu se vám co nejdříve.",
+    "name": "Jméno",
+    "namePlaceholder": "Vaše jméno",
+    "email": "E-mail",
+    "emailPlaceholder": "vas.email@priklad.cz",
+    "message": "Zpráva",
+    "messagePlaceholder": "Řekněte mi o svém projektu nebo dotazu...",
+    "send": "Odeslat zprávu",
+    "sending": "Odesílání...",
+    "success": "Zpráva byla úspěšně odeslána!",
+    "error": "Něco se pokazilo. Zkuste to prosím znovu.",
+    "connectTitle": "Spojte se se mnou",
+    "connectDesc": "Najdete mě na těchto platformách nebo mě kontaktujte přímo.",
+    "availableTitle": "K dispozici pro příležitosti",
+    "availableDesc": "Momentálně otevřen konzultačním projektům a pozicím zaměřeným na front-end architekturu a leadership."
+  },
+  "footer": {
+    "built": "Postaveno s React & TypeScript",
+    "source": "Zdrojový kód"
+  }
+}

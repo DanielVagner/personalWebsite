@@ -1,6 +1,7 @@
 import { Briefcase } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { useTranslation } from 'react-i18next';
 
 const experiences = [
   {
@@ -185,6 +186,7 @@ function TimelineCard({ exp }: { exp: Exp }) {
 
 export function Experience() {
   const { ref, isInView } = useScrollAnimation();
+  const { t } = useTranslation();
 
   return (
     <section
@@ -204,13 +206,13 @@ export function Experience() {
           transition={{ duration: 0.55 }}
         >
           <span className="inline-block text-xs font-semibold tracking-[0.2em] uppercase text-indigo-500 dark:text-indigo-400 mb-4">
-            My Journey
+            {t('experience.label')}
           </span>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-zinc-900 dark:text-zinc-50">
-            Experience
+            {t('experience.title')}
           </h2>
           <p className="text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto leading-relaxed text-base">
-            From writing my first lines of code to architecting enterprise-grade applications — here's where I've been.
+            {t('experience.description')}
           </p>
         </motion.div>
 

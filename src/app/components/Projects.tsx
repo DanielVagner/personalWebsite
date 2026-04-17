@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { useTranslation } from 'react-i18next';
 
 import hudbaNavinicichImage from '../../assets/hudba-na-vinicich.png';
 import tolionImage from '../../assets/tolion.png';
@@ -68,6 +69,7 @@ const projects = [
 
 export function Projects() {
   const { ref, isInView } = useScrollAnimation();
+  const { t } = useTranslation();
   const [showAll, setShowAll] = useState(false);
 
   const visible = showAll ? projects : projects.slice(0, INITIAL_COUNT);
@@ -90,13 +92,13 @@ export function Projects() {
           transition={{ duration: 0.55 }}
         >
           <span className="inline-block text-xs font-semibold tracking-[0.2em] uppercase text-indigo-500 dark:text-indigo-400 mb-4">
-            What I've built
+            {t('projects.label')}
           </span>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-zinc-900 dark:text-zinc-50">
-            Projects
+            {t('projects.title')}
           </h2>
           <p className="text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto leading-relaxed text-base">
-            A few things I've built over the years — from mobile apps to websites.
+            {t('projects.description')}
           </p>
         </motion.div>
 
@@ -163,7 +165,7 @@ export function Projects() {
               onClick={() => setShowAll(!showAll)}
               className="px-6 py-2.5 rounded-full text-sm font-semibold bg-indigo-600 text-white hover:bg-indigo-700 active:scale-95 transition-all duration-200 shadow-sm shadow-indigo-500/25 cursor-pointer"
             >
-              {showAll ? 'Show Less' : `Show ${projects.length - INITIAL_COUNT} More`}
+              {showAll ? t('projects.showLess') : t('projects.showMore', { count: projects.length - INITIAL_COUNT })}
             </button>
           </motion.div>
         )}

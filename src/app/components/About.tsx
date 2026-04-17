@@ -1,50 +1,24 @@
 import { Briefcase, Code2, Award, Lightbulb, Target, Building2, Zap } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
-
-const highlights = [
-  {
-    icon: Briefcase,
-    title: '9+ Years Experience',
-    description: 'Leading front-end architecture and development teams',
-  },
-  {
-    icon: Code2,
-    title: 'Architecture Excellence',
-    description: 'Software Architect at CertiCon, building enterprise solutions',
-  },
-  {
-    icon: Award,
-    title: 'Full-Stack Capability',
-    description: 'Expert in Angular, React, TypeScript, and .NET ecosystem',
-  },
-  {
-    icon: Lightbulb,
-    title: 'Continuous Innovation',
-    description: 'Pioneering Micro Frontend architectures and modern patterns',
-  },
-];
-
-const philosophy = [
-  {
-    icon: Target,
-    title: 'User-Centric',
-    desc: 'Every architectural decision considers the end-user experience',
-  },
-  {
-    icon: Building2,
-    title: 'Scalable Design',
-    desc: 'Building systems that grow with business needs',
-  },
-  {
-    icon: Zap,
-    title: 'Performance First',
-    desc: 'Optimizing for speed without compromising quality',
-  },
-];
+import { useTranslation } from 'react-i18next';
 
 export function About() {
   const { ref, isInView } = useScrollAnimation();
+  const { t } = useTranslation();
+
+  const highlights = [
+    { icon: Briefcase, title: t('about.h1Title'), description: t('about.h1Desc') },
+    { icon: Code2, title: t('about.h2Title'), description: t('about.h2Desc') },
+    { icon: Award, title: t('about.h3Title'), description: t('about.h3Desc') },
+    { icon: Lightbulb, title: t('about.h4Title'), description: t('about.h4Desc') },
+  ];
+
+  const philosophy = [
+    { icon: Target, title: t('about.uc'), desc: t('about.ucDesc') },
+    { icon: Building2, title: t('about.sd'), desc: t('about.sdDesc') },
+    { icon: Zap, title: t('about.pf'), desc: t('about.pfDesc') },
+  ];
 
   return (
     <section
@@ -65,14 +39,13 @@ export function About() {
           transition={{ duration: 0.55 }}
         >
           <span className="inline-block text-xs font-semibold tracking-[0.2em] uppercase text-indigo-500 dark:text-indigo-400 mb-4">
-            Who I am
+            {t('about.label')}
           </span>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-zinc-900 dark:text-zinc-50">
-            About Me
+            {t('about.title')}
           </h2>
           <p className="text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto leading-relaxed text-base">
-            Passionate software architect and engineer specializing in front-end excellence
-            and scalable architectures.
+            {t('about.description')}
           </p>
         </motion.div>
 
@@ -87,25 +60,11 @@ export function About() {
             transition={{ duration: 0.55, delay: 0.1 }}
           >
             <h3 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100">
-              My Journey
+              {t('about.journeyTitle')}
             </h3>
-            <p className="text-zinc-500 dark:text-zinc-400 leading-relaxed text-base">
-              As a Software Architect currently at HTEC and with extensive experience at CertiCon,
-              I specialize in building mobile-first health applications and enterprise solutions.
-              My expertise spans the full stack, from Angular and React on the front-end to ASP.NET
-              and Azure services on the back-end.
-            </p>
-            <p className="text-zinc-500 dark:text-zinc-400 leading-relaxed text-base">
-              I've contributed to major projects at companies like Bosch, implementing cutting-edge
-              Micro Frontend architectures and Material Design systems. My work focuses on delivering
-              high-performance, scalable applications with exceptional user experiences.
-            </p>
-            <p className="text-zinc-500 dark:text-zinc-400 leading-relaxed text-base">
-              Since 2015, I've also been running a successful freelance practice, specializing in
-              mobile application development with Ionic and Angular. This dual perspective — enterprise
-              architecture and hands-on development — allows me to create solutions that are both
-              technically robust and user-focused.
-            </p>
+            <p className="text-zinc-500 dark:text-zinc-400 leading-relaxed text-base">{t('about.p1')}</p>
+            <p className="text-zinc-500 dark:text-zinc-400 leading-relaxed text-base">{t('about.p2')}</p>
+            <p className="text-zinc-500 dark:text-zinc-400 leading-relaxed text-base">{t('about.p3')}</p>
           </motion.div>
 
           {/* Right: 2×2 highlight cards */}
@@ -148,7 +107,7 @@ export function About() {
           transition={{ duration: 0.55, delay: 0.45 }}
         >
           <h3 className="text-base font-semibold text-center text-zinc-900 dark:text-zinc-100 mb-8 tracking-wide uppercase text-xs text-indigo-500 dark:text-indigo-400 tracking-[0.2em]">
-            Philosophy
+            {t('about.philosophyTitle')}
           </h3>
           <div className="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-zinc-200 dark:divide-zinc-800/80">
             {philosophy.map((item, i) => {

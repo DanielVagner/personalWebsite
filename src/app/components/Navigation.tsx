@@ -2,57 +2,69 @@ import { useState, useEffect } from 'react';
 import { ThemeToggle } from './ThemeToggle';
 import { motion, AnimatePresence } from 'motion/react';
 import { useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
 
   const navItems = [
-    { label: 'Home', href: '#home' },
-    { label: 'Skills', href: '#skills' },
-    { label: 'About', href: '#about' },
-    { label: 'Experience', href: '#experience' },
-    { label: 'Projects', href: '#projects' },
-    { label: 'Contact', href: '#contact' },
+    { label: t('nav.home'), href: '#home' },
+    { label: t('nav.skills'), href: '#skills' },
+    { label: t('nav.about'), href: '#about' },
+    { label: t('nav.experience'), href: '#experience' },
+    { label: t('nav.projects'), href: '#projects' },
+    { label: t('nav.contact'), href: '#contact' },
   ];
 
+  const toggleLang = () => {
+    i18n.changeLanguage(i18n.language.startsWith('cs') ? 'en' : 'cs');
+  };
+
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
+    const sectionIds = ['home', 'skills', 'about', 'experience', 'projects', 'contact'];
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
         });
       },
       { rootMargin: '-40% 0px -55% 0px', threshold: 0 }
     );
-
-    navItems.forEach(({ href }) => {
-      const el = document.querySelector(href);
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
-
     return () => observer.disconnect();
   }, []);
 
   const scrollToSection = (href: string) => {
     setIsMobileMenuOpen(false);
     setTimeout(() => {
-      const element = document.querySelector(href);
-      element?.scrollIntoView({ behavior: 'smooth' });
+      document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
     }, 300);
   };
+
+  const isCS = i18n.language.startsWith('cs');
+
+  const LangToggle = () => (
+    <button
+      onClick={toggleLang}
+      className="px-2.5 py-1.5 rounded-full text-xs font-semibold text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50/80 dark:hover:bg-indigo-950/50 transition-all duration-200 cursor-pointer tracking-wide"
+      title={isCS ? 'Switch to English' : 'Přepnout do češtiny'}
+    >
+      {isCS ? 'EN' : 'CS'}
+    </button>
+  );
 
   return (
     <>
@@ -68,7 +80,6 @@ export function Navigation() {
               : 'bg-white/55 dark:bg-zinc-950/55 backdrop-blur-md border border-white/40 dark:border-white/5'
           }`}
         >
-          {/* Logo */}
           <button
             onClick={() => scrollToSection('#home')}
             className="mr-1.5 px-3 py-1.5 rounded-full text-sm font-bold tracking-widest transition-all duration-200 hover:bg-indigo-50 dark:hover:bg-indigo-950/60 cursor-pointer"
@@ -97,8 +108,6 @@ export function Navigation() {
             );
           })}
 
-          <div className="h-4 w-px bg-zinc-200 dark:bg-zinc-700 mx-1" />
-
           <button
             onClick={() => navigate('/cv')}
             className="px-4 py-1.5 rounded-full text-sm font-semibold bg-indigo-600 text-white hover:bg-indigo-700 active:scale-95 transition-all duration-200 shadow-sm shadow-indigo-500/25 cursor-pointer"
@@ -112,18 +121,16 @@ export function Navigation() {
         </motion.nav>
       </div>
 
-      {/* ── Mobile: top bar + dropdown ─────────────────────────── */}
+      {/* ── Mobile ─────────────────────────────────────────────── */}
       <nav className="fixed top-0 left-0 right-0 z-50 md:hidden">
-        <div
-          className={`flex items-center justify-between px-5 py-3.5 transition-all duration-300 ${
-            isScrolled || isMobileMenuOpen
-              ? 'bg-white/90 dark:bg-zinc-950/90 backdrop-blur-xl border-b border-zinc-200/50 dark:border-white/8'
-              : 'bg-transparent'
-          }`}
-        >
+        <div className={`flex items-center justify-between px-5 py-3.5 transition-all duration-300 ${
+          isScrolled || isMobileMenuOpen
+            ? 'bg-white/90 dark:bg-zinc-950/90 backdrop-blur-xl border-b border-zinc-200/50 dark:border-white/8'
+            : 'bg-transparent'
+        }`}>
           <button
             onClick={() => scrollToSection('#home')}
-            className="text-sm font-bold tracking-widest"
+            className="text-sm font-bold tracking-widest cursor-pointer"
             style={{ fontFamily: 'var(--font-display)' }}
           >
             <span className="text-indigo-500">D</span>
@@ -138,21 +145,9 @@ export function Navigation() {
               aria-label="Toggle menu"
             >
               <div className="w-5 h-5 flex flex-col justify-center items-center relative">
-                <motion.span
-                  animate={{ rotate: isMobileMenuOpen ? 45 : 0, y: isMobileMenuOpen ? 0 : -5 }}
-                  transition={{ duration: 0.25 }}
-                  className="w-5 h-0.5 bg-current absolute"
-                />
-                <motion.span
-                  animate={{ opacity: isMobileMenuOpen ? 0 : 1 }}
-                  transition={{ duration: 0.15 }}
-                  className="w-5 h-0.5 bg-current absolute"
-                />
-                <motion.span
-                  animate={{ rotate: isMobileMenuOpen ? -45 : 0, y: isMobileMenuOpen ? 0 : 5 }}
-                  transition={{ duration: 0.25 }}
-                  className="w-5 h-0.5 bg-current absolute"
-                />
+                <motion.span animate={{ rotate: isMobileMenuOpen ? 45 : 0, y: isMobileMenuOpen ? 0 : -5 }} transition={{ duration: 0.25 }} className="w-5 h-0.5 bg-current absolute" />
+                <motion.span animate={{ opacity: isMobileMenuOpen ? 0 : 1 }} transition={{ duration: 0.15 }} className="w-5 h-0.5 bg-current absolute" />
+                <motion.span animate={{ rotate: isMobileMenuOpen ? -45 : 0, y: isMobileMenuOpen ? 0 : 5 }} transition={{ duration: 0.25 }} className="w-5 h-0.5 bg-current absolute" />
               </div>
             </button>
           </div>
@@ -193,7 +188,7 @@ export function Navigation() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: navItems.length * 0.035 }}
                 onClick={() => { navigate('/cv'); setIsMobileMenuOpen(false); }}
-                className="mt-2 w-full px-4 py-3 rounded-xl text-sm font-semibold bg-indigo-600 text-white hover:bg-indigo-700 transition-all text-center"
+                className="mt-2 w-full px-4 py-3 rounded-xl text-sm font-semibold bg-indigo-600 text-white hover:bg-indigo-700 transition-all text-center cursor-pointer"
               >
                 CV
               </motion.button>

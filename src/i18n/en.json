@@ -1,0 +1,85 @@
+{
+  "nav": {
+    "home": "Home",
+    "skills": "Skills",
+    "about": "About",
+    "experience": "Experience",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "hero": {
+    "subtitle": "Senior Software Engineer · Team Lead & Architecture",
+    "description": "I build web and mobile applications with Angular, React and Ionic, with a focus on clean architecture and good user experience. I reach for .NET on the back end when projects call for it.",
+    "viewProjects": "View Projects",
+    "getInTouch": "Get in Touch"
+  },
+  "skills": {
+    "label": "What I work with",
+    "title": "Technical Skills",
+    "description": "Most of my time is spent on the front end, but I'm comfortable moving across the stack when the project needs it.",
+    "frontend": { "title": "Front-End", "subtitle": "Primary focus" },
+    "backend": { "title": "Back-End", "subtitle": "Microsoft stack" },
+    "tools": { "title": "Tools & Ecosystem", "subtitle": "Day-to-day tooling" }
+  },
+  "about": {
+    "label": "Who I am",
+    "title": "About Me",
+    "description": "Senior Software Engineer with a background in software architecture and team leadership.",
+    "journeyTitle": "A bit about me",
+    "p1": "I'm a Senior Software Engineer currently at HTEC, working on a mobile-first health app built with Ionic, Angular and ASP.NET Web API. Before that, I spent several years at CertiCon where I eventually moved into a Software Architect role — working on large Angular projects for clients like Bosch.",
+    "p2": "Most of my work has been on the front end, but I've always been comfortable jumping into the full stack when needed. I've led small teams, shaped technical decisions, and tried to keep code quality and long-term maintainability high.",
+    "p3": "On the side, I've been doing freelance mobile development since 2015 — mostly Ionic and Angular, more recently React Native. I enjoy the end-to-end ownership that comes with it, from the first commit to publishing on the App Store.",
+    "h1Title": "9+ Years in the Field",
+    "h1Desc": "Across front-end, mobile and back-end in both product and agency environments",
+    "h2Title": "Architecture & Team Lead",
+    "h2Desc": "Led technical direction and mentored developers at CertiCon",
+    "h3Title": "Full-Stack Comfortable",
+    "h3Desc": "Angular, React, Ionic, .NET and Azure — depending on what the project needs",
+    "h4Title": "Always Learning",
+    "h4Desc": "Keeping up with evolving web standards, tooling and best practices",
+    "philosophyTitle": "How I work",
+    "uc": "User First",
+    "ucDesc": "I try to build things that are actually pleasant to use, not just technically correct",
+    "sd": "Readable Code",
+    "sdDesc": "Writing code the next developer — or future me — can understand and extend",
+    "pf": "Performance Matters",
+    "pfDesc": "Fast apps make users happy. I keep an eye on bundle size and render performance"
+  },
+  "experience": {
+    "label": "Where I've been",
+    "title": "Experience",
+    "description": "From junior developer to software architect — the companies and projects that shaped how I work."
+  },
+  "projects": {
+    "label": "Things I've built",
+    "title": "Projects",
+    "description": "A selection of projects from my freelance work over the years — web apps, mobile apps and everything in between.",
+    "showMore": "Show {{count}} more",
+    "showLess": "Show less"
+  },
+  "contact": {
+    "label": "Get in touch",
+    "title": "Contact",
+    "description": "Have a project in mind or want to talk through an idea? Feel free to reach out.",
+    "formTitle": "Send me a message",
+    "formDesc": "I usually reply within a day or two.",
+    "name": "Name",
+    "namePlaceholder": "Your name",
+    "email": "Email",
+    "emailPlaceholder": "your@email.com",
+    "message": "Message",
+    "messagePlaceholder": "What's on your mind?",
+    "send": "Send",
+    "sending": "Sending...",
+    "success": "Message sent — I'll get back to you soon.",
+    "error": "Something went wrong. Try again or email me directly.",
+    "connectTitle": "Find me here",
+    "connectDesc": "Or reach out on any of these platforms.",
+    "availableTitle": "Open to opportunities",
+    "availableDesc": "Looking at interesting full-time roles and freelance projects — especially front-end architecture, mobile development or anything TypeScript-heavy."
+  },
+  "footer": {
+    "built": "Built with React & TypeScript",
+    "source": "Source Code"
+  }
+}

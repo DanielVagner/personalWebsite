@@ -1,53 +1,39 @@
 import { Code2, Database, Wrench } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { useTranslation } from 'react-i18next';
 
-const categories = [
-  {
-    id: 'frontend',
-    icon: Code2,
-    title: 'Front-End Development',
-    subtitle: 'Primary expertise',
-    iconBg: 'bg-indigo-500/15 dark:bg-indigo-500/15',
-    iconColor: 'text-indigo-500 dark:text-indigo-400',
-    hoverBorder: 'hover:border-indigo-500/50 hover:text-indigo-400 dark:hover:border-indigo-400/50 dark:hover:text-indigo-300',
-    colSpan: 'md:col-span-2',
-    skills: [
-      'React', 'Angular', 'TypeScript', 'JavaScript', 'HTML5',
-      'SCSS/CSS', 'RxJS', 'Redux/NgRx', 'Ionic', 'Capacitor',
-      'Material Design', 'Micro Frontends',
-    ],
-  },
-  {
-    id: 'backend',
-    icon: Database,
-    title: 'Back-End Development',
-    subtitle: 'Microsoft Stack',
-    iconBg: 'bg-violet-500/15 dark:bg-violet-500/15',
-    iconColor: 'text-violet-500 dark:text-violet-400',
-    hoverBorder: 'hover:border-violet-500/50 hover:text-violet-400 dark:hover:border-violet-400/50 dark:hover:text-violet-300',
-    colSpan: 'md:col-span-1',
-    skills: ['C#', '.NET Core', 'ASP.NET', 'REST APIs', 'SignalR', 'Azure Services'],
-  },
-  {
-    id: 'tools',
-    icon: Wrench,
-    title: 'Tools & Ecosystem',
-    subtitle: 'Figma & Microsoft ecosystem',
-    iconBg: 'bg-emerald-500/15 dark:bg-emerald-500/15',
-    iconColor: 'text-emerald-500 dark:text-emerald-400',
-    hoverBorder: 'hover:border-emerald-500/50 hover:text-emerald-400 dark:hover:border-emerald-400/50 dark:hover:text-emerald-300',
-    colSpan: 'md:col-span-3',
-    skills: [
-      'Figma', 'Azure DevOps', 'Visual Studio', 'VS Code', 'Git',
-      'Azure AD B2C', 'Microsoft 365', 'Webpack', 'Karma/Jasmine',
-      'HealthKit', 'Garmin SDK',
-    ],
-  },
-];
 
 export function Skills() {
   const { ref, isInView } = useScrollAnimation();
+  const { t } = useTranslation();
+
+  const categories = [
+    {
+      id: 'frontend', icon: Code2,
+      title: t('skills.frontend.title'), subtitle: t('skills.frontend.subtitle'),
+      iconBg: 'bg-indigo-500/15', iconColor: 'text-indigo-500 dark:text-indigo-400',
+      hoverBorder: 'hover:border-indigo-500/50 hover:text-indigo-400 dark:hover:border-indigo-400/50 dark:hover:text-indigo-300',
+      colSpan: 'md:col-span-2',
+      skills: ['React','Angular','TypeScript','JavaScript','HTML5','SCSS/CSS','RxJS','Redux/NgRx','Ionic','Capacitor','Material Design','Micro Frontends'],
+    },
+    {
+      id: 'backend', icon: Database,
+      title: t('skills.backend.title'), subtitle: t('skills.backend.subtitle'),
+      iconBg: 'bg-violet-500/15', iconColor: 'text-violet-500 dark:text-violet-400',
+      hoverBorder: 'hover:border-violet-500/50 hover:text-violet-400 dark:hover:border-violet-400/50 dark:hover:text-violet-300',
+      colSpan: 'md:col-span-1',
+      skills: ['C#','.NET Core','ASP.NET','REST APIs','SignalR','Azure Services'],
+    },
+    {
+      id: 'tools', icon: Wrench,
+      title: t('skills.tools.title'), subtitle: t('skills.tools.subtitle'),
+      iconBg: 'bg-emerald-500/15', iconColor: 'text-emerald-500 dark:text-emerald-400',
+      hoverBorder: 'hover:border-emerald-500/50 hover:text-emerald-400 dark:hover:border-emerald-400/50 dark:hover:text-emerald-300',
+      colSpan: 'md:col-span-3',
+      skills: ['Figma','Azure DevOps','Visual Studio','VS Code','Git','Azure AD B2C','Microsoft 365','Webpack','Karma/Jasmine','HealthKit','Garmin SDK'],
+    },
+  ];
 
   return (
     <section
@@ -68,14 +54,13 @@ export function Skills() {
           transition={{ duration: 0.55 }}
         >
           <span className="inline-block text-xs font-semibold tracking-[0.2em] uppercase text-indigo-500 dark:text-indigo-400 mb-4">
-            What I work with
+            {t('skills.label')}
           </span>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-zinc-900 dark:text-zinc-50">
-            Technical Expertise
+            {t('skills.title')}
           </h2>
           <p className="text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto leading-relaxed text-base">
-            Deep expertise in front-end architecture and modern web development,
-            with solid back-end capabilities in the Microsoft ecosystem.
+            {t('skills.description')}
           </p>
         </motion.div>
 
