@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
-import { Button } from './ui/button';
 import { ThemeToggle } from './ThemeToggle';
 import { motion, AnimatePresence } from 'motion/react';
 import { useNavigate } from 'react-router';
@@ -36,76 +34,95 @@ export function Navigation() {
   };
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled || isMobileMenuOpen
-          ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-md'
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="max-w-6xl mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
+    <>
+      {/* ── Desktop: floating pill ─────────────────────────────── */}
+      <div className="fixed top-5 left-0 right-0 z-50 hidden md:flex justify-center px-4 pointer-events-none">
+        <motion.nav
+          initial={{ y: -24, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          className={`pointer-events-auto flex items-center gap-0.5 rounded-full px-3 py-2 transition-all duration-400 ${
+            isScrolled
+              ? 'bg-white/85 dark:bg-zinc-950/85 backdrop-blur-2xl shadow-xl shadow-black/8 dark:shadow-black/40 border border-zinc-200/70 dark:border-white/8'
+              : 'bg-white/55 dark:bg-zinc-950/55 backdrop-blur-md border border-white/40 dark:border-white/5'
+          }`}
+        >
           {/* Logo */}
           <button
             onClick={() => scrollToSection('#home')}
-            className="text-xl font-semibold hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            className="mr-1.5 px-3 py-1.5 rounded-full text-sm font-bold tracking-widest transition-all duration-200 hover:bg-indigo-50 dark:hover:bg-indigo-950/60 cursor-pointer"
+            style={{ fontFamily: 'var(--font-display)' }}
           >
-            DV
+            <span className="text-indigo-500">D</span>
+            <span className="text-zinc-800 dark:text-zinc-100">V</span>
           </button>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
-              <button
-                key={item.href}
-                onClick={() => scrollToSection(item.href)}
-                className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer"
-              >
-                {item.label}
-              </button>
-            ))}
+          <div className="h-4 w-px bg-zinc-200 dark:bg-zinc-700 mx-1" />
+
+          {navItems.map((item) => (
             <button
-              onClick={() => navigate('/cv')}
-              className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer"
+              key={item.href}
+              onClick={() => scrollToSection(item.href)}
+              className="px-3 py-1.5 rounded-full text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50/80 dark:hover:bg-indigo-950/50 transition-all duration-200 cursor-pointer"
             >
-              CV
+              {item.label}
             </button>
+          ))}
+
+          <div className="h-4 w-px bg-zinc-200 dark:bg-zinc-700 mx-1" />
+
+          <button
+            onClick={() => navigate('/cv')}
+            className="px-4 py-1.5 rounded-full text-sm font-semibold bg-indigo-600 text-white hover:bg-indigo-700 active:scale-95 transition-all duration-200 shadow-sm shadow-indigo-500/25 cursor-pointer"
+          >
+            CV
+          </button>
+
+          <div className="ml-1">
             <ThemeToggle />
           </div>
+        </motion.nav>
+      </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center gap-2">
+      {/* ── Mobile: top bar + dropdown ─────────────────────────── */}
+      <nav className="fixed top-0 left-0 right-0 z-50 md:hidden">
+        <div
+          className={`flex items-center justify-between px-5 py-3.5 transition-all duration-300 ${
+            isScrolled || isMobileMenuOpen
+              ? 'bg-white/90 dark:bg-zinc-950/90 backdrop-blur-xl border-b border-zinc-200/50 dark:border-white/8'
+              : 'bg-transparent'
+          }`}
+        >
+          <button
+            onClick={() => scrollToSection('#home')}
+            className="text-sm font-bold tracking-widest"
+            style={{ fontFamily: 'var(--font-display)' }}
+          >
+            <span className="text-indigo-500">D</span>
+            <span className="text-zinc-800 dark:text-zinc-100">V</span>
+          </button>
+
+          <div className="flex items-center gap-1.5">
             <ThemeToggle />
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+              className="p-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
               aria-label="Toggle menu"
             >
               <div className="w-5 h-5 flex flex-col justify-center items-center relative">
-                {/* Top line */}
                 <motion.span
-                  animate={{
-                    rotate: isMobileMenuOpen ? 45 : 0,
-                    y: isMobileMenuOpen ? 0 : -6,
-                  }}
-                  transition={{ duration: 0.3 }}
+                  animate={{ rotate: isMobileMenuOpen ? 45 : 0, y: isMobileMenuOpen ? 0 : -5 }}
+                  transition={{ duration: 0.25 }}
                   className="w-5 h-0.5 bg-current absolute"
                 />
-                {/* Middle line */}
                 <motion.span
-                  animate={{
-                    opacity: isMobileMenuOpen ? 0 : 1,
-                  }}
-                  transition={{ duration: 0.2 }}
+                  animate={{ opacity: isMobileMenuOpen ? 0 : 1 }}
+                  transition={{ duration: 0.15 }}
                   className="w-5 h-0.5 bg-current absolute"
                 />
-                {/* Bottom line */}
                 <motion.span
-                  animate={{
-                    rotate: isMobileMenuOpen ? -45 : 0,
-                    y: isMobileMenuOpen ? 0 : 6,
-                  }}
-                  transition={{ duration: 0.3 }}
+                  animate={{ rotate: isMobileMenuOpen ? -45 : 0, y: isMobileMenuOpen ? 0 : 5 }}
+                  transition={{ duration: 0.25 }}
                   className="w-5 h-0.5 bg-current absolute"
                 />
               </div>
@@ -113,49 +130,42 @@ export function Navigation() {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="md:hidden overflow-hidden"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+              className="bg-white/95 dark:bg-zinc-950/95 backdrop-blur-2xl border-b border-zinc-200/50 dark:border-white/8 px-4 pb-4"
             >
-              <motion.div
-                initial={{ y: -10 }}
-                animate={{ y: 0 }}
-                exit={{ y: -10 }}
-                transition={{ duration: 0.2 }}
-                className="mt-4 pb-4 space-y-2 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm rounded-lg p-3"
-              >
+              <div className="grid grid-cols-2 gap-1.5 pt-3">
                 {navItems.map((item, index) => (
                   <motion.button
                     key={item.href}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 }}
+                    initial={{ opacity: 0, y: -6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.035 }}
                     onClick={() => scrollToSection(item.href)}
-                    className="block w-full text-left px-4 py-3 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+                    className="px-4 py-3 rounded-xl text-sm font-medium text-left text-zinc-700 dark:text-zinc-300 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all cursor-pointer"
                   >
                     {item.label}
                   </motion.button>
                 ))}
-                <motion.button
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: navItems.length * 0.05 }}
-                  onClick={() => { navigate('/cv'); setIsMobileMenuOpen(false); }}
-                  className="block w-full text-left px-4 py-3 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
-                >
-                  CV
-                </motion.button>
-              </motion.div>
+              </div>
+              <motion.button
+                initial={{ opacity: 0, y: -6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: navItems.length * 0.035 }}
+                onClick={() => { navigate('/cv'); setIsMobileMenuOpen(false); }}
+                className="mt-2 w-full px-4 py-3 rounded-xl text-sm font-semibold bg-indigo-600 text-white hover:bg-indigo-700 transition-all text-center"
+              >
+                CV
+              </motion.button>
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
-    </nav>
+      </nav>
+    </>
   );
 }

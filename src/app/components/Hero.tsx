@@ -88,13 +88,13 @@ export function Hero() {
   };
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 relative overflow-hidden">
+    <section id="home" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-indigo-50/40 to-violet-50 dark:from-zinc-950 dark:via-indigo-950/20 dark:to-zinc-900 relative overflow-hidden">
       {/* Animated Background Code Particles */}
       <div className="absolute inset-0 overflow-hidden opacity-20 dark:opacity-10">
         {[...Array(15)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute text-blue-600 dark:text-blue-400 font-mono text-sm opacity-30"
+            className="absolute text-indigo-500 dark:text-indigo-400 font-mono text-sm opacity-30"
             initial={{ 
               x: Math.random() * window.innerWidth,
               y: -20,
@@ -180,7 +180,7 @@ export function Hero() {
             whileTap={{ scale: 0.95 }}
           >
             {!imgLoaded && (
-              <div className="w-full h-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white text-4xl font-bold">
+              <div className="w-full h-full bg-gradient-to-r from-indigo-500 to-violet-600 flex items-center justify-center text-white text-4xl font-bold">
                 DV
               </div>
             )}
@@ -241,7 +241,7 @@ export function Hero() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                 whileHover={{ y: -5, scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
@@ -253,7 +253,7 @@ export function Hero() {
         
         <motion.button
           onClick={() => scrollToSection('skills')}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
           animate={{
             y: [0, 10, 0],
           }}
