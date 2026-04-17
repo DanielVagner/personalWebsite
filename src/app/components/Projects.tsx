@@ -114,7 +114,7 @@ export function Projects() {
                 whileHover={{ y: -4, transition: { duration: 0.2 } }}
               >
                 {/* Image */}
-                <div className="h-48 overflow-hidden bg-zinc-100 dark:bg-zinc-900 shrink-0">
+                <div className="h-48 overflow-hidden bg-zinc-100 shrink-0">
                   <img
                     src={project.image as string}
                     alt={project.title}
