@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router';
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
   const navigate = useNavigate();
 
   const navItems = [
@@ -23,6 +24,26 @@ export function Navigation() {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '-40% 0px -55% 0px', threshold: 0 }
+    );
+
+    navItems.forEach(({ href }) => {
+      const el = document.querySelector(href);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   const scrollToSection = (href: string) => {
@@ -59,15 +80,22 @@ export function Navigation() {
 
           <div className="h-4 w-px bg-zinc-200 dark:bg-zinc-700 mx-1" />
 
-          {navItems.map((item) => (
-            <button
-              key={item.href}
-              onClick={() => scrollToSection(item.href)}
-              className="px-3 py-1.5 rounded-full text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50/80 dark:hover:bg-indigo-950/50 transition-all duration-200 cursor-pointer"
-            >
-              {item.label}
-            </button>
-          ))}
+          {navItems.map((item) => {
+            const isActive = activeSection === item.href.slice(1);
+            return (
+              <button
+                key={item.href}
+                onClick={() => scrollToSection(item.href)}
+                className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer ${
+                  isActive
+                    ? 'bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400'
+                    : 'text-zinc-600 dark:text-zinc-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50/80 dark:hover:bg-indigo-950/50'
+                }`}
+              >
+                {item.label}
+              </button>
+            );
+          })}
 
           <div className="h-4 w-px bg-zinc-200 dark:bg-zinc-700 mx-1" />
 
@@ -140,18 +168,25 @@ export function Navigation() {
               className="bg-white/95 dark:bg-zinc-950/95 backdrop-blur-2xl border-b border-zinc-200/50 dark:border-white/8 px-4 pb-4"
             >
               <div className="grid grid-cols-2 gap-1.5 pt-3">
-                {navItems.map((item, index) => (
-                  <motion.button
-                    key={item.href}
-                    initial={{ opacity: 0, y: -6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.035 }}
-                    onClick={() => scrollToSection(item.href)}
-                    className="px-4 py-3 rounded-xl text-sm font-medium text-left text-zinc-700 dark:text-zinc-300 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all cursor-pointer"
-                  >
-                    {item.label}
-                  </motion.button>
-                ))}
+                {navItems.map((item, index) => {
+                  const isActive = activeSection === item.href.slice(1);
+                  return (
+                    <motion.button
+                      key={item.href}
+                      initial={{ opacity: 0, y: -6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.035 }}
+                      onClick={() => scrollToSection(item.href)}
+                      className={`px-4 py-3 rounded-xl text-sm font-medium text-left transition-all cursor-pointer ${
+                        isActive
+                          ? 'bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400'
+                          : 'text-zinc-700 dark:text-zinc-300 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 hover:text-indigo-600 dark:hover:text-indigo-400'
+                      }`}
+                    >
+                      {item.label}
+                    </motion.button>
+                  );
+                })}
               </div>
               <motion.button
                 initial={{ opacity: 0, y: -6 }}
