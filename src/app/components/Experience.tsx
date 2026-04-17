@@ -149,7 +149,7 @@ function TimelineCard({ exp }: { exp: Exp }) {
 
       {/* Description */}
       {'description' in exp && exp.description && (
-        <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed mb-3">
+        <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-3">
           {exp.description}
         </p>
       )}
@@ -160,7 +160,7 @@ function TimelineCard({ exp }: { exp: Exp }) {
           {exp.projects.map((project, i) => (
             <div key={i} className="border-l-2 border-indigo-400/30 dark:border-indigo-500/25 pl-3">
               <p className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-0.5">{project.name}</p>
-              <p className="text-xs text-zinc-500 dark:text-zinc-500 leading-relaxed">{project.description}</p>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">{project.description}</p>
             </div>
           ))}
         </div>
@@ -209,7 +209,7 @@ export function Experience() {
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-zinc-900 dark:text-zinc-50">
             Experience
           </h2>
-          <p className="text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto leading-relaxed">
+          <p className="text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto leading-relaxed text-base">
             From writing my first lines of code to architecting enterprise-grade applications — here's where I've been.
           </p>
         </motion.div>
