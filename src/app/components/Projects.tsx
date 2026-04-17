@@ -95,7 +95,7 @@ export function Projects() {
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-zinc-900 dark:text-zinc-50">
             Projects
           </h2>
-          <p className="text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto leading-relaxed">
+          <p className="text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto leading-relaxed text-base">
             A few things I've built over the years — from mobile apps to websites.
           </p>
         </motion.div>
@@ -132,7 +132,7 @@ export function Projects() {
                   <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm leading-snug mb-2">
                     {project.title}
                   </h3>
-                  <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4 flex-1">
+                  <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4 flex-1">
                     {project.description}
                   </p>
                   <div className="flex flex-wrap gap-1.5">

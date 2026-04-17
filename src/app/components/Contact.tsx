@@ -71,7 +71,7 @@ export function Contact() {
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-zinc-900 dark:text-zinc-50">
             Get In Touch
           </h2>
-          <p className="text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto leading-relaxed">
+          <p className="text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto leading-relaxed text-base">
             Interested in collaborating on a project or discussing architecture opportunities?
             I'd love to hear from you.
           </p>
@@ -89,7 +89,7 @@ export function Contact() {
             <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm mb-1">
               Send a Message
             </h3>
-            <p className="text-xs text-zinc-500 dark:text-zinc-500 mb-5">
+            <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-5">
               Fill out the form and I'll get back to you as soon as possible.
             </p>
 
@@ -167,7 +167,7 @@ export function Contact() {
               <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm mb-1">
                 Connect With Me
               </h3>
-              <p className="text-xs text-zinc-500 dark:text-zinc-500 mb-5">
+              <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-5">
                 Find me on these platforms or reach out directly.
               </p>
               <div className="space-y-2">
@@ -208,7 +208,7 @@ export function Contact() {
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                 <h3 className="font-semibold text-sm">Available for Opportunities</h3>
               </div>
-              <p className="text-indigo-100 text-xs leading-relaxed mb-4">
+              <p className="text-indigo-100 text-sm leading-relaxed mb-4">
                 Currently open to consulting projects and full-time positions focusing on
                 front-end architecture and leadership roles.
               </p>

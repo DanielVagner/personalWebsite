@@ -73,7 +73,7 @@ export function Skills() {
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-zinc-900 dark:text-zinc-50">
             Technical Expertise
           </h2>
-          <p className="text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto leading-relaxed">
+          <p className="text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto leading-relaxed text-base">
             Deep expertise in front-end architecture and modern web development,
             with solid back-end capabilities in the Microsoft ecosystem.
           </p>
