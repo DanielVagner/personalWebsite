@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router';
 import { ArrowLeft, Printer, Mail, MapPin, Globe } from 'lucide-react';
+import profilePic from '../../assets/profilpicture.jpg';
 
 const skills: Record<string, string[]> = {
-  Frontend: ['Angular', 'React', 'TypeScript', 'Ionic', 'RxJS', 'NgXs', 'HTML5', 'SCSS'],
-  Mobile: ['React Native', 'Capacitor', 'iOS', 'Android', 'HealthKit', 'Garmin SDK'],
-  Backend: ['C#', 'ASP.NET Web API', '.NET', 'Node.js'],
-  Cloud: ['Azure AD B2C', 'Microsoft Azure', 'Vercel'],
-  Tools: ['Git', 'Figma', 'AdobeXD', 'Webpack', 'Azure DevOps'],
+  'Front-End': ['Angular', 'React', 'TypeScript', 'Ionic', 'RxJS', 'NgXs', 'HTML5', 'SCSS'],
+  'Mobile': ['React Native', 'Capacitor', 'iOS', 'Android', 'HealthKit', 'Garmin SDK'],
+  'Back-End': ['C#', 'ASP.NET Web API', '.NET', 'Node.js'],
+  'Cloud & Tools': ['Azure AD B2C', 'Microsoft Azure', 'Git', 'Figma', 'Webpack', 'Vercel'],
 };
 
 const experiences = [
@@ -14,50 +14,46 @@ const experiences = [
     company: 'HTEC',
     position: 'Senior Software Engineer',
     period: 'Nov 2025 – Present',
-    location: 'Prague, Czechia · Remote',
-    description: 'Building a mobile-first health product at Tolion Health. Full-stack across Ionic + Angular + Capacitor and ASP.NET Web API, with a focus on architecture, Azure AD B2C/PKCE auth, HealthKit/Garmin integration, performance, and UX.',
+    location: 'Prague · Remote',
+    current: true,
+    description: 'Building a mobile-first health product (Tolion Health). Full-stack across Ionic + Angular + Capacitor and ASP.NET Web API — architecture, Azure AD B2C/PKCE auth, HealthKit/Garmin integration, performance and UX.',
   },
   {
-    company: 'Freelance Software Engineer',
-    position: 'Software Engineer',
+    company: 'Freelance',
+    position: 'Mobile & Web Developer',
     period: '2015 – Present',
     location: 'Remote',
-    description: 'Building native mobile apps for iOS and Android, primarily with Angular + Ionic and React Native, handling everything from development to App Store and Google Play deployment.',
+    current: true,
+    description: 'End-to-end development of iOS and Android apps with Angular + Ionic and React Native — from the first commit to App Store and Google Play deployment.',
   },
   {
     company: 'CertiCon a.s.',
-    position: 'Software Architect → Senior Software Engineer',
+    position: 'Software Architect / Senior Software Engineer',
     period: 'Aug 2020 – Dec 2025',
-    location: 'Prague, Czechia',
-    description: 'Led architecture and development of enterprise Angular applications: Bosch diagnostics platform (Micro Frontends, module federation), Embitron healthcare cloud app (C#, ASP.NET, Azure), and internal ERP system.',
+    location: 'Prague',
+    description: 'Architecture and development of large Angular enterprise apps. Bosch diagnostics platform (Micro Frontends, module federation), Embitron healthcare cloud (C#, ASP.NET, Azure), and internal ERP system. Technical direction, code quality, team mentoring.',
   },
   {
     company: 'CCVis s.r.o.',
     position: 'Senior Software Engineer',
-    period: 'Oct 2022 – Dec 2022',
-    location: 'Pardubice, Czechia',
-    description: 'Web application for SaaS subscription activation on the Microsoft Azure Marketplace. Front-end standardisation and performance refactoring.',
+    period: 'Oct – Dec 2022',
+    location: 'Pardubice',
+    description: 'SaaS subscription activation app on Microsoft Azure Marketplace. Front-end standardisation and performance refactoring.',
   },
   {
     company: 'Foxconn CZ s.r.o.',
     position: 'Front-End Developer',
     period: 'Sep 2018 – Dec 2019',
-    location: 'Pardubice, Czechia',
-    description: 'Front-end for ERP system and production line management application with real-time monitoring of assembly lines, component flow, and quality metrics.',
+    location: 'Pardubice',
+    description: 'ERP and production line management app with real-time assembly line monitoring, component tracking, and quality metrics.',
   },
+];
+
+const education = [
   {
-    company: 'EDUCA',
-    position: 'IT',
-    period: 'Sep 2017 – Sep 2018',
-    location: 'Pardubice, Czechia',
-    description: '',
-  },
-  {
-    company: 'Web Developer & Service Technician',
-    position: 'Web Developer',
-    period: 'Jul 2016 – Dec 2016',
-    location: 'Hradec Králové, Czechia',
-    description: 'Angular 2+, HTML5, CSS3 (SCSS), JavaScript, PrestaShop.',
+    school: 'Secondary School, Malé Svatoňovice',
+    degree: 'Security and Protection Studies · Maturita',
+    period: '2010 – 2013',
   },
 ];
 
@@ -65,20 +61,34 @@ export function CV() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-zinc-100 dark:bg-zinc-950 py-8 px-4">
+    <div className="cv-wrapper min-h-screen bg-zinc-100 dark:bg-zinc-900 py-8 px-4">
       <style>{`
-        @page { margin: 12mm 14mm; size: A4; }
+        @page { margin: 0; size: A4; }
         @media print {
           .cv-toolbar { display: none !important; }
-          body { background: white !important; -webkit-print-color-adjust: exact; }
-          .cv-page { box-shadow: none !important; border-radius: 0 !important; margin: 0 !important; max-width: none !important; }
+          html, body { background: white !important; margin: 0; padding: 0; }
+          .cv-wrapper { background: white !important; padding: 0 !important; margin: 0 !important; }
+          .cv-page {
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            margin: 0 !important;
+            max-width: none !important;
+            width: 100% !important;
+            height: 297mm;
+            overflow: hidden;
+          }
+          .cv-sidebar {
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+            height: 297mm;
+          }
           .cv-exp-item { page-break-inside: avoid; break-inside: avoid; }
           .cv-section { page-break-inside: avoid; break-inside: avoid; }
         }
       `}</style>
 
       {/* Toolbar */}
-      <div className="cv-toolbar max-w-4xl mx-auto mb-5 flex items-center justify-between">
+      <div className="cv-toolbar max-w-[900px] mx-auto mb-5 flex items-center justify-between">
         <button
           onClick={() => navigate('/')}
           className="flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors cursor-pointer"
@@ -87,7 +97,12 @@ export function CV() {
           Back
         </button>
         <button
-          onClick={() => window.print()}
+          onClick={() => {
+            const prev = document.title;
+            document.title = 'Daniel_Vagner_CV';
+            window.print();
+            document.title = prev;
+          }}
           className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-xl transition-colors cursor-pointer"
         >
           <Printer className="w-4 h-4" />
@@ -96,110 +111,130 @@ export function CV() {
       </div>
 
       {/* CV Document */}
-      <div className="cv-page max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+      <div className="cv-page max-w-[900px] mx-auto bg-white rounded-2xl shadow-xl overflow-hidden flex items-stretch">
 
-        {/* Header */}
-        <div className="px-10 py-9 border-b border-zinc-100">
-          <div className="flex items-start justify-between gap-6">
-            <div>
-              <h1
-                className="text-4xl font-bold text-zinc-900 mb-1 tracking-tight"
-                style={{ fontFamily: 'var(--font-display)' }}
-              >
-                Daniel Vágner
-              </h1>
-              <p className="text-base text-indigo-600 font-medium mb-4">
-                Software Architect & Front-End Developer
-              </p>
-              <div className="flex flex-wrap gap-x-5 gap-y-1.5 text-xs text-zinc-500">
-                <span className="flex items-center gap-1.5">
-                  <Mail className="w-3 h-3 text-zinc-400" />
-                  danielvagner05@gmail.com
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <MapPin className="w-3 h-3 text-zinc-400" />
-                  Prague, Czechia
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <Globe className="w-3 h-3 text-zinc-400" />
-                  daniel-vagner.dev
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <svg className="w-3 h-3 text-zinc-400" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                  </svg>
-                  linkedin.com/in/danielvagner
-                </span>
-              </div>
+        {/* Sidebar */}
+        <div className="cv-sidebar w-[220px] shrink-0 bg-zinc-900 text-white flex flex-col">
+
+          {/* Photo */}
+          <div className="px-6 pt-6 pb-4 flex flex-col items-center text-center border-b border-white/10">
+            <div className="w-24 h-24 rounded-full overflow-hidden ring-4 ring-indigo-500/40 mb-3 shrink-0">
+              <img src={profilePic} alt="Daniel Vágner" className="w-full h-full object-cover object-top" />
             </div>
-            {/* Accent block */}
-            <div className="w-1.5 self-stretch rounded-full bg-gradient-to-b from-indigo-500 to-violet-500 shrink-0 hidden sm:block" />
+            <h1 className="text-base font-bold tracking-tight leading-tight" style={{ fontFamily: 'var(--font-display)' }}>
+              Daniel Vágner
+            </h1>
+            <p className="text-[11px] text-indigo-400 font-medium mt-1 leading-snug">
+              Senior Software Engineer
+            </p>
+          </div>
+
+          {/* Contact */}
+          <div className="px-5 py-3.5 border-b border-white/10 space-y-2">
+            <SideLabel>Contact</SideLabel>
+            <SideItem icon={<Mail className="w-3 h-3" />}>
+              <span className="break-all">danielvagner05@gmail.com</span>
+            </SideItem>
+            <SideItem icon={<MapPin className="w-3 h-3" />}>Prague, Czechia</SideItem>
+            <SideItem icon={<Globe className="w-3 h-3" />}>daniel-vagner.dev</SideItem>
+            <SideItem icon={
+              <svg className="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            }>
+              linkedin.com/in/danielvagner
+            </SideItem>
+          </div>
+
+          {/* Skills */}
+          <div className="px-5 py-3.5 border-b border-white/10">
+            <SideLabel>Skills</SideLabel>
+            {Object.entries(skills).map(([cat, items]) => (
+              <div key={cat} className="mb-2.5 last:mb-0">
+                <p className="text-[9px] font-semibold text-zinc-400 uppercase tracking-widest mb-1">{cat}</p>
+                <div className="flex flex-wrap gap-1">
+                  {items.map((s) => (
+                    <span key={s} className="px-1.5 py-0.5 rounded text-[9px] bg-white/10 text-zinc-300 border border-white/10">
+                      {s}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Education */}
+          <div className="px-5 py-3.5">
+            <SideLabel>Education</SideLabel>
+            {education.map((ed, i) => (
+              <div key={i}>
+                <p className="text-[11px] font-semibold text-zinc-200 leading-snug">{ed.school}</p>
+                <p className="text-[10px] text-zinc-400 mt-0.5">{ed.degree}</p>
+                <p className="text-[10px] text-zinc-500">{ed.period}</p>
+              </div>
+            ))}
           </div>
         </div>
 
-        <div className="px-10 py-8 space-y-7">
+        {/* Main content */}
+        <div className="flex-1 min-w-0 px-8 py-6 space-y-4">
 
-          {/* Summary */}
+          {/* Profile */}
           <section className="cv-section">
-            <SectionTitle>Summary</SectionTitle>
-            <p className="text-sm text-zinc-600 leading-relaxed">
-              Software Architect / Senior Software Engineer with 10+ years of experience specialising in Angular,
-              React, and modern front-end technologies. Experienced in building enterprise-grade applications,
-              mobile apps (iOS & Android), and full-stack solutions using C#, .NET, and the Microsoft ecosystem.
-              Passionate about clean architecture, performance, and developer experience.
+            <SectionTitle>Profile</SectionTitle>
+            <p className="text-[12px] text-zinc-600 leading-relaxed">
+              Senior Software Engineer with 9+ years of experience, mostly on the front end — Angular, React Native,
+              Ionic and TypeScript. I've led small teams, shaped architecture decisions as a Software Architect at
+              CertiCon, and built mobile apps end-to-end as a freelancer since 2015. Comfortable moving into the
+              back end when needed (C#, ASP.NET, Azure). I care about clean code, long-term maintainability,
+              and apps that are actually pleasant to use.
             </p>
-          </section>
-
-          {/* Skills */}
-          <section className="cv-section">
-            <SectionTitle>Skills</SectionTitle>
-            <div className="grid grid-cols-1 gap-2">
-              {Object.entries(skills).map(([category, items]) => (
-                <div key={category} className="flex gap-4 items-start">
-                  <span className="text-xs font-semibold text-zinc-400 uppercase tracking-widest w-16 shrink-0 pt-0.5">
-                    {category}
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {items.map((skill) => (
-                      <span
-                        key={skill}
-                        className="px-2 py-0.5 rounded-md text-xs bg-zinc-100 text-zinc-700 border border-zinc-200"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
           </section>
 
           {/* Experience */}
           <section className="cv-section">
             <SectionTitle>Experience</SectionTitle>
-            <div className="space-y-5">
+            <div className="space-y-3">
               {experiences.map((exp, i) => (
-                <div key={i} className="cv-exp-item flex gap-4">
-                  <div className="w-0.5 bg-indigo-200 rounded-full shrink-0 mt-1.5" />
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-start justify-between gap-3 flex-wrap">
-                      <div>
-                        <p className="font-semibold text-zinc-900 text-sm">{exp.position}</p>
-                        <p className="text-indigo-600 text-xs font-medium mt-0.5">{exp.company}</p>
-                      </div>
-                      <div className="text-right shrink-0">
-                        <p className="text-xs text-zinc-500 font-medium">{exp.period}</p>
-                        <p className="text-xs text-zinc-400 mt-0.5">{exp.location}</p>
-                      </div>
+                <div key={i} className="cv-exp-item">
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <p className="font-semibold text-zinc-900 text-[12px] leading-tight">{exp.position}</p>
+                      <p className="text-indigo-600 text-[11px] font-medium mt-0.5 flex items-center gap-1.5">
+                        {exp.company}
+                        {exp.current && (
+                          <span className="px-1.5 py-px rounded-full text-[8px] font-semibold bg-emerald-50 text-emerald-600 border border-emerald-200">
+                            Current
+                          </span>
+                        )}
+                      </p>
                     </div>
-                    {exp.description && (
-                      <p className="text-xs text-zinc-500 mt-1.5 leading-relaxed">{exp.description}</p>
-                    )}
+                    <div className="text-right shrink-0">
+                      <p className="text-[11px] text-zinc-500 font-medium">{exp.period}</p>
+                      <p className="text-[10px] text-zinc-400 mt-0.5">{exp.location}</p>
+                    </div>
                   </div>
+                  {exp.description && (
+                    <p className="text-[11px] text-zinc-500 mt-1 leading-relaxed">{exp.description}</p>
+                  )}
+                  {i < experiences.length - 1 && (
+                    <div className="mt-2.5 border-b border-zinc-100" />
+                  )}
                 </div>
               ))}
             </div>
           </section>
+
+          {/* Footer note */}
+          <div className="pt-2 border-t border-zinc-100 flex items-center justify-between">
+            <p className="text-[10px] text-zinc-400">
+              * Experience listed covers the last 10 years.
+            </p>
+            <p className="text-[10px] text-zinc-400">
+              Generated from{' '}
+              <span className="text-indigo-500">daniel-vagner.dev</span>
+            </p>
+          </div>
 
         </div>
       </div>
@@ -209,11 +244,31 @@ export function CV() {
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
-    <h2
-      className="text-xs font-bold text-zinc-400 uppercase tracking-[0.18em] border-b border-zinc-100 pb-2 mb-3"
-      style={{ fontFamily: 'var(--font-display)' }}
-    >
+    <div className="flex items-center gap-3 mb-2.5">
+      <h2
+        className="text-[9px] font-bold text-zinc-400 uppercase tracking-[0.2em] whitespace-nowrap"
+        style={{ fontFamily: 'var(--font-display)' }}
+      >
+        {children}
+      </h2>
+      <div className="flex-1 h-px bg-zinc-100" />
+    </div>
+  );
+}
+
+function SideLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.2em] mb-2">
       {children}
-    </h2>
+    </p>
+  );
+}
+
+function SideItem({ icon, children }: { icon: React.ReactNode; children: React.ReactNode }) {
+  return (
+    <div className="flex items-start gap-2 text-[10px] text-zinc-400 leading-snug">
+      <span className="mt-0.5 text-zinc-500 shrink-0">{icon}</span>
+      <span>{children}</span>
+    </div>
   );
 }
