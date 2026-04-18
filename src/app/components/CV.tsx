@@ -24,7 +24,7 @@ const experiences = [
     period: '2015 – Present',
     location: 'Remote',
     current: true,
-    description: 'End-to-end development of iOS and Android apps with Angular + Ionic and React Native — from the first commit to App Store and Google Play deployment.',
+    description: 'End-to-end development of web and mobile applications. On mobile, I work primarily with Ionic + Capacitor (formerly Cordova) and React Native, delivering native apps for both iOS and Android — from development through App Store and Google Play deployment.',
   },
   {
     company: 'CertiCon a.s.',
@@ -52,7 +52,8 @@ const experiences = [
 const education = [
   {
     school: 'Secondary School, Malé Svatoňovice',
-    degree: 'Security and Protection Studies · Maturita',
+    degree: 'Security and Protection Studies',
+    credential: 'Secondary School Leaving Certificate',
     period: '2010 – 2013',
   },
 ];
@@ -74,13 +75,12 @@ export function CV() {
             margin: 0 !important;
             max-width: none !important;
             width: 100% !important;
-            height: 297mm;
-            overflow: hidden;
+            min-height: 297mm;
           }
           .cv-sidebar {
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
-            height: 297mm;
+            min-height: 297mm;
           }
           .cv-exp-item { page-break-inside: avoid; break-inside: avoid; }
           .cv-section { page-break-inside: avoid; break-inside: avoid; }
@@ -164,12 +164,13 @@ export function CV() {
           </div>
 
           {/* Education */}
-          <div className="px-5 py-3.5">
+          <div className="px-5 py-3.5 flex-1">
             <SideLabel>Education</SideLabel>
             {education.map((ed, i) => (
               <div key={i}>
                 <p className="text-[11px] font-semibold text-zinc-200 leading-snug">{ed.school}</p>
                 <p className="text-[10px] text-zinc-400 mt-0.5">{ed.degree}</p>
+                {'credential' in ed && <p className="text-[10px] text-zinc-500">{(ed as typeof ed & { credential: string }).credential}</p>}
                 <p className="text-[10px] text-zinc-500">{ed.period}</p>
               </div>
             ))}
@@ -177,18 +178,17 @@ export function CV() {
         </div>
 
         {/* Main content */}
-        <div className="flex-1 min-w-0 px-8 py-6 space-y-4">
+        <div className="flex-1 min-w-0 px-8 py-6 space-y-4 flex flex-col">
 
           {/* Profile */}
           <section className="cv-section">
             <SectionTitle>Profile</SectionTitle>
-            <p className="text-[12px] text-zinc-600 leading-relaxed">
-              Senior Software Engineer with 9+ years of experience, mostly on the front end — Angular, React Native,
-              Ionic and TypeScript. I've led small teams, shaped architecture decisions as a Software Architect at
-              CertiCon, and built mobile apps end-to-end as a freelancer since 2015. Comfortable moving into the
-              back end when needed (C#, ASP.NET, Azure). I care about clean code, long-term maintainability,
-              and apps that are actually pleasant to use.
-            </p>
+            <div className="text-[12px] text-zinc-600 leading-relaxed space-y-2">
+              <p>I'm a Senior Software Engineer with a background in front-end development, mobile apps, and software architecture. Most of my work has been with Angular and TypeScript — building single-page applications where I care a lot about clean code, good architecture, and performance. I've also spent time on the back end with ASP.NET Core and had a stint with NestJS, which gave me a solid feel for structured backend development in TypeScript.</p>
+              <p>For mobile, I mostly work with Ionic + Capacitor and React Native — cross-platform apps for iOS and Android. A lot of my freelance projects have been on the mobile side, which I've been doing since 2015.</p>
+              <p>At CertiCon I eventually moved into a Software Architect role, which meant taking ownership of technical direction, reviewing code, and working closely with the team on bigger decisions. It was a good few years and taught me a lot about how to build things that last.</p>
+              <p>I also care about the design side — I use Figma for prototyping and design handoffs, and I think good UX and good code go hand in hand.</p>
+            </div>
           </section>
 
           {/* Experience */}
@@ -226,10 +226,7 @@ export function CV() {
           </section>
 
           {/* Footer note */}
-          <div className="pt-2 border-t border-zinc-100 flex items-center justify-between">
-            <p className="text-[10px] text-zinc-400">
-              * Experience listed covers the last 10 years.
-            </p>
+          <div className="mt-auto pt-3 border-t border-zinc-100 flex justify-end">
             <p className="text-[10px] text-zinc-400">
               Generated from{' '}
               <span className="text-indigo-500">daniel-vagner.dev</span>
@@ -245,10 +242,7 @@ export function CV() {
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-3 mb-2.5">
-      <h2
-        className="text-[9px] font-bold text-zinc-400 uppercase tracking-[0.2em] whitespace-nowrap"
-        style={{ fontFamily: 'var(--font-display)' }}
-      >
+      <h2 className="text-[9px] font-bold text-zinc-400 uppercase tracking-[0.2em] whitespace-nowrap">
         {children}
       </h2>
       <div className="flex-1 h-px bg-zinc-100" />
