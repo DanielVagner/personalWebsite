@@ -82,7 +82,7 @@ export function Skills() {
                     <Icon className={`w-4 h-4 ${cat.iconColor}`} />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm leading-tight">
+                    <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm leading-tight whitespace-nowrap">
                       {cat.title}
                     </h3>
                     <p className="text-xs text-zinc-500 dark:text-zinc-500 mt-0.5">

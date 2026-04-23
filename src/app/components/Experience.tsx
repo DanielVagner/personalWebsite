@@ -22,7 +22,7 @@ const experiences = [
     period: '2015 - Present',
     duration: '11 yrs 2 mos',
     location: 'Remote',
-    description: 'Coding has always been my passion, not just my profession — so a few years ago I decided to take on freelance work on the side. I build native mobile apps for iOS and Android, primarily with Angular + Ionic and React Native, handling everything from development to App Store and Google Play deployment.',
+    description: 'Coding has always been my passion, not just my profession, so a few years ago I decided to take on freelance work on the side. I build native mobile apps for iOS and Android, primarily with Angular + Ionic and React Native, handling everything from development to App Store and Google Play deployment.',
     skills: ['Angular', 'TypeScript', 'Ionic', 'RxJS', 'NgXs'],
     current: true,
   },
@@ -48,7 +48,7 @@ const experiences = [
       },
       {
         name: 'ERP',
-        description: 'Internal ERP initiative using Angular, TypeScript, RxJS, NRWL NGXS and custom Material CDK components to streamline and optimise internal processes.',
+        description: 'Internal ERP system using Angular, TypeScript, RxJS, NRWL NGXS and custom Material CDK components.',
       },
     ],
     skills: ['Angular', 'TypeScript', 'Design Systems', '.NET', 'C#', 'Git'],
@@ -60,7 +60,7 @@ const experiences = [
     period: 'Oct 2022 - Dec 2022',
     duration: '3 mos',
     location: 'Pardubice, Czechia',
-    description: 'Developed a web application for SaaS subscription activation on the Microsoft Azure Marketplace — modular platform, reusable components, high development standards.',
+    description: 'Developed a web application for SaaS subscription activation on the Microsoft Azure Marketplace. Modular platform, reusable components, high development standards.',
     skills: ['Angular', 'TypeScript', 'Git'],
   },
   {
@@ -70,7 +70,7 @@ const experiences = [
     period: 'Sep 2018 - Dec 2019',
     duration: '1 yr 4 mos',
     location: 'Pardubice, Czechia',
-    description: 'Front-end for an ERP system and real-time production line management tool — tracking component flow, quality metrics, and optimising manufacturing processes.',
+    description: 'Front-end for an ERP system and real-time production line management tool, tracking component flow, quality metrics, and optimising manufacturing processes.',
     skills: ['Angular', 'TypeScript', 'HTML5', 'CSS3'],
   },
   {
