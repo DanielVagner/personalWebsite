@@ -80,17 +80,6 @@ export function Navigation() {
               : 'bg-white/55 dark:bg-zinc-950/55 backdrop-blur-md border border-white/40 dark:border-white/5'
           }`}
         >
-          <button
-            onClick={() => scrollToSection('#home')}
-            className="mr-1.5 px-3 py-1.5 rounded-full text-sm font-bold tracking-widest transition-all duration-200 hover:bg-indigo-50 dark:hover:bg-indigo-950/60 cursor-pointer"
-            style={{ fontFamily: 'var(--font-display)' }}
-          >
-            <span className="text-indigo-500">D</span>
-            <span className="text-zinc-800 dark:text-zinc-100">V</span>
-          </button>
-
-          <div className="h-4 w-px bg-zinc-200 dark:bg-zinc-700 mx-1" />
-
           {navItems.map((item) => {
             const isActive = activeSection === item.href.slice(1);
             return (
@@ -128,15 +117,6 @@ export function Navigation() {
             ? 'bg-white/90 dark:bg-zinc-950/90 backdrop-blur-xl border-b border-zinc-200/50 dark:border-white/8'
             : 'bg-transparent'
         }`}>
-          <button
-            onClick={() => scrollToSection('#home')}
-            className="text-sm font-bold tracking-widest cursor-pointer"
-            style={{ fontFamily: 'var(--font-display)' }}
-          >
-            <span className="text-indigo-500">D</span>
-            <span className="text-zinc-800 dark:text-zinc-100">V</span>
-          </button>
-
           <div className="flex items-center gap-1.5">
             <ThemeToggle />
             <button

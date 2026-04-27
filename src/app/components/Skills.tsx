@@ -1,4 +1,4 @@
-import { Code2, Database, Wrench } from 'lucide-react';
+import { Code2, Database, Wrench, Smartphone } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { useTranslation } from 'react-i18next';
@@ -15,7 +15,7 @@ export function Skills() {
       iconBg: 'bg-indigo-500/15', iconColor: 'text-indigo-500 dark:text-indigo-400',
       hoverBorder: 'hover:border-indigo-500/50 hover:text-indigo-400 dark:hover:border-indigo-400/50 dark:hover:text-indigo-300',
       colSpan: 'md:col-span-2',
-      skills: ['React','Angular','TypeScript','JavaScript','HTML5','SCSS/CSS','RxJS','Redux/NgRx','Ionic','Capacitor','Material Design','Micro Frontends'],
+      skills: ['Angular','React','TypeScript','JavaScript','HTML5','SCSS/CSS','Tailwind CSS','RxJS','NgXs','Material Design','Micro Frontends'],
     },
     {
       id: 'backend', icon: Database,
@@ -23,15 +23,23 @@ export function Skills() {
       iconBg: 'bg-violet-500/15', iconColor: 'text-violet-500 dark:text-violet-400',
       hoverBorder: 'hover:border-violet-500/50 hover:text-violet-400 dark:hover:border-violet-400/50 dark:hover:text-violet-300',
       colSpan: 'md:col-span-1',
-      skills: ['C#','.NET Core','ASP.NET','REST APIs','SignalR','Azure Services'],
+      skills: ['C#','.NET Core','ASP.NET','REST APIs','Azure Services'],
+    },
+    {
+      id: 'mobile', icon: Smartphone,
+      title: t('skills.mobile.title'), subtitle: t('skills.mobile.subtitle'),
+      iconBg: 'bg-sky-500/15', iconColor: 'text-sky-500 dark:text-sky-400',
+      hoverBorder: 'hover:border-sky-500/50 hover:text-sky-400 dark:hover:border-sky-400/50 dark:hover:text-sky-300',
+      colSpan: 'md:col-span-1',
+      skills: ['Ionic','React Native','Capacitor','Cordova','iOS','Android','SwiftUI','HealthKit','Garmin SDK'],
     },
     {
       id: 'tools', icon: Wrench,
       title: t('skills.tools.title'), subtitle: t('skills.tools.subtitle'),
       iconBg: 'bg-emerald-500/15', iconColor: 'text-emerald-500 dark:text-emerald-400',
       hoverBorder: 'hover:border-emerald-500/50 hover:text-emerald-400 dark:hover:border-emerald-400/50 dark:hover:text-emerald-300',
-      colSpan: 'md:col-span-3',
-      skills: ['Figma','Azure DevOps','Visual Studio','VS Code','Git','Azure AD B2C','Microsoft 365','Webpack','Karma/Jasmine','HealthKit','Garmin SDK'],
+      colSpan: 'md:col-span-2',
+      skills: ['Figma','Azure DevOps','VS Code','Git','Azure AD B2C','Webpack','Karma/Jasmine'],
     },
   ];
 
