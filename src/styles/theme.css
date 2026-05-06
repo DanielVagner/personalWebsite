@@ -121,6 +121,34 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+@keyframes tech-jump {
+  0%, 100% { transform: translateY(0); }
+  10%      { transform: translateY(5px); }
+  40%, 60% { transform: translateY(-62px); }
+  90%      { transform: translateY(3px); }
+}
+@keyframes tech-squash {
+  0%, 100%    { transform: scaleX(1)    scaleY(1);    }
+  8%, 92%     { transform: scaleX(1.28) scaleY(0.72); }
+  40%, 60%    { transform: scaleX(0.88) scaleY(1.12); }
+}
+@keyframes arm-jump-l {
+  0%, 15%, 85%, 100% { transform: rotate(0deg);    }
+  40%, 60%           { transform: rotate(105deg);   }
+}
+@keyframes arm-jump-r {
+  0%, 15%, 85%, 100% { transform: rotate(0deg);    }
+  40%, 60%           { transform: rotate(-105deg);  }
+}
+@keyframes leg-jump-l {
+  0%, 15%, 85%, 100% { transform: rotate(16deg);  }
+  40%, 60%           { transform: rotate(-8deg);   }
+}
+@keyframes leg-jump-r {
+  0%, 15%, 85%, 100% { transform: rotate(-16deg); }
+  40%, 60%           { transform: rotate(8deg);    }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

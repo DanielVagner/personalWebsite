@@ -121,20 +121,23 @@ export function Navigation() {
             ? 'bg-white/90 dark:bg-zinc-950/90 backdrop-blur-xl border-b border-zinc-200/50 dark:border-white/8'
             : 'bg-transparent'
         }`}>
-          <div className="flex items-center gap-1.5">
+          {/* Hamburger — left */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="p-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+            aria-label="Toggle menu"
+          >
+            <div className="w-5 h-5 flex flex-col justify-center items-center relative">
+              <motion.span animate={{ rotate: isMobileMenuOpen ? 45 : 0, y: isMobileMenuOpen ? 0 : -5 }} transition={{ duration: 0.25 }} className="w-5 h-0.5 bg-current absolute" />
+              <motion.span animate={{ opacity: isMobileMenuOpen ? 0 : 1 }} transition={{ duration: 0.15 }} className="w-5 h-0.5 bg-current absolute" />
+              <motion.span animate={{ rotate: isMobileMenuOpen ? -45 : 0, y: isMobileMenuOpen ? 0 : 5 }} transition={{ duration: 0.25 }} className="w-5 h-0.5 bg-current absolute" />
+            </div>
+          </button>
+
+          {/* Lang + Theme — right */}
+          <div className="flex items-center gap-1">
             <LangToggle />
             <ThemeToggle />
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
-              aria-label="Toggle menu"
-            >
-              <div className="w-5 h-5 flex flex-col justify-center items-center relative">
-                <motion.span animate={{ rotate: isMobileMenuOpen ? 45 : 0, y: isMobileMenuOpen ? 0 : -5 }} transition={{ duration: 0.25 }} className="w-5 h-0.5 bg-current absolute" />
-                <motion.span animate={{ opacity: isMobileMenuOpen ? 0 : 1 }} transition={{ duration: 0.15 }} className="w-5 h-0.5 bg-current absolute" />
-                <motion.span animate={{ rotate: isMobileMenuOpen ? -45 : 0, y: isMobileMenuOpen ? 0 : 5 }} transition={{ duration: 0.25 }} className="w-5 h-0.5 bg-current absolute" />
-              </div>
-            </button>
           </div>
         </div>
 
