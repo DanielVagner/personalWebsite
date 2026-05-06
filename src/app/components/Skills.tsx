@@ -2,7 +2,6 @@ import { Code2, Database, Wrench, Smartphone } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { useTranslation } from 'react-i18next';
-import { TechParade } from './TechParade';
 
 
 export function Skills() {
@@ -53,9 +52,7 @@ export function Skills() {
       {/* Subtle radial glow */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_35%_at_50%_0%,rgba(99,102,241,0.07),transparent)] dark:bg-[radial-gradient(ellipse_70%_35%_at_50%_0%,rgba(99,102,241,0.1),transparent)] pointer-events-none" />
 
-      <TechParade />
-
-      <div className="max-w-6xl mx-auto relative" style={{ zIndex: 1 }}>
+      <div className="max-w-6xl mx-auto relative">
 
         {/* Header */}
         <motion.div
