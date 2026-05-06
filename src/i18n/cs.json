@@ -8,78 +8,110 @@
     "contact": "Kontakt"
   },
   "hero": {
-    "subtitle": "Softwarový Architekt | Specialista na Front-End",
-    "description": "Tvořím výjimečné uživatelské zážitky s Angular, React a moderními webovými technologiemi. Stavím škálovatelné architektury napříč celým Microsoft ekosystémem.",
+    "subtitle": "Senior Software Engineer · Team Lead & Architektura",
+    "description": "Tvořím webové aplikace v Angular / React a nativní mobilní aplikace s Ionic / React Native. Dbám na čistou architekturu a dobré uživatelské rozhraní. Na back‑endu sahám po .NET, když to projekt vyžaduje.",
     "viewProjects": "Zobrazit projekty",
-    "getInTouch": "Kontaktujte mě"
+    "getInTouch": "Napište mi"
   },
   "skills": {
     "label": "S čím pracuji",
     "title": "Technické dovednosti",
-    "description": "Hluboká odbornost ve front-end architektuře a moderním webovém vývoji, s robustními back-end schopnostmi v Microsoft ekosystému.",
-    "frontend": { "title": "Front-End vývoj", "subtitle": "Primární odbornost" },
-    "backend": { "title": "Back-End vývoj", "subtitle": "Microsoft Stack" },
-    "tools": { "title": "Nástroje & Ekosystém", "subtitle": "Figma & Microsoft ekosystém" }
+    "description": "Většinu času trávím na frontendu, ale pohybuji se pohodlně po celém stacku podle toho, co projekt potřebuje.",
+    "frontend": { "title": "Front-End", "subtitle": "Primární zaměření" },
+    "backend": { "title": "Back-End", "subtitle": "Microsoft stack" },
+    "mobile": { "title": "Mobilní vývoj", "subtitle": "iOS & Android" },
+    "tools": { "title": "Nástroje & Ekosystém", "subtitle": "Každodenní práce" }
   },
   "about": {
     "label": "Kdo jsem",
     "title": "O mně",
-    "description": "Vášnivý softwarový architekt a inženýr specializující se na front-end excelenci a škálovatelné architektury.",
-    "journeyTitle": "Moje cesta",
-    "p1": "Jako softwarový architekt v HTEC a s rozsáhlými zkušenostmi z CertiConu se specializuji na vývoj mobilních zdravotnických aplikací a enterprise řešení. Moje odbornost pokrývá celý stack — od Angular a React na front-endu po ASP.NET a Azure služby na back-endu.",
-    "p2": "Přispěl jsem k velkým projektům ve firmách jako Bosch, kde jsem implementoval špičkové Micro Frontend architektury a Material Design systémy. Zaměřuji se na dodávání výkonných, škálovatelných aplikací s výjimečným uživatelským zážitkem.",
-    "p3": "Od roku 2015 také vedu úspěšnou freelance praxi zaměřenou na vývoj mobilních aplikací s Ionic a Angular. Tento dvojí pohled — enterprise architektura a praktický vývoj — mi umožňuje vytvářet řešení, která jsou technicky robustní i uživatelsky přívětivá.",
-    "h1Title": "9+ let zkušeností",
-    "h1Desc": "Vedení front-end architektury a vývojových týmů",
-    "h2Title": "Architektonická excelence",
-    "h2Desc": "Softwarový architekt v CertiConu, budování enterprise řešení",
-    "h3Title": "Full-Stack schopnosti",
-    "h3Desc": "Odborník na Angular, React, TypeScript a .NET ekosystém",
-    "h4Title": "Kontinuální inovace",
-    "h4Desc": "Průkopník Micro Frontend architektur a moderních vzorů",
-    "philosophyTitle": "Filozofie",
-    "uc": "Uživatelsky orientovaný",
-    "ucDesc": "Každé architektonické rozhodnutí zohledňuje zkušenost koncového uživatele",
-    "sd": "Škálovatelný design",
-    "sdDesc": "Stavím systémy, které rostou spolu s obchodními potřebami",
-    "pf": "Výkon na prvním místě",
-    "pfDesc": "Optimalizace rychlosti bez kompromisů v kvalitě"
+    "description": "Senior Software Engineer se zkušenostmi v softwarové architektuře a vedení týmu.",
+    "journeyTitle": "Pár slov o mně",
+    "p1": "Pracuji jako Senior Software Engineer v HTEC, kde vyvíjím mobilní zdravotní aplikaci na Ionic, Angular a ASP.NET Web API. Předtím jsem strávil několik let v CertiConu, kde jsem postupem času převzal roli softwarového architekta. Mezi projekty, na kterých jsem pracoval, patří Bosch, Medtronic a Tolion.",
+    "p2": "Většina mé práce je na frontendu, ale vždy jsem se v případě potřeby bez problémů přesunul i do jiných částí stacku. Vedl jsem menší týmy, podílel se na technických rozhodnutích a snažil se udržet kvalitu kódu na rozumné úrovni.",
+    "p3": "Vedle hlavní práce se od roku 2015 věnuji freelance vývoji mobilních aplikací, převážně Ionic a Angular, v poslední době i React Native. Baví mě, že mám nad projektem úplnou kontrolu od prvního commitu až po publikaci na App Store a Google Play.",
+    "h1Title": "11+ let v oboru",
+    "h1Desc": "Frontend, mobilní vývoj i backend v produktových i agenturních prostředích",
+    "h2Title": "Architektura & vedení týmu",
+    "h2Desc": "Technické vedení a mentoring vývojářů v CertiConu",
+    "h3Title": "Full-Stack bez obav",
+    "h3Desc": "Angular, React, Ionic, .NET a Azure, podle toho co projekt potřebuje",
+    "h4Title": "Neustále se učím",
+    "h4Desc": "Sleduji nové nástroje a postupy jak se ekosystém vyvíjí",
+    "philosophyTitle": "Jak pracuji",
+    "uc": "Uživatel na prvním místě",
+    "ucDesc": "Snažím se dělat věci, které jsou skutečně příjemné na používání",
+    "sd": "Čitelný kód",
+    "sdDesc": "Kód píšu tak, aby mu rozuměl i příští vývojář (nebo já za rok)",
+    "pf": "Výkon se počítá",
+    "pfDesc": "Rychlé aplikace dělají uživatele spokojené. Hlídám si velikost bundlu a výkon renderování"
   },
   "experience": {
-    "label": "Moje cesta",
+    "label": "Kde jsem byl",
     "title": "Zkušenosti",
-    "description": "Od prvních řádků kódu po architekturu enterprise aplikací — zde jsem byl."
+    "description": "Přehled relevantních pozic za posledních 10 let.",
+    "current": "Aktuální",
+    "items": {
+      "htec": "Vývoj mobilní zdravotní aplikace Tolion Health. Full-stack přes Ionic + Angular + Capacitor a ASP.NET Web API, se zaměřením na architekturu, Azure AD B2C/PKCE autentizaci, HealthKit/Garmin integraci, výkon a UX.",
+      "freelance": "Kódování mě baví i po pracovní době, takže od roku 2015 beru i vedlejší projekty. Dělám mobilní aplikace pro iOS a Android, převážně Angular + Ionic a React Native a řeším vše od vývoje po nasazení na App Store a Google Play.",
+      "ccvis": "Vývoj webové aplikace pro aktivaci SaaS předplatného na Microsoft Azure Marketplace. Modulární platforma, znovupoužitelné komponenty, vysoké vývojové standardy.",
+      "foxconn": "Frontend pro ERP systém a nástroj pro řízení výrobní linky v reálném čase — přehled výroby, metriky kvality a optimalizace procesů.",
+      "webdev": "Angular 2+, HTML5, CSS3 (SCSS), JavaScript, PrestaShop"
+    },
+    "projects": {
+      "bosch": {
+        "name": "Bosch",
+        "desc": "Greenfield Angular + TypeScript projekt pro diagnostiku automobilů. Micro Frontends přes module federation, RxJS, NRWL NGXS, Material CDK, testování Karma/Jasmine."
+      },
+      "embitron": {
+        "name": "Embitron",
+        "desc": "Cloudová aplikace pro evidenci a správu zdravotnických přístrojů. C#, ASP.NET 6.0, Angular, Azure cloud services a úložiště."
+      },
+      "erp": {
+        "name": "ERP",
+        "desc": "Interní ERP systém v Angular, TypeScript, RxJS, NRWL NGXS a vlastních Material CDK komponentách."
+      }
+    }
   },
   "projects": {
-    "label": "Co jsem postavil",
+    "label": "Na čem jsem pracoval",
     "title": "Projekty",
-    "description": "Několik věcí, které jsem vytvořil za ta léta — od mobilních aplikací po webové stránky.",
+    "description": "Pár vybraných projektů, na kterých jsem pracoval.",
     "showMore": "Zobrazit dalších {{count}}",
-    "showLess": "Zobrazit méně"
+    "showLess": "Zobrazit méně",
+    "showAll": "Zobrazit vše",
+    "items": {
+      "hudba": "Appka pro objevování koncertů s koupí lístků, hledáním akcí podle polohy a navigací do viničních areálů. Postavena pro českou open-air koncertní sérii.",
+      "tolion": "Appka pro zdraví mozku s AI koučem, personalizovanými doporučeními aktivit a sledováním kognitivní výkonnosti. Součástí je ukazatel věku mozku a týdenní přehledy.",
+      "tpodlahy": "Web pro firmu pokládající podlahy. Přehled služeb, fotogalerie, kontaktní formulář a informace o vinylu, laminátě a renovaci parket.",
+      "qrticket": "Odbavovací appka pro akce s QR skenováním, online/offline režimem, sledováním návštěvnosti a exportovatelnými reporty pro pořadatele.",
+      "findtastic": "Srovnávač cen pro zákazníky v USA. Sleduje ceny napříč e-shopy a zobrazuje nejlepší nabídky v reálném čase.",
+      "mdas": "Desktopová aplikace pro sledování bezpečnostních upozornění zdravotnických přístrojů a regulatorní shody. Zaměřená na implantáty jako inzulínové pumpy, kardiostimulátory a defibrilátory.",
+      "ccvision": "Webová aplikace pro detekci a rozpoznávání objektů v reálném čase, integrovaná s různými hardwarovými platformami."
+    }
   },
   "contact": {
-    "label": "Pojďme si promluvit",
-    "title": "Kontaktujte mě",
-    "description": "Máte zájem o spolupráci na projektu nebo diskusi o architektonických příležitostech? Rád se s vámi spojím.",
-    "formTitle": "Napište mi",
-    "formDesc": "Vyplňte formulář a ozvu se vám co nejdříve.",
+    "label": "Ozvěte se",
+    "title": "Kontakt",
+    "description": "Máte projekt nebo nápad, o kterém chcete mluvit? Napište mi.",
+    "formTitle": "Napište mi zprávu",
+    "formDesc": "Obvykle se ozvu do jednoho až dvou dnů.",
     "name": "Jméno",
     "namePlaceholder": "Vaše jméno",
     "email": "E-mail",
-    "emailPlaceholder": "vas.email@priklad.cz",
+    "emailPlaceholder": "vas@email.cz",
     "message": "Zpráva",
-    "messagePlaceholder": "Řekněte mi o svém projektu nebo dotazu...",
-    "send": "Odeslat zprávu",
-    "sending": "Odesílání...",
-    "success": "Zpráva byla úspěšně odeslána!",
-    "error": "Něco se pokazilo. Zkuste to prosím znovu.",
-    "connectTitle": "Spojte se se mnou",
-    "connectDesc": "Najdete mě na těchto platformách nebo mě kontaktujte přímo.",
-    "availableTitle": "K dispozici pro příležitosti",
-    "availableDesc": "Momentálně otevřen konzultačním projektům a pozicím zaměřeným na front-end architekturu a leadership."
+    "messagePlaceholder": "Vaše zpráva...",
+    "send": "Odeslat",
+    "sending": "Odesílám...",
+    "success": "Zpráva odeslána. Ozvu se co nejdříve.",
+    "error": "Něco se pokazilo. Zkuste to znovu nebo mi napište přímo na e-mail.",
+    "connectTitle": "Nebo mi napište přímo",
+    "availableTitle": "Otevřen novým příležitostem",
+    "availableDesc": "Zajímám se o fulltime pozice i freelance projekty, hlavně frontend architektura, mobilní vývoj nebo cokoli v TypeScriptu."
   },
   "footer": {
-    "built": "Postaveno s React & TypeScript",
+    "built": "Postaveno v React & TypeScript",
     "source": "Zdrojový kód"
   }
 }

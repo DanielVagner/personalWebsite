@@ -165,12 +165,9 @@ export function Contact() {
           >
             {/* Connect links */}
             <div className="rounded-2xl bg-white dark:bg-white/[0.03] border border-zinc-200/80 dark:border-white/[0.06] p-6">
-              <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm mb-1">
+              <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm mb-4">
                 {t('contact.connectTitle')}
               </h3>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-5">
-                {t('contact.connectDesc')}
-              </p>
               <div className="space-y-2">
                 {contactLinks.map((link, i) => {
                   const Icon = link.icon;

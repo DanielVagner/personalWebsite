@@ -5,28 +5,29 @@ import { useTranslation } from 'react-i18next';
 
 const experiences = [
   {
+    id: 'htec',
     company: 'HTEC',
     position: 'Senior Software Engineer',
     type: 'Full-time',
     period: 'Nov 2025 - Present',
     duration: '4 mos',
     location: 'Prague, Czechia · Remote',
-    description: 'Building a mobile-first health product at Tolion Health. Full-stack across Ionic + Angular + Capacitor and ASP.NET Web API, with a focus on architecture, Azure AD B2C/PKCE auth, HealthKit/Garmin integration, performance, and UX.',
     skills: ['Ionic', 'Angular', 'Capacitor', 'ASP.NET Web API', 'Azure AD B2C', 'HealthKit', 'Garmin'],
     current: true,
   },
   {
+    id: 'freelance',
     company: 'Freelance Software Engineer',
     position: 'Software Engineer',
     type: 'Self Employed',
     period: '2015 - Present',
     duration: '11 yrs 2 mos',
     location: 'Remote',
-    description: 'Coding has always been my passion, not just my profession, so a few years ago I decided to take on freelance work on the side. I build native mobile apps for iOS and Android, primarily with Angular + Ionic and React Native, handling everything from development to App Store and Google Play deployment.',
     skills: ['Angular', 'TypeScript', 'Ionic', 'RxJS', 'NgXs'],
     current: true,
   },
   {
+    id: 'certicon',
     company: 'CertiCon a.s.',
     position: 'Software Architect',
     positions: [
@@ -37,43 +38,31 @@ const experiences = [
     period: 'Jun 2024 - Dec 2025',
     totalDuration: '6 yrs 1 mo',
     location: 'Prague, Czechia',
-    projects: [
-      {
-        name: 'Bosch',
-        description: 'Greenfield Angular + TypeScript project for automobile diagnostics. Micro Frontends via module federation, RxJS, NRWL NGXS, Material CDK, Karma/Jasmine testing.',
-      },
-      {
-        name: 'Embitron',
-        description: 'Cloud application for recording and managing healthcare devices. C#, ASP.NET 6.0, Angular, Azure cloud services and storage.',
-      },
-      {
-        name: 'ERP',
-        description: 'Internal ERP system using Angular, TypeScript, RxJS, NRWL NGXS and custom Material CDK components.',
-      },
-    ],
+    projects: ['bosch', 'embitron', 'erp'],
     skills: ['Angular', 'TypeScript', 'Design Systems', '.NET', 'C#', 'Git'],
   },
   {
+    id: 'ccvis',
     company: 'CCVis s.r.o.',
     position: 'Senior Software Engineer',
     type: 'Part-time',
     period: 'Oct 2022 - Dec 2022',
     duration: '3 mos',
     location: 'Pardubice, Czechia',
-    description: 'Developed a web application for SaaS subscription activation on the Microsoft Azure Marketplace. Modular platform, reusable components, high development standards.',
     skills: ['Angular', 'TypeScript', 'Git'],
   },
   {
+    id: 'foxconn',
     company: 'Foxconn CZ s.r.o.',
     position: 'Front-end Developer',
     type: 'Full-time',
     period: 'Sep 2018 - Dec 2019',
     duration: '1 yr 4 mos',
     location: 'Pardubice, Czechia',
-    description: 'Front-end for an ERP system and real-time production line management tool, tracking component flow, quality metrics, and optimising manufacturing processes.',
     skills: ['Angular', 'TypeScript', 'HTML5', 'CSS3'],
   },
   {
+    id: 'educa',
     company: 'EDUCA',
     position: 'IT',
     type: 'Full-time',
@@ -83,13 +72,13 @@ const experiences = [
     skills: ['Angular', 'Web Development'],
   },
   {
+    id: 'webdev',
     company: 'Web Developer & Service Technician',
     position: 'Web Developer',
     type: 'Full-time',
     period: 'Jul 2016 - Dec 2016',
     duration: '6 mos',
     location: 'Hradec Králové, Czechia',
-    description: 'Angular 2+, HTML5, CSS3 (SCSS), JavaScript, PrestaShop',
     skills: ['Angular 2+', 'HTML5', 'CSS3', 'JavaScript', 'PrestaShop'],
   },
 ];
@@ -97,6 +86,7 @@ const experiences = [
 type Exp = typeof experiences[number];
 
 function TimelineCard({ exp }: { exp: Exp }) {
+  const { t } = useTranslation();
   const period = 'positions' in exp && exp.positions ? exp.positions[0].period : exp.period;
   const duration = 'totalDuration' in exp ? exp.totalDuration : exp.duration;
 
@@ -121,7 +111,7 @@ function TimelineCard({ exp }: { exp: Exp }) {
         <div className="flex flex-col items-end gap-1.5 shrink-0">
           {exp.current && (
             <span className="px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/15 text-emerald-500 dark:text-emerald-400 border border-emerald-500/20">
-              Current
+              {t('experience.current')}
             </span>
           )}
           <span className="px-2 py-0.5 rounded-full text-xs text-zinc-500 dark:text-zinc-500 border border-zinc-200 dark:border-zinc-700/60">
@@ -149,19 +139,23 @@ function TimelineCard({ exp }: { exp: Exp }) {
       )}
 
       {/* Description */}
-      {'description' in exp && exp.description && (
+      {t(`experience.items.${exp.id}`, { defaultValue: '' }) && (
         <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-3">
-          {exp.description}
+          {t(`experience.items.${exp.id}`)}
         </p>
       )}
 
       {/* Projects */}
       {'projects' in exp && exp.projects && (
         <div className="space-y-2.5 mb-3">
-          {exp.projects.map((project, i) => (
-            <div key={i} className="border-l-2 border-indigo-400/30 dark:border-indigo-500/25 pl-3">
-              <p className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-0.5">{project.name}</p>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">{project.description}</p>
+          {(exp.projects as string[]).map((projectId) => (
+            <div key={projectId} className="border-l-2 border-indigo-400/30 dark:border-indigo-500/25 pl-3">
+              <p className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-0.5">
+                {t(`experience.projects.${projectId}.name`)}
+              </p>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
+                {t(`experience.projects.${projectId}.desc`)}
+              </p>
             </div>
           ))}
         </div>

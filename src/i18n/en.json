@@ -27,10 +27,10 @@
     "title": "About Me",
     "description": "Senior Software Engineer with a background in software architecture and team leadership.",
     "journeyTitle": "A bit about me",
-    "p1": "I'm a Senior Software Engineer currently at HTEC, working on a mobile-first health app built with Ionic, Angular and ASP.NET Web API. Before that, I spent several years at CertiCon where I eventually moved into a Software Architect role, working on large Angular projects for clients like Bosch.",
+    "p1": "I'm a Senior Software Engineer currently at HTEC, working on a mobile-first health app built with Ionic, Angular and ASP.NET Web API. Before that, I spent several years at CertiCon where I eventually moved into a Software Architect role. Projects I've worked on include Bosch, Medtronic and Tolion.",
     "p2": "Most of my work has been on the front end, but I've always been comfortable jumping into the full stack when needed. I've led small teams, shaped technical decisions, and tried to keep code quality and long-term maintainability high.",
     "p3": "On the side, I've been doing freelance mobile development since 2015, mostly Ionic and Angular, with React Native more recently. I enjoy the end-to-end ownership that comes with it, from the first commit to publishing on the App Store.",
-    "h1Title": "9+ Years in the Field",
+    "h1Title": "11+ Years in the Field",
     "h1Desc": "Across front-end, mobile and back-end in both product and agency environments",
     "h2Title": "Architecture & Team Lead",
     "h2Desc": "Led technical direction and mentored developers at CertiCon",
@@ -49,14 +49,46 @@
   "experience": {
     "label": "Where I've been",
     "title": "Experience",
-    "description": "From junior developer to software architect. Here's where I've worked and what I did there."
+    "description": "A look at the relevant roles from the last 10 years.",
+    "current": "Current",
+    "items": {
+      "htec": "Building a mobile-first health product at Tolion Health. Full-stack across Ionic + Angular + Capacitor and ASP.NET Web API, with a focus on architecture, Azure AD B2C/PKCE auth, HealthKit/Garmin integration, performance, and UX.",
+      "freelance": "Coding has always been my passion, not just my profession, so a few years ago I decided to take on freelance work on the side. I build native mobile apps for iOS and Android, primarily with Angular + Ionic and React Native, handling everything from development to App Store and Google Play deployment.",
+      "ccvis": "Developed a web application for SaaS subscription activation on the Microsoft Azure Marketplace. Modular platform, reusable components, high development standards.",
+      "foxconn": "Front-end for an ERP system and real-time production line management tool, tracking component flow, quality metrics, and optimising manufacturing processes.",
+      "webdev": "Angular 2+, HTML5, CSS3 (SCSS), JavaScript, PrestaShop"
+    },
+    "projects": {
+      "bosch": {
+        "name": "Bosch",
+        "desc": "Greenfield Angular + TypeScript project for automobile diagnostics. Micro Frontends via module federation, RxJS, NRWL NGXS, Material CDK, Karma/Jasmine testing."
+      },
+      "embitron": {
+        "name": "Embitron",
+        "desc": "Cloud application for recording and managing healthcare devices. C#, ASP.NET 6.0, Angular, Azure cloud services and storage."
+      },
+      "erp": {
+        "name": "ERP",
+        "desc": "Internal ERP system using Angular, TypeScript, RxJS, NRWL NGXS and custom Material CDK components."
+      }
+    }
   },
   "projects": {
-    "label": "Things I've built",
+    "label": "Things I've worked on",
     "title": "Projects",
-    "description": "A selection of projects from my freelance work over the years. Mostly mobile apps, some websites.",
+    "description": "A few selected projects I've worked on over the years.",
     "showMore": "Show {{count}} more",
-    "showLess": "Show less"
+    "showLess": "Show less",
+    "showAll": "Show all",
+    "items": {
+      "hudba": "Concert app with ticket purchasing, location-based event search and vineyard navigation. Built for a Czech open-air concert series.",
+      "tolion": "Brain health app with AI coaching, personalized activity suggestions and cognitive performance tracking. Includes a Brain Age indicator and weekly summaries.",
+      "tpodlahy": "Website for a flooring company. Service overview, photo gallery, contact form and info about vinyl, laminate and parquet.",
+      "qrticket": "Event check-in app with QR scanning, online/offline mode, real-time attendance tracking and exportable reports for organizers.",
+      "findtastic": "Price comparison app for US customers. Tracks prices across multiple e-commerce stores and surfaces the best deals in real time.",
+      "mdas": "Desktop app for monitoring medical device safety alerts and regulatory compliance. Covers implantable devices like insulin pumps, pacemakers and defibrillators.",
+      "ccvision": "Web app for real-time object detection and recognition, integrated with various hardware platforms."
+    }
   },
   "contact": {
     "label": "Get in touch",
@@ -74,8 +106,7 @@
     "sending": "Sending...",
     "success": "Message sent. I'll get back to you soon.",
     "error": "Something went wrong. Try again or email me directly.",
-    "connectTitle": "Find me here",
-    "connectDesc": "Or reach out on any of these platforms.",
+    "connectTitle": "Or contact me directly",
     "availableTitle": "Open to opportunities",
     "availableDesc": "Looking at interesting full-time roles and freelance projects, especially front-end architecture, mobile development or anything TypeScript-heavy."
   },

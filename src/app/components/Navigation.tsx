@@ -97,6 +97,10 @@ export function Navigation() {
             );
           })}
 
+          <div className="h-4 w-px bg-zinc-200 dark:bg-zinc-700 mx-1" />
+
+          <LangToggle />
+
           <button
             onClick={() => navigate('/cv')}
             className="px-4 py-1.5 rounded-full text-sm font-semibold bg-indigo-600 text-white hover:bg-indigo-700 active:scale-95 transition-all duration-200 shadow-sm shadow-indigo-500/25 cursor-pointer"
@@ -118,6 +122,7 @@ export function Navigation() {
             : 'bg-transparent'
         }`}>
           <div className="flex items-center gap-1.5">
+            <LangToggle />
             <ThemeToggle />
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
