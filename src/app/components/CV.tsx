@@ -111,7 +111,7 @@ export function CV() {
       </div>
 
       {/* CV Document */}
-      <div className="cv-page max-w-[900px] mx-auto bg-white rounded-2xl shadow-xl overflow-hidden flex items-stretch">
+      <div className="cv-page max-w-[900px] mx-auto bg-zinc-900 rounded-2xl shadow-xl overflow-hidden flex items-stretch">
 
         {/* Sidebar */}
         <div className="cv-sidebar w-[220px] shrink-0 bg-zinc-900 text-white flex flex-col">
@@ -178,7 +178,7 @@ export function CV() {
         </div>
 
         {/* Main content */}
-        <div className="flex-1 min-w-0 px-8 py-6 space-y-4 flex flex-col">
+        <div className="flex-1 min-w-0 bg-white px-8 py-6 space-y-4 flex flex-col">
 
           {/* Profile */}
           <section className="cv-section">
