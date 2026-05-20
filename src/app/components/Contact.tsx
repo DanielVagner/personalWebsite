@@ -111,7 +111,7 @@ export function Contact() {
 
           {/* Form */}
           <motion.div
-            className="rounded-2xl bg-white dark:bg-white/[0.03] border border-zinc-200/80 dark:border-white/[0.06] p-6"
+            className="rounded-2xl bg-white dark:bg-white/[0.03] border border-zinc-200/80 dark:border-white/[0.06] p-6 flex flex-col md:h-[500px]"
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
             transition={{ duration: 0.5, delay: 0.1 }}
@@ -123,7 +123,7 @@ export function Contact() {
               {t('contact.formDesc')}
             </p>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="flex flex-col flex-1 gap-4">
               <div>
                 <label htmlFor="name" className="text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-1.5 block">
                   {t('contact.name')}
@@ -149,30 +149,32 @@ export function Contact() {
                   required
                 />
               </div>
-              <div>
+              <div className="flex flex-col flex-1">
                 <label htmlFor="message" className="text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-1.5 block">
                   {t('contact.message')}
                 </label>
                 <Textarea
                   id="message"
                   placeholder={t('contact.messagePlaceholder')}
-                  rows={5}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   required
+                  className="flex-1 resize-none"
                 />
               </div>
 
-              {status === 'success' && (
-                <p className="text-xs text-emerald-600 dark:text-emerald-400 text-center">
-                  {t('contact.success')}
-                </p>
-              )}
-              {status === 'error' && (
-                <p className="text-xs text-red-500 dark:text-red-400 text-center">
-                  {t('contact.error')}
-                </p>
-              )}
+              <div className="mt-auto">
+                {status === 'success' && (
+                  <p className="text-xs text-emerald-600 dark:text-emerald-400 text-center mb-3">
+                    {t('contact.success')}
+                  </p>
+                )}
+                {status === 'error' && (
+                  <p className="text-xs text-red-500 dark:text-red-400 text-center mb-3">
+                    {t('contact.error')}
+                  </p>
+                )}
+              </div>
 
               <button
                 type="submit"
@@ -187,13 +189,13 @@ export function Contact() {
 
           {/* Right column */}
           <motion.div
-            className="flex flex-col gap-4"
+            className="flex flex-col gap-4 md:h-[500px]"
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             {/* Connect links */}
-            <div className="rounded-2xl bg-white dark:bg-white/[0.03] border border-zinc-200/80 dark:border-white/[0.06] p-6">
+            <div className="rounded-2xl bg-white dark:bg-white/[0.03] border border-zinc-200/80 dark:border-white/[0.06] p-6 flex flex-col flex-1">
               <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm mb-4">
                 {t('contact.connectTitle')}
               </h3>
@@ -223,7 +225,7 @@ export function Contact() {
                 })}
               </div>
 
-              <div className="mt-5 pt-5 border-t border-zinc-100 dark:border-zinc-800">
+              <div className="mt-auto pt-5 border-t border-zinc-100 dark:border-zinc-800">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
                   <p className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">{t('contact.availableTitle')}</p>
