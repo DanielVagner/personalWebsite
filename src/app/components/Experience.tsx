@@ -94,7 +94,7 @@ function TimelineCard({ exp }: { exp: Exp }) {
     <div
       className={`w-full rounded-2xl p-5 border transition-colors duration-300 ${
         exp.current
-          ? 'bg-white dark:bg-white/[0.04] border-indigo-200 dark:border-indigo-500/25'
+          ? 'bg-white dark:bg-white/[0.04] border-teal-200 dark:border-teal-500/25'
           : 'bg-white dark:bg-white/[0.03] border-zinc-200/80 dark:border-white/[0.06]'
       }`}
     >
@@ -104,7 +104,7 @@ function TimelineCard({ exp }: { exp: Exp }) {
           <p className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm leading-tight">
             {exp.position}
           </p>
-          <p className="text-indigo-500 dark:text-indigo-400 text-sm font-medium mt-0.5">
+          <p className="text-teal-500 dark:text-teal-400 text-sm font-medium mt-0.5">
             {exp.company}
           </p>
         </div>
@@ -128,7 +128,7 @@ function TimelineCard({ exp }: { exp: Exp }) {
 
       {/* Multiple positions */}
       {'positions' in exp && exp.positions && exp.positions.length > 1 && (
-        <div className="space-y-2 border-l-2 border-indigo-300/40 dark:border-indigo-500/25 pl-3 mb-3">
+        <div className="space-y-2 border-l-2 border-teal-300/40 dark:border-teal-500/25 pl-3 mb-3">
           {exp.positions.slice(1).map((pos, i) => (
             <div key={i}>
               <p className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">{pos.title}</p>
@@ -149,7 +149,7 @@ function TimelineCard({ exp }: { exp: Exp }) {
       {'projects' in exp && exp.projects && (
         <div className="space-y-2.5 mb-3">
           {(exp.projects as string[]).map((projectId) => (
-            <div key={projectId} className="border-l-2 border-indigo-400/30 dark:border-indigo-500/25 pl-3">
+            <div key={projectId} className="border-l-2 border-teal-400/30 dark:border-teal-500/25 pl-3">
               <p className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-0.5">
                 {t(`experience.projects.${projectId}.name`)}
               </p>
@@ -186,9 +186,8 @@ export function Experience() {
     <section
       id="experience"
       ref={ref}
-      className="relative py-24 px-6 bg-zinc-50 dark:bg-zinc-950 overflow-hidden"
+      className="relative py-24 px-6 bg-transparent overflow-hidden"
     >
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_35%_at_50%_0%,rgba(99,102,241,0.06),transparent)] pointer-events-none" />
 
       <div className="max-w-5xl mx-auto relative">
 
@@ -199,7 +198,7 @@ export function Experience() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.55 }}
         >
-          <span className="inline-block text-xs font-semibold tracking-[0.2em] uppercase text-indigo-500 dark:text-indigo-400 mb-4">
+          <span className="inline-block text-xs font-semibold tracking-[0.2em] uppercase text-teal-500 dark:text-teal-400 mb-4">
             {t('experience.label')}
           </span>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-zinc-900 dark:text-zinc-50">
@@ -241,7 +240,7 @@ export function Experience() {
                 <div className="hidden md:flex w-2/12 justify-center relative z-10">
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
                     exp.current
-                      ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/30'
+                      ? 'bg-teal-600 text-white shadow-lg shadow-black/25'
                       : 'bg-zinc-50 dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 text-zinc-400 dark:text-zinc-500'
                   }`}>
                     <Briefcase className="w-4 h-4" />
@@ -263,7 +262,7 @@ export function Experience() {
                 <div className="flex md:hidden w-full gap-4">
                   <div className={`w-9 h-9 shrink-0 rounded-full flex items-center justify-center mt-1 ${
                     exp.current
-                      ? 'bg-indigo-600 text-white shadow-md shadow-indigo-500/30'
+                      ? 'bg-teal-600 text-white shadow-md shadow-black/25'
                       : 'bg-zinc-100 dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 text-zinc-400'
                   }`}>
                     <Briefcase className="w-4 h-4" />

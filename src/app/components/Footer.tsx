@@ -15,7 +15,7 @@ export function Footer() {
           href="https://github.com/DanielVagner/personalWebsite"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-1.5 text-xs text-zinc-500 hover:text-indigo-400 transition-colors"
+          className="flex items-center gap-1.5 text-xs text-zinc-500 hover:text-teal-400 transition-colors"
         >
           <Github className="w-3.5 h-3.5" />
           {t('footer.source')}

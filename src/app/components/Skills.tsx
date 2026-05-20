@@ -12,8 +12,8 @@ export function Skills() {
     {
       id: 'frontend', icon: Code2,
       title: t('skills.frontend.title'), subtitle: t('skills.frontend.subtitle'),
-      iconBg: 'bg-indigo-500/15', iconColor: 'text-indigo-500 dark:text-indigo-400',
-      hoverBorder: 'hover:border-indigo-500/50 hover:text-indigo-400 dark:hover:border-indigo-400/50 dark:hover:text-indigo-300',
+      iconBg: 'bg-teal-500/15', iconColor: 'text-teal-500 dark:text-teal-400',
+      hoverBorder: 'hover:border-teal-500/50 hover:text-teal-400 dark:hover:border-teal-400/50 dark:hover:text-teal-300',
       colSpan: 'md:col-span-2',
       skills: ['Angular','React','TypeScript','JavaScript','HTML5','SCSS/CSS','Tailwind CSS','RxJS','NgXs','Material Design','Micro Frontends'],
     },
@@ -47,10 +47,9 @@ export function Skills() {
     <section
       id="skills"
       ref={ref}
-      className="relative py-24 px-6 bg-zinc-50 dark:bg-zinc-950 overflow-hidden"
+      className="relative py-24 px-6 bg-transparent overflow-hidden"
     >
       {/* Subtle radial glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_35%_at_50%_0%,rgba(99,102,241,0.07),transparent)] dark:bg-[radial-gradient(ellipse_70%_35%_at_50%_0%,rgba(99,102,241,0.1),transparent)] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative">
 
@@ -61,7 +60,7 @@ export function Skills() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.55 }}
         >
-          <span className="inline-block text-xs font-semibold tracking-[0.2em] uppercase text-indigo-500 dark:text-indigo-400 mb-4">
+          <span className="inline-block text-xs font-semibold tracking-[0.2em] uppercase text-teal-500 dark:text-teal-400 mb-4">
             {t('skills.label')}
           </span>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-zinc-900 dark:text-zinc-50">

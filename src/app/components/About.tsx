@@ -24,10 +24,9 @@ export function About() {
     <section
       id="about"
       ref={ref}
-      className="relative py-24 px-6 bg-white dark:bg-zinc-950 overflow-hidden"
+      className="relative py-24 px-6 bg-transparent overflow-hidden"
     >
       {/* Subtle glow — bottom of section, mirroring Skills from top */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_30%_at_50%_105%,rgba(99,102,241,0.07),transparent)] dark:bg-[radial-gradient(ellipse_60%_30%_at_50%_105%,rgba(99,102,241,0.1),transparent)] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative">
 
@@ -38,7 +37,7 @@ export function About() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.55 }}
         >
-          <span className="inline-block text-xs font-semibold tracking-[0.2em] uppercase text-indigo-500 dark:text-indigo-400 mb-4">
+          <span className="inline-block text-xs font-semibold tracking-[0.2em] uppercase text-teal-500 dark:text-teal-400 mb-4">
             {t('about.label')}
           </span>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-zinc-900 dark:text-zinc-50">
@@ -84,8 +83,8 @@ export function About() {
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
                   transition={{ duration: 0.4, delay: 0.25 + i * 0.08 }}
                 >
-                  <div className="w-9 h-9 rounded-xl bg-indigo-500/10 dark:bg-indigo-500/15 flex items-center justify-center mb-3 shrink-0">
-                    <Icon className="w-4 h-4 text-indigo-500 dark:text-indigo-400" />
+                  <div className="w-9 h-9 rounded-xl bg-teal-500/10 dark:bg-teal-500/15 flex items-center justify-center mb-3 shrink-0">
+                    <Icon className="w-4 h-4 text-teal-500 dark:text-teal-400" />
                   </div>
                   <h4 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm mb-1 leading-tight">
                     {h.title}
@@ -106,7 +105,7 @@ export function About() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
           transition={{ duration: 0.55, delay: 0.45 }}
         >
-          <h3 className="text-base font-semibold text-center text-zinc-900 dark:text-zinc-100 mb-8 tracking-wide uppercase text-xs text-indigo-500 dark:text-indigo-400 tracking-[0.2em]">
+          <h3 className="text-base font-semibold text-center text-zinc-900 dark:text-zinc-100 mb-8 tracking-wide uppercase text-xs text-teal-500 dark:text-teal-400 tracking-[0.2em]">
             {t('about.philosophyTitle')}
           </h3>
           <div className="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-zinc-200 dark:divide-zinc-800/80">
@@ -120,8 +119,8 @@ export function About() {
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
                   transition={{ duration: 0.4, delay: 0.55 + i * 0.08 }}
                 >
-                  <div className="w-10 h-10 rounded-xl bg-indigo-500/10 dark:bg-indigo-500/15 flex items-center justify-center mb-4">
-                    <Icon className="w-5 h-5 text-indigo-500 dark:text-indigo-400" />
+                  <div className="w-10 h-10 rounded-xl bg-teal-500/10 dark:bg-teal-500/15 flex items-center justify-center mb-4">
+                    <Icon className="w-5 h-5 text-teal-500 dark:text-teal-400" />
                   </div>
                   <h4 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm mb-1.5">
                     {item.title}

@@ -103,7 +103,7 @@ export function CV() {
             window.print();
             document.title = prev;
           }}
-          className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-xl transition-colors cursor-pointer"
+          className="flex items-center gap-2 px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white text-sm font-medium rounded-xl transition-colors cursor-pointer"
         >
           <Printer className="w-4 h-4" />
           Save as PDF
@@ -118,13 +118,13 @@ export function CV() {
 
           {/* Photo */}
           <div className="px-6 pt-6 pb-4 flex flex-col items-center text-center border-b border-white/10">
-            <div className="w-24 h-24 rounded-full overflow-hidden ring-4 ring-indigo-500/40 mb-3 shrink-0">
+            <div className="w-24 h-24 rounded-full overflow-hidden ring-2 ring-teal-500/30 mb-3 shrink-0">
               <img src={profilePic} alt="Daniel Vágner" className="w-full h-full object-cover object-top" />
             </div>
             <h1 className="text-base font-bold tracking-tight leading-tight" style={{ fontFamily: 'var(--font-display)' }}>
               Daniel Vágner
             </h1>
-            <p className="text-[11px] text-indigo-400 font-medium mt-1 leading-snug">
+            <p className="text-[11px] text-teal-400/80 font-medium mt-1 leading-snug">
               Senior Software Engineer
             </p>
           </div>
@@ -200,7 +200,7 @@ export function CV() {
                   <div className="flex items-start justify-between gap-2">
                     <div>
                       <p className="font-semibold text-zinc-900 text-[12px] leading-tight">{exp.position}</p>
-                      <p className="text-indigo-600 text-[11px] font-medium mt-0.5 flex items-center gap-1.5">
+                      <p className="text-teal-700 text-[11px] font-medium mt-0.5 flex items-center gap-1.5">
                         {exp.company}
                         {exp.current && (
                           <span className="px-1.5 py-px rounded-full text-[8px] font-semibold bg-emerald-50 text-emerald-600 border border-emerald-200">
@@ -229,7 +229,7 @@ export function CV() {
           <div className="mt-auto pt-3 border-t border-zinc-100 flex justify-end">
             <p className="text-[10px] text-zinc-400">
               Generated from{' '}
-              <span className="text-indigo-500">daniel-vagner.dev</span>
+              <span className="text-teal-600/70">daniel-vagner.dev</span>
             </p>
           </div>
 
@@ -252,7 +252,7 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
 
 function SideLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-[0.2em] mb-2">
+    <p className="text-[9px] font-bold text-teal-500/60 uppercase tracking-[0.2em] mb-2">
       {children}
     </p>
   );

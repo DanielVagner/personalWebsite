@@ -78,9 +78,8 @@ export function Projects() {
     <section
       id="projects"
       ref={ref}
-      className="relative py-24 px-6 bg-white dark:bg-zinc-950 overflow-hidden"
+      className="relative py-24 px-6 bg-transparent overflow-hidden"
     >
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_30%_at_50%_105%,rgba(99,102,241,0.06),transparent)] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative">
 
@@ -91,7 +90,7 @@ export function Projects() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.55 }}
         >
-          <span className="inline-block text-xs font-semibold tracking-[0.2em] uppercase text-indigo-500 dark:text-indigo-400 mb-4">
+          <span className="inline-block text-xs font-semibold tracking-[0.2em] uppercase text-teal-500 dark:text-teal-400 mb-4">
             {t('projects.label')}
           </span>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-zinc-900 dark:text-zinc-50">
@@ -166,7 +165,7 @@ export function Projects() {
             >
               <motion.button
                 onClick={() => setShowAll(true)}
-                className="group flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold border border-zinc-300 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:border-indigo-500 hover:text-indigo-500 dark:hover:border-indigo-500 dark:hover:text-indigo-400 transition-colors duration-200 cursor-pointer"
+                className="group flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold border border-zinc-300 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:border-teal-500 hover:text-teal-500 dark:hover:border-teal-500 dark:hover:text-teal-400 transition-colors duration-200 cursor-pointer"
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 20 }}
@@ -204,7 +203,7 @@ export function Projects() {
                     document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
                   }, 50);
                 }}
-                className="group flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold border border-zinc-300 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:border-indigo-500 hover:text-indigo-500 dark:hover:border-indigo-500 dark:hover:text-indigo-400 transition-colors duration-200 cursor-pointer"
+                className="group flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold border border-zinc-300 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:border-teal-500 hover:text-teal-500 dark:hover:border-teal-500 dark:hover:text-teal-400 transition-colors duration-200 cursor-pointer"
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 20 }}

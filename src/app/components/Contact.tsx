@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { motion } from 'motion/react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { useTranslation } from 'react-i18next';
-
 const contactLinks = [
   {
     icon: Mail,
@@ -26,6 +25,7 @@ const contactLinks = [
     href: 'https://github.com/danielvagner',
   },
 ];
+
 
 export function Contact() {
   const { ref, isInView } = useScrollAnimation();
@@ -54,9 +54,38 @@ export function Contact() {
     <section
       id="contact"
       ref={ref}
-      className="relative py-24 px-6 bg-zinc-50 dark:bg-zinc-950 overflow-hidden"
+      className="relative py-24 px-6 bg-transparent overflow-hidden"
     >
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_35%_at_50%_0%,rgba(99,102,241,0.07),transparent)] pointer-events-none" />
+
+      {/* Decorative floating mail icon */}
+      <motion.div
+        className="absolute left-12 top-14 pointer-events-none hidden lg:block"
+        initial={{ x: -140, opacity: 0, rotate: -18 }}
+        animate={isInView ? { x: 0, opacity: 1, rotate: 8 } : { x: -140, opacity: 0, rotate: -18 }}
+        transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+      >
+        <motion.div
+          animate={{ y: [0, -12, 0] }}
+          transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <Mail className="w-28 h-28 text-teal-500/[0.08] dark:text-teal-400/[0.07] stroke-[0.75]" />
+        </motion.div>
+      </motion.div>
+
+      {/* Small send particle */}
+      <motion.div
+        className="absolute left-32 top-36 pointer-events-none hidden lg:block"
+        initial={{ x: -80, opacity: 0 }}
+        animate={isInView ? { x: 0, opacity: 1 } : { x: -80, opacity: 0 }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
+      >
+        <motion.div
+          animate={{ y: [0, -8, 0], rotate: [0, -5, 0] }}
+          transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+        >
+          <Send className="w-8 h-8 text-teal-500/[0.12] dark:text-teal-400/[0.1] stroke-[1]" />
+        </motion.div>
+      </motion.div>
 
       <div className="max-w-5xl mx-auto relative">
 
@@ -67,7 +96,7 @@ export function Contact() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.55 }}
         >
-          <span className="inline-block text-xs font-semibold tracking-[0.2em] uppercase text-indigo-500 dark:text-indigo-400 mb-4">
+          <span className="inline-block text-xs font-semibold tracking-[0.2em] uppercase text-teal-500 dark:text-teal-400 mb-4">
             {t('contact.label')}
           </span>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-zinc-900 dark:text-zinc-50">
@@ -148,7 +177,7 @@ export function Contact() {
               <button
                 type="submit"
                 disabled={status === 'loading'}
-                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-indigo-600 text-white hover:bg-indigo-700 active:scale-[0.98] transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-teal-600 text-white hover:bg-teal-700 active:scale-[0.98] transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
               >
                 <Send className="w-4 h-4" />
                 {status === 'loading' ? t('contact.sending') : t('contact.send')}
@@ -182,8 +211,8 @@ export function Contact() {
                       animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 16 }}
                       transition={{ delay: 0.3 + i * 0.08 }}
                     >
-                      <div className="w-9 h-9 rounded-xl bg-indigo-500/10 dark:bg-indigo-500/15 flex items-center justify-center shrink-0 group-hover:bg-indigo-500/20 transition-colors">
-                        <Icon className="w-4 h-4 text-indigo-500 dark:text-indigo-400" />
+                      <div className="w-9 h-9 rounded-xl bg-teal-500/10 dark:bg-teal-500/15 flex items-center justify-center shrink-0 group-hover:bg-teal-500/20 transition-colors">
+                        <Icon className="w-4 h-4 text-teal-500 dark:text-teal-400" />
                       </div>
                       <div>
                         <p className="text-sm font-medium text-zinc-800 dark:text-zinc-200">{link.label}</p>
@@ -193,37 +222,33 @@ export function Contact() {
                   );
                 })}
               </div>
+
+              <div className="mt-5 pt-5 border-t border-zinc-100 dark:border-zinc-800">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+                  <p className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">{t('contact.availableTitle')}</p>
+                </div>
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed mb-3">
+                  {t('contact.availableDesc')}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {['Remote', 'Full-time', 'Živnost'].map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1 rounded-full text-xs font-medium bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/20"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
 
-            {/* Available for opportunities */}
-            <motion.div
-              className="rounded-2xl bg-gradient-to-br from-indigo-600 to-violet-600 p-6 text-white"
-              initial={{ opacity: 0, y: 16 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-              transition={{ delay: 0.5 }}
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <h3 className="font-semibold text-sm">{t('contact.availableTitle')}</h3>
-              </div>
-              <p className="text-indigo-100 text-sm leading-relaxed mb-4">
-                {t('contact.availableDesc')}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {['Remote', 'Hybrid', 'Consulting'].map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-3 py-1 rounded-full text-xs font-medium bg-white/15 border border-white/20"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
           </motion.div>
 
         </div>
-      </div>
+
+</div>
     </section>
   );
 }

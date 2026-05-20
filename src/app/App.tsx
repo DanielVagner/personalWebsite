@@ -12,11 +12,11 @@ import { ThemeProvider } from './providers/theme-provider';
 
 function Home() {
   return (
-    <div style={{ overflowX: 'hidden', position: 'relative' }}>
+    <div className="page-bg" style={{ overflowX: 'hidden', position: 'relative' }}>
       <Navigation />
       <Hero />
-      <Skills />
       <About />
+      <Skills />
       <Experience />
       <Projects />
       <Contact />
