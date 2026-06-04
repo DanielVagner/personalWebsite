@@ -9,7 +9,7 @@ export function Footer() {
     <footer className="bg-zinc-950 border-t border-zinc-800/50">
       <div className="max-w-6xl mx-auto px-6 py-5 flex flex-col md:flex-row items-center justify-between gap-3">
         <span className="text-xs text-zinc-600">
-          © {currentYear} Daniel Vágner · {t('footer.built')}
+          © {currentYear} Daniel Vágner
         </span>
         <a
           href="https://github.com/DanielVagner/personalWebsite"

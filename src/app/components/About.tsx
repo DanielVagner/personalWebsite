@@ -1,4 +1,4 @@
-import { Briefcase, Code2, Award, Lightbulb, Target, Building2, Zap } from 'lucide-react';
+import { Briefcase, Code2, Layers, Lightbulb, UserCircle, FileCode, Zap } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { useTranslation } from 'react-i18next';
@@ -10,13 +10,13 @@ export function About() {
   const highlights = [
     { icon: Briefcase, title: t('about.h1Title'), description: t('about.h1Desc') },
     { icon: Code2, title: t('about.h2Title'), description: t('about.h2Desc') },
-    { icon: Award, title: t('about.h3Title'), description: t('about.h3Desc') },
+    { icon: Layers, title: t('about.h3Title'), description: t('about.h3Desc') },
     { icon: Lightbulb, title: t('about.h4Title'), description: t('about.h4Desc') },
   ];
 
   const philosophy = [
-    { icon: Target, title: t('about.uc'), desc: t('about.ucDesc') },
-    { icon: Building2, title: t('about.sd'), desc: t('about.sdDesc') },
+    { icon: UserCircle, title: t('about.uc'), desc: t('about.ucDesc') },
+    { icon: FileCode, title: t('about.sd'), desc: t('about.sdDesc') },
     { icon: Zap, title: t('about.pf'), desc: t('about.pfDesc') },
   ];
 

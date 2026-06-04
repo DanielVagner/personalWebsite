@@ -234,7 +234,7 @@ export function Contact() {
                   {t('contact.availableDesc')}
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {['Remote', 'Full-time', 'Živnost'].map((tag) => (
+                  {['Remote', 'Full-time', 'Freelance'].map((tag) => (
                     <span
                       key={tag}
                       className="px-3 py-1 rounded-full text-xs font-medium bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/20"

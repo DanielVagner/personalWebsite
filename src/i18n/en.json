@@ -35,14 +35,14 @@
     "h2Title": "Architecture & Team Lead",
     "h2Desc": "Led technical direction and mentored developers at CertiCon",
     "h3Title": "Full-Stack Comfortable",
-    "h3Desc": "Angular, React, Ionic, .NET and Azure, depending on what the project needs",
+    "h3Desc": "Angular and Ionic are my primary focus, but I have no problem switching to React, React Native, or jumping into .NET and C# when the project calls for it.",
     "h4Title": "Always Learning",
-    "h4Desc": "Keeping up with new tools and patterns as the ecosystem changes",
+    "h4Desc": "Keeping up with new tools and patterns as the ecosystem evolves. Angular in particular is something I follow closely and actively stay current with.",
     "philosophyTitle": "How I work",
     "uc": "User First",
     "ucDesc": "I try to build things that are actually pleasant to use",
     "sd": "Readable Code",
-    "sdDesc": "Writing code the next developer (or future me) can understand and extend",
+    "sdDesc": "Writing code the next developer can understand. Readability and maintainability are something I take seriously on every project.",
     "pf": "Performance Matters",
     "pfDesc": "Fast apps make users happy. I keep an eye on bundle size and render performance"
   },
@@ -53,7 +53,7 @@
     "current": "Current",
     "items": {
       "htec": "Building a mobile-first health product at Tolion Health. Full-stack across Ionic + Angular + Capacitor and ASP.NET Web API, with a focus on architecture, Azure AD B2C/PKCE auth, HealthKit/Garmin integration, performance, and UX.",
-      "freelance": "Coding has always been my passion, not just my profession, so a few years ago I decided to take on freelance work on the side. I build native mobile apps for iOS and Android, primarily with Angular + Ionic and React Native, handling everything from development to App Store and Google Play deployment.",
+      "freelance": "Coding has always been more than a job to me, so a few years ago I started taking on mobile projects in my spare time. I build iOS and Android apps with Ionic/Angular and React Native, handling everything myself from the first line of code to App Store submission. It's the kind of end-to-end ownership I enjoy.",
       "ccvis": "Developed a web application for SaaS subscription activation on the Microsoft Azure Marketplace. Modular platform, reusable components, high development standards.",
       "foxconn": "Front-end for an ERP system and real-time production line management tool, tracking component flow, quality metrics, and optimising manufacturing processes.",
       "webdev": "Angular 2+, HTML5, CSS3 (SCSS), JavaScript, PrestaShop"
