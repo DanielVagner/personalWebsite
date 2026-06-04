@@ -216,9 +216,6 @@ export function Navigation() {
                           : 'text-zinc-600 dark:text-zinc-400'
                       }`}
                     >
-                      <span className={`w-1.5 h-1.5 rounded-full shrink-0 transition-colors ${
-                        isActive ? 'bg-teal-500' : 'bg-zinc-300 dark:bg-zinc-700'
-                      }`} />
                       {item.label}
                     </motion.button>
                   );
