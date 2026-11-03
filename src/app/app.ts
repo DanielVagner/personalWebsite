@@ -53,7 +53,12 @@ export class App {
 
     event.preventDefault();
     this.sectionScroll.scrollTo(target);
-    // Keyboard focus follows, like with a native anchor jump.
-    if (target.hasAttribute('tabindex')) target.focus({ preventScroll: true });
+    // Keyboard focus follows, like with a native anchor jump; otherwise the next Tab would
+    // start over from the link, which may sit in a menu that is closing.
+    if (!target.hasAttribute('tabindex')) {
+      target.setAttribute('tabindex', '-1');
+      target.addEventListener('blur', () => target.removeAttribute('tabindex'), { once: true });
+    }
+    target.focus({ preventScroll: true });
   }
 }

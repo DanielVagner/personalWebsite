@@ -9,10 +9,12 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { AnalyticsService } from '../../core/analytics.service';
 import { Lang, LanguageService } from '../../core/language.service';
 import { NAV_TEXT, NavSectionId } from '../../i18n/nav.i18n';
 import { LogoMark } from '../../shared/logo-mark';
+import { CONTACT_EMAIL } from '../../sections/contact/contact.config';
 
 /** Width from which the full nav is shown in the bar. Keep in sync with $bp-nav in header.scss. */
 const NAV_BREAKPOINT = 1080;
@@ -23,7 +25,7 @@ const HEADER_OFFSET = 80;
 
 @Component({
   selector: 'app-header',
-  imports: [LogoMark],
+  imports: [LogoMark, NgTemplateOutlet],
   templateUrl: './header.html',
   styleUrl: './header.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -44,10 +46,14 @@ export class Header {
   protected readonly open = signal(false);
   protected readonly scrolled = signal(false);
   protected readonly active = signal<NavSectionId | null>(null);
+  protected readonly email = CONTACT_EMAIL;
 
   constructor() {
     const destroyRef = inject(DestroyRef);
-    destroyRef.onDestroy(() => this.lockScroll(false));
+    destroyRef.onDestroy(() => {
+      this.lockScroll(false);
+      this.setPageInert(false);
+    });
 
     afterNextRender(() => {
       const win = this.doc.defaultView;
@@ -95,6 +101,11 @@ export class Header {
     this.setOpen(false);
   }
 
+  /** Taps on the dimmed area below the tablet panel close the menu. */
+  protected onMenuBackdrop(event: MouseEvent): void {
+    if (event.target === event.currentTarget) this.setOpen(false);
+  }
+
   protected onEscape(): void {
     if (!this.open()) return;
     this.setOpen(false);
@@ -113,6 +124,15 @@ export class Header {
     this.open.set(open);
     // Applied synchronously so an anchor click that closes the menu can scroll right away.
     this.lockScroll(open);
+    this.setPageInert(open);
+  }
+
+  /** While the full-screen menu is open, the page behind it is out of reach for Tab and screen readers. */
+  private setPageInert(inert: boolean): void {
+    const host = this.host.nativeElement;
+    for (const el of Array.from(host.parentElement?.children ?? [])) {
+      if (el !== host && el instanceof HTMLElement) el.inert = inert;
+    }
   }
 
   /**

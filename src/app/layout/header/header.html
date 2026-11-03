@@ -20,20 +20,12 @@
     </nav>
 
     <div class="bar__actions">
-      <div class="lang" role="group" [attr.aria-label]="t().langGroup">
-        @for (opt of t().langs; track opt.code) {
-          <button
-            type="button"
-            class="lang__btn"
-            [attr.aria-pressed]="lang() === opt.code"
-            (click)="setLang(opt.code)"
-          >
-            {{ opt.short }}<span class="sr-only" [attr.lang]="opt.code">&nbsp;{{ opt.name }}</span>
-          </button>
-        }
+      <!-- On phones the language switch lives in the menu footer instead. -->
+      <div class="bar__lang">
+        <ng-container *ngTemplateOutlet="langSwitch" />
       </div>
 
-      <a class="btn btn--primary bar__cta" href="#contact" (click)="trackCta('header')">{{ t().cta }}</a>
+      <a class="btn btn--primary bar__cta" href="#contact" (click)="trackCta('header'); close()">{{ t().cta }}</a>
 
       <button
         #toggle
@@ -53,29 +45,63 @@
     </div>
   </div>
 
-  <div id="site-menu" class="drawer" [class.drawer--open]="open()">
-    <div class="drawer__panel">
-      <div class="container">
-        <nav [attr.aria-label]="t().mobileNavLabel">
-          <ul class="drawer__list" role="list">
-            @for (item of t().items; track item.id; let i = $index) {
-              <li>
-                <a
-                  class="drawer__link"
-                  [href]="'#' + item.id"
-                  [attr.aria-current]="active() === item.id ? 'true' : null"
-                  (click)="close()"
-                >
-                  <span class="drawer__idx mono" aria-hidden="true">0{{ i + 1 }}</span>
-                  <span class="drawer__label">{{ item.label }}</span>
-                </a>
-              </li>
-            }
-          </ul>
-        </nav>
-        <a class="btn btn--primary btn--lg drawer__cta" href="#contact" (click)="trackCta('mobile_menu'); close()">{{ t().cta }}</a>
+  <div id="site-menu" class="menu" [class.menu--open]="open()" (click)="onMenuBackdrop($event)">
+    <nav class="menu__scroll container" aria-labelledby="menu-heading">
+      <h2 class="menu__heading mono" id="menu-heading">{{ t().menuHeading }}</h2>
+      <ul class="menu__list" role="list">
+        @for (item of t().items; track item.id; let i = $index) {
+          <li [style.--i]="i">
+            <a
+              class="menu__link"
+              [href]="'#' + item.id"
+              [attr.aria-current]="active() === item.id ? 'true' : null"
+              (click)="close()"
+            >
+              <span class="menu__title">
+                <span class="menu__label">{{ item.label }}</span>
+                @if (active() === item.id) {
+                  <span class="menu__here mono" aria-hidden="true">{{ t().menuHere }}</span>
+                }
+              </span>
+              <span class="menu__desc">{{ item.desc }}</span>
+            </a>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <div class="menu__foot">
+      <a class="btn btn--primary btn--lg menu__cta" href="#contact" (click)="trackCta('mobile_menu'); close()">
+        {{ t().cta }}
+        <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M4 10h12M11 5l5 5-5 5" />
+        </svg>
+      </a>
+      <div class="menu__meta">
+        <a class="menu__mail" [href]="'mailto:' + email">
+          <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <rect x="2.5" y="4.5" width="15" height="11" rx="2" />
+            <path d="m3 5.5 7 5.5 7-5.5" />
+          </svg>
+          <span>{{ email }}</span>
+        </a>
+        <ng-container *ngTemplateOutlet="langSwitch" />
       </div>
     </div>
-    <div class="drawer__scrim" aria-hidden="true" (click)="close()"></div>
   </div>
 </header>
+
+<ng-template #langSwitch>
+  <div class="lang" role="group" [attr.aria-label]="t().langGroup">
+    @for (opt of t().langs; track opt.code) {
+      <button
+        type="button"
+        class="lang__btn"
+        [attr.aria-pressed]="lang() === opt.code"
+        (click)="setLang(opt.code)"
+      >
+        {{ opt.short }}<span class="sr-only" [attr.lang]="opt.code">&nbsp;{{ opt.name }}</span>
+      </button>
+    }
+  </div>
+</ng-template>
