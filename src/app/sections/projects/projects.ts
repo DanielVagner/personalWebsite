@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, DOCUMENT, computed, inject, signal 
 
 import { AnalyticsService } from '../../core/analytics.service';
 import { LanguageService } from '../../core/language.service';
-import { MotionService } from '../../core/motion.service';
+import { SectionScrollService } from '../../core/section-scroll.service';
 import { RevealDirective } from '../../core/reveal.directive';
 import { PROJECTS, PROJECTS_TEXT, Project, ProjectId } from '../../i18n/projects.i18n';
 import { ProjectDialog, ProjectDialogClose } from './project-dialog/project-dialog';
@@ -17,7 +17,7 @@ import { ProjectPreview } from './project-preview/project-preview';
 })
 export class Projects {
   private readonly doc = inject(DOCUMENT);
-  private readonly motion = inject(MotionService);
+  private readonly sectionScroll = inject(SectionScrollService);
   private readonly analytics = inject(AnalyticsService);
 
   protected readonly t = inject(LanguageService).select(PROJECTS_TEXT);
@@ -53,8 +53,7 @@ export class Projects {
 
     const contact = this.doc.getElementById('contact');
     if (!contact) return;
-    contact.scrollIntoView({ behavior: this.motion.reduced() ? 'auto' : 'smooth', block: 'start' });
-    this.doc.defaultView?.history.replaceState(null, '', '#contact');
+    this.sectionScroll.scrollTo(contact);
     // Move keyboard focus along with the scroll.
     const heading = contact.querySelector<HTMLElement>('h2');
     if (heading) {
