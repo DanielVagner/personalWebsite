@@ -132,7 +132,12 @@ export class Header {
     const probe = HEADER_OFFSET + (win.innerHeight - HEADER_OFFSET) / 3;
     const current = SPY_IDS.find((id) => {
       const rect = this.doc.getElementById(id)?.getBoundingClientRect();
-      return !!rect && rect.top <= probe && rect.bottom > probe;
+      if (!rect) return false;
+      // The phone scene right after Services shows how the services are done, so it
+      // counts as part of that section rather than having a menu item of its own.
+      const extension = id === 'services' ? this.doc.querySelector('app-assembly')?.getBoundingClientRect() : undefined;
+      const bottom = Math.max(rect.bottom, extension?.bottom ?? rect.bottom);
+      return rect.top <= probe && bottom > probe;
     });
     this.active.set(current ?? null);
   }
