@@ -13,9 +13,4 @@ import { LogoMark } from '../../shared/logo-mark';
 })
 export class About {
   protected readonly t = inject(LanguageService).select(ABOUT_TEXT);
-
-  protected readonly links = {
-    linkedin: 'https://www.linkedin.com/in/danielvagner/',
-    github: 'https://github.com/danielvagner',
-  } as const;
 }

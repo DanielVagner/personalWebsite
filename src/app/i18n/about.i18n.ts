@@ -14,10 +14,6 @@ export interface AboutText {
   photoAlt: string;
   factsLabel: string;
   facts: AboutFact[];
-  linksLabel: string;
-  linkedin: string;
-  github: string;
-  newTab: string;
 }
 
 export const ABOUT_TEXT: Translated<AboutText> = {
@@ -37,10 +33,6 @@ export const ABOUT_TEXT: Translated<AboutText> = {
       { value: 'Bosch · Medtronic · Embitron', label: 'zkušenosti z velkých projektů' },
       { value: 'Praha · na dálku', label: 'česky i anglicky' },
     ],
-    linksLabel: 'Profily',
-    linkedin: 'LinkedIn',
-    github: 'GitHub',
-    newTab: '(otevře se na nové kartě)',
   },
   en: {
     eyebrow: 'About me',
@@ -58,9 +50,5 @@ export const ABOUT_TEXT: Translated<AboutText> = {
       { value: 'Bosch · Medtronic · Embitron', label: 'large-project experience' },
       { value: 'Prague · remote', label: 'Czech & English' },
     ],
-    linksLabel: 'Profiles',
-    linkedin: 'LinkedIn',
-    github: 'GitHub',
-    newTab: '(opens in a new tab)',
   },
 };
