@@ -1,0 +1,155 @@
+@use 'mixins' as *;
+
+:host {
+  display: block;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 22px;
+  margin: 48px 0 0;
+  padding: 0;
+  list-style: none;
+
+  @include up($bp-lg) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.cell {
+  display: flex;
+  min-width: 0;
+}
+
+.cell--featured {
+  grid-column: 1 / -1;
+}
+
+.project-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg);
+  background: var(--card);
+  cursor: pointer;
+
+  &:hover {
+    border-color: rgba(119, 145, 255, 0.3);
+  }
+
+  @include motion {
+    transition:
+      transform 0.4s var(--ease-out),
+      border-color 0.3s;
+
+    &:hover {
+      transform: translateY(-4px);
+    }
+  }
+}
+
+// Whole card is clickable through the title button; the ring goes on the card.
+@supports selector(:has(*)) {
+  .project-card:has(.open:focus-visible) {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+  }
+
+  .open:focus-visible {
+    outline: none;
+  }
+}
+
+.body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  padding: 26px 28px 28px;
+
+  @include down($bp-sm) {
+    padding: 22px 20px 24px;
+  }
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 16px;
+  min-width: 0;
+}
+
+.title {
+  flex: 1 1 14ch;
+  min-width: 0;
+  font-size: 22px;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+
+.open {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-align: left;
+  cursor: pointer;
+
+  // Stretch the hit area over the whole card.
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+  }
+}
+
+.more {
+  flex: 0 0 auto;
+  font-size: 14px;
+  color: var(--link);
+  white-space: nowrap;
+
+  @include motion {
+    transition: transform 0.3s var(--ease-out);
+
+    .project-card:hover & {
+      transform: translateX(3px);
+    }
+  }
+}
+
+.type {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.summary {
+  margin: 4px 0 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: auto 0 0;
+  padding: 8px 0 0;
+  list-style: none;
+}

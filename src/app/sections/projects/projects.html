@@ -1,0 +1,46 @@
+<section id="projects" class="section section--surface" aria-labelledby="projects-title">
+  <div class="container">
+    <div class="section-head" appReveal>
+      <span class="eyebrow">{{ t().eyebrow }}</span>
+      <h2 id="projects-title" class="h h2">
+        {{ t().title }}<br />
+        <span class="section-head__muted">{{ t().titleMuted }}</span>
+      </h2>
+    </div>
+    <p class="section-intro" appReveal [revealDelay]="80">{{ t().intro }}</p>
+
+    <ul class="grid" role="list">
+      @for (p of projects(); track p.id; let i = $index) {
+        <li class="cell" [class.cell--featured]="p.featured" appReveal [revealDelay]="i === 0 ? 0 : ((i + 1) % 2) * 90">
+          <article class="project-card">
+            <app-project-preview [project]="p" variant="card" />
+            <div class="body">
+              <div class="head">
+                <h3 class="h title">
+                  <button
+                    type="button"
+                    class="open"
+                    aria-haspopup="dialog"
+                    (click)="open(p.id, $event)"
+                  >
+                    {{ p.title }}<span class="sr-only">{{ t().openSuffix }}</span>
+                  </button>
+                </h3>
+                <span class="more" aria-hidden="true">{{ t().caseStudy }} ›</span>
+              </div>
+              <p class="type">{{ p.type }}</p>
+              <p class="summary">{{ p.summary }}</p>
+              <ul class="tags" role="list" [attr.aria-label]="t().tagsLabel">
+                @for (tag of p.tags; track tag) {
+                  <li class="tag">{{ tag }}</li>
+                }
+              </ul>
+            </div>
+          </article>
+        </li>
+      }
+    </ul>
+  </div>
+
+  <app-project-dialog [project]="active()" (closed)="onClosed($event)" />
+</section>

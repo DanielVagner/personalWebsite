@@ -1,0 +1,143 @@
+@use 'mixins' as *;
+
+:host {
+  display: block;
+}
+
+// Phone: stacked; tablet: 2 + full-width third; desktop: 3 columns.
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 22px;
+  margin: 48px 0 0;
+  padding: 0;
+  list-style: none;
+
+  @include up($bp-md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include up($bp-lg) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.grid__cell {
+  display: flex;
+  min-width: 0;
+
+  @include up($bp-md) {
+    &:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @include up($bp-lg) {
+    &:last-child:nth-child(odd) {
+      grid-column: auto;
+    }
+  }
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  min-width: 0;
+  padding: 34px 28px;
+  background: linear-gradient(130deg, #14171f, #0b0d12);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+
+  @include down($bp-sm) {
+    padding: 30px 22px;
+  }
+
+  @include motion {
+    transition:
+      transform 0.3s var(--ease-out),
+      border-color 0.3s;
+
+    &:hover {
+      transform: translateY(-5px);
+      border-color: rgba(119, 145, 255, 0.36);
+    }
+  }
+}
+
+.card__icon {
+  display: flex;
+  align-items: center;
+  height: 34px;
+  margin-bottom: 26px;
+  font-size: 28px;
+  line-height: 1;
+  color: #819dff;
+
+  svg {
+    width: 20px;
+    height: 28px;
+  }
+}
+
+.card__no {
+  position: absolute;
+  top: 38px;
+  right: 26px;
+  font-size: 12px;
+  color: #6b7387;
+}
+
+.card__title {
+  font-size: 25px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.card__text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.8;
+  color: #999eab;
+}
+
+.card__points {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    position: relative;
+    padding-left: 22px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: #c4c8d2;
+
+    // short accent dash as the marker
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.72em;
+      width: 10px;
+      height: 2px;
+      border-radius: 1px;
+      background: var(--accent-light);
+      opacity: 0.8;
+    }
+  }
+}
+
+.card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: auto 0 0;
+  padding: 10px 0 0;
+  list-style: none;
+}

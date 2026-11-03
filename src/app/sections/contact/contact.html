@@ -1,0 +1,244 @@
+<section id="contact" class="section contact" aria-labelledby="contact-title">
+  <div class="contact__glow" aria-hidden="true"></div>
+
+  <div class="container contact__inner">
+    <div class="contact__head" appReveal>
+      <app-logo-mark [size]="56" [framed]="false" />
+      <span class="eyebrow">{{ t().eyebrow }}</span>
+      <h2 class="h contact__title" id="contact-title">
+        {{ t().titleLine1 }}<br />
+        <span class="grad">{{ t().titleLine2 }}</span>
+      </h2>
+      <p class="contact__note">{{ t().replyNote }}</p>
+    </div>
+
+    <div class="contact__grid">
+      <div class="card brief" appReveal>
+        <p class="sr-only" aria-live="polite">{{ liveMessage() }}</p>
+
+        @if (status() === 'success' && sent(); as done) {
+          <div class="success">
+            <span class="success__icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                <path d="M5 12.5l4.5 4.5L19 7.5" />
+              </svg>
+            </span>
+            <h3 class="card__title" tabindex="-1" #successHeading>{{ t().successTitle }}</h3>
+            <p class="card__text">{{ t().successText(done.email.trim()) }}</p>
+
+            <div class="summary">
+              <p class="summary__label mono">{{ t().summaryLabel }}</p>
+              <dl class="summary__list">
+                @if (done.projectType) {
+                  <div class="summary__row">
+                    <dt>{{ t().summary.projectType }}</dt>
+                    <dd>{{ t().projectTypes[done.projectType] }}</dd>
+                  </div>
+                }
+                @if (done.company.trim()) {
+                  <div class="summary__row">
+                    <dt>{{ t().summary.company }}</dt>
+                    <dd>{{ done.company.trim() }}</dd>
+                  </div>
+                }
+                @if (done.deadline) {
+                  <div class="summary__row">
+                    <dt>{{ t().summary.deadline }}</dt>
+                    <dd>{{ t().deadlines[done.deadline] }}</dd>
+                  </div>
+                }
+              </dl>
+            </div>
+
+            <button type="button" class="btn btn--ghost" (click)="startOver()">{{ t().sendAnother }}</button>
+          </div>
+        } @else {
+          @let fields = t().fields;
+          @let sending = status() === 'sending';
+          @let nameError = errorFor('name');
+          @let emailError = errorFor('email');
+          @let typeError = errorFor('projectType');
+          @let descriptionError = errorFor('description');
+
+          <h3 class="card__title">{{ t().formTitle }}</h3>
+          <p class="card__text">{{ t().formIntro }}</p>
+
+          <form class="brief__form" [formRoot]="brief">
+            <div class="brief__row">
+              <div class="field">
+                <label class="field__label" for="brief-name">{{ fields.name }}</label>
+                <input
+                  #nameInput
+                  id="brief-name"
+                  class="field__control"
+                  type="text"
+                  autocomplete="name"
+                  [formField]="brief.name"
+                  [placeholder]="fields.namePlaceholder"
+                  [attr.aria-invalid]="nameError ? 'true' : null"
+                  [attr.aria-describedby]="nameError ? 'brief-name-error' : null"
+                />
+                @if (nameError) {
+                  <p class="field__error" id="brief-name-error">{{ nameError }}</p>
+                }
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="brief-email">{{ fields.email }}</label>
+                <input
+                  id="brief-email"
+                  class="field__control"
+                  type="email"
+                  inputmode="email"
+                  autocomplete="email"
+                  spellcheck="false"
+                  [formField]="brief.email"
+                  [placeholder]="fields.emailPlaceholder"
+                  [attr.aria-invalid]="emailError ? 'true' : null"
+                  [attr.aria-describedby]="emailError ? 'brief-email-error' : null"
+                />
+                @if (emailError) {
+                  <p class="field__error" id="brief-email-error">{{ emailError }}</p>
+                }
+              </div>
+            </div>
+
+            <div class="brief__row">
+              <div class="field">
+                <label class="field__label" for="brief-company">
+                  {{ fields.company }} <span class="field__optional">{{ t().optional }}</span>
+                </label>
+                <input
+                  id="brief-company"
+                  class="field__control"
+                  type="text"
+                  autocomplete="organization"
+                  [formField]="brief.company"
+                  [placeholder]="fields.companyPlaceholder"
+                />
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="brief-deadline">
+                  {{ fields.deadline }} <span class="field__optional">{{ t().optional }}</span>
+                </label>
+                <select id="brief-deadline" class="field__control field__select" [formField]="brief.deadline">
+                  <option value="">{{ fields.selectPlaceholder }}</option>
+                  @for (deadline of deadlines; track deadline) {
+                    <option [value]="deadline">{{ t().deadlines[deadline] }}</option>
+                  }
+                </select>
+              </div>
+            </div>
+
+            <fieldset class="field field--group" [attr.aria-describedby]="typeError ? 'brief-type-error' : null">
+              <legend class="field__label">{{ fields.projectType }}</legend>
+              <div class="chips">
+                @for (type of projectTypes; track type) {
+                  <label class="chip">
+                    <input
+                      class="chip__input"
+                      type="radio"
+                      [formField]="brief.projectType"
+                      [value]="type"
+                      [attr.aria-invalid]="typeError ? 'true' : null"
+                    />
+                    <span class="chip__text">{{ t().projectTypes[type] }}</span>
+                  </label>
+                }
+              </div>
+              @if (typeError) {
+                <p class="field__error" id="brief-type-error">{{ typeError }}</p>
+              }
+            </fieldset>
+
+            <div class="field">
+              <label class="field__label" for="brief-description">{{ fields.description }}</label>
+              <textarea
+                id="brief-description"
+                class="field__control field__textarea"
+                rows="6"
+                [formField]="brief.description"
+                [placeholder]="fields.descriptionPlaceholder"
+                [attr.aria-invalid]="descriptionError ? 'true' : null"
+                [attr.aria-describedby]="descriptionError ? 'brief-description-help brief-description-error' : 'brief-description-help'"
+              ></textarea>
+              <p class="field__help" id="brief-description-help">{{ fields.descriptionHelp }}</p>
+              @if (descriptionError) {
+                <p class="field__error" id="brief-description-error">{{ descriptionError }}</p>
+              }
+            </div>
+
+            <div class="brief__actions">
+              <button
+                type="submit"
+                class="btn btn--primary btn--lg brief__submit"
+                [class.is-busy]="sending"
+                [attr.aria-disabled]="sending ? 'true' : null"
+              >
+                @if (sending) {
+                  <span class="spinner" aria-hidden="true"></span>
+                  {{ t().sending }}
+                } @else {
+                  {{ t().submit }}
+                }
+              </button>
+              <p class="brief__privacy">{{ t().privacy }}</p>
+            </div>
+
+            @if (status() === 'error') {
+              <div class="fallback">
+                <p class="fallback__title">{{ t().errorTitle }}</p>
+                <p class="fallback__text">{{ t().errorText }}</p>
+                <div class="fallback__actions">
+                  <a class="btn btn--primary" [href]="mailtoHref()">{{ t().mailFallback }}</a>
+                  <button type="button" class="btn btn--ghost" (click)="copyEmail()">{{ t().copyEmail }}</button>
+                </div>
+                <p class="fallback__copy" aria-live="polite">
+                  @switch (copyState()) {
+                    @case ('copied') {
+                      {{ t().copied }}
+                    }
+                    @case ('failed') {
+                      {{ t().copyFailed(contactEmail) }}
+                    }
+                  }
+                </p>
+              </div>
+            }
+          </form>
+        }
+      </div>
+
+      <div class="contact__aside" appReveal [revealDelay]="120">
+        <div class="card aside-card">
+          <h3 class="card__title card__title--sm">{{ t().directTitle }}</h3>
+          <p class="card__text">{{ t().directText }}</p>
+          <a class="btn btn--primary contact__email" [href]="'mailto:' + contactEmail" [attr.aria-label]="t().emailAria(contactEmail)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <rect x="3" y="5" width="18" height="14" rx="2.5" />
+              <path d="M4 7l8 6 8-6" />
+            </svg>
+            <span class="contact__email-text">{{ emailLocal }}<wbr />{{ emailDomain }}</span>
+          </a>
+          <a class="link aside-card__link" [href]="linkedinUrl" target="_blank" rel="noopener noreferrer">
+            {{ t().linkedin }}<span aria-hidden="true">&nbsp;›</span>
+            <span class="sr-only">{{ t().newTab }}</span>
+          </a>
+        </div>
+
+        <div class="card aside-card">
+          <h3 class="card__title card__title--sm">{{ t().nextTitle }}</h3>
+          <ol class="next" role="list">
+            @for (step of t().nextSteps; track $index) {
+              <li class="next__item">
+                <span class="next__num mono" aria-hidden="true">0{{ $index + 1 }}</span>
+                <span>{{ step }}</span>
+              </li>
+            }
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

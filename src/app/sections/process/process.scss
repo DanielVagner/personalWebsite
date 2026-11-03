@@ -1,0 +1,186 @@
+@use 'mixins' as *;
+
+:host {
+  display: block;
+}
+
+.process__grid {
+  display: grid;
+  gap: 40px;
+
+  @include up($bp-lg) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+    gap: 48px 80px;
+    align-items: start;
+  }
+}
+
+.process__head {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+
+  @include up($bp-lg) {
+    position: sticky;
+    top: calc(var(--header-h) + 32px);
+  }
+}
+
+.process__title {
+  font-size: clamp(36px, 4.4vw, 62px);
+  line-height: 1.05;
+}
+
+.process__intro {
+  margin: 8px 0 0;
+  max-width: 430px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+.process__steps {
+  min-width: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.step {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.step__heading {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.step__trigger {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  min-height: 44px;
+  padding: 24px 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+
+  &:focus-visible {
+    outline-offset: 4px;
+  }
+}
+
+.step__num {
+  flex: 0 0 auto;
+  width: 28px;
+  font-size: 13px;
+  letter-spacing: 1px;
+  color: var(--accent-light);
+}
+
+.step__title {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: clamp(17px, 1.6vw, 19px);
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text);
+}
+
+// "+" drawn from two bars; rotating the whole icon by 45° turns it into "×".
+.step__icon {
+  position: relative;
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  color: var(--text-muted);
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 14px;
+    height: 1.5px;
+    border-radius: 1px;
+    background: currentColor;
+    transform: translate(-50%, -50%);
+  }
+
+  &::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+}
+
+.step__trigger:hover {
+  .step__icon {
+    color: var(--text);
+  }
+}
+
+.is-open .step__icon {
+  transform: rotate(45deg);
+  color: var(--accent-light);
+}
+
+.step__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+}
+
+.is-open .step__panel {
+  grid-template-rows: 1fr;
+  visibility: visible;
+}
+
+.step__inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.step__text {
+  margin: 0 0 26px 46px;
+  max-width: 540px;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--text-muted);
+
+  @include down($bp-sm) {
+    margin-left: 0;
+  }
+}
+
+@include motion {
+  .step__icon {
+    transition:
+      transform 0.3s var(--ease-out),
+      color 0.25s;
+  }
+
+  // Closing: collapse first, then hide from the accessibility tree.
+  .step__panel {
+    transition:
+      grid-template-rows 0.45s var(--ease-out),
+      visibility 0s linear 0.45s;
+  }
+
+  .is-open .step__panel {
+    transition:
+      grid-template-rows 0.45s var(--ease-out),
+      visibility 0s linear 0s;
+  }
+
+  .step__text {
+    transition: opacity 0.35s var(--ease-out);
+    opacity: 0;
+  }
+
+  .is-open .step__text {
+    opacity: 1;
+  }
+}

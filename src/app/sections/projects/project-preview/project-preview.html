@@ -1,0 +1,62 @@
+@let p = project();
+
+@if (variant() === 'card') {
+  <span class="kicker mono" aria-hidden="true">{{ p.kicker }}</span>
+}
+
+<div class="stage">
+  @switch (p.media) {
+    @case ('browser') {
+      <div class="frame">
+        <div class="bar" aria-hidden="true"><i></i><i></i><i></i></div>
+        <img
+          [src]="p.image.src"
+          [width]="p.image.width"
+          [height]="p.image.height"
+          [alt]="p.alt"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    }
+    @case ('plain') {
+      <div class="frame frame--plain">
+        <img
+          [src]="p.image.src"
+          [width]="p.image.width"
+          [height]="p.image.height"
+          [alt]="p.alt"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    }
+    @default {
+      <div class="logo">
+        <img
+          [src]="p.image.src"
+          [width]="p.image.width"
+          [height]="p.image.height"
+          [alt]="p.alt"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      @if (p.phones?.length) {
+        <div class="phones">
+          @for (phone of p.phones; track phone.src; let i = $index) {
+            <img
+              class="phone"
+              [src]="phone.src"
+              [width]="phone.width"
+              [height]="phone.height"
+              [alt]="p.phoneAlts?.[i] ?? ''"
+              loading="lazy"
+              decoding="async"
+            />
+          }
+        </div>
+      }
+    }
+  }
+</div>

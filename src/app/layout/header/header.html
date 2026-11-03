@@ -1,0 +1,81 @@
+<header class="bar" [class.bar--scrolled]="scrolled()" [class.bar--open]="open()">
+  <div class="container bar__inner">
+    <a class="brand" href="#top" [attr.aria-label]="t().homeLabel" (click)="close()">
+      <app-logo-mark [size]="34" />
+      <span class="brand__text">
+        <span class="brand__name">{{ t().brandName }}</span><span class="brand__tld mono">{{ t().brandTld }}</span>
+      </span>
+    </a>
+
+    <nav class="nav" [attr.aria-label]="t().navLabel">
+      <ul class="nav__list" role="list">
+        @for (item of t().items; track item.id) {
+          <li>
+            <a class="nav__link" [href]="'#' + item.id" [attr.aria-current]="active() === item.id ? 'true' : null">
+              {{ item.label }}
+            </a>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <div class="bar__actions">
+      <div class="lang" role="group" [attr.aria-label]="t().langGroup">
+        @for (opt of t().langs; track opt.code) {
+          <button
+            type="button"
+            class="lang__btn"
+            [attr.aria-pressed]="lang() === opt.code"
+            (click)="setLang(opt.code)"
+          >
+            {{ opt.short }}<span class="sr-only" [attr.lang]="opt.code">&nbsp;{{ opt.name }}</span>
+          </button>
+        }
+      </div>
+
+      <a class="btn btn--primary bar__cta" href="#contact">{{ t().cta }}</a>
+
+      <button
+        #toggle
+        type="button"
+        class="burger"
+        aria-controls="site-menu"
+        [attr.aria-expanded]="open()"
+        [attr.aria-label]="open() ? t().menuClose : t().menuOpen"
+        (click)="toggleMenu()"
+      >
+        <span class="burger__box" aria-hidden="true">
+          <span class="burger__line"></span>
+          <span class="burger__line"></span>
+          <span class="burger__line"></span>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <div id="site-menu" class="drawer" [class.drawer--open]="open()">
+    <div class="drawer__panel">
+      <div class="container">
+        <nav [attr.aria-label]="t().mobileNavLabel">
+          <ul class="drawer__list" role="list">
+            @for (item of t().items; track item.id; let i = $index) {
+              <li>
+                <a
+                  class="drawer__link"
+                  [href]="'#' + item.id"
+                  [attr.aria-current]="active() === item.id ? 'true' : null"
+                  (click)="close()"
+                >
+                  <span class="drawer__idx mono" aria-hidden="true">0{{ i + 1 }}</span>
+                  <span class="drawer__label">{{ item.label }}</span>
+                </a>
+              </li>
+            }
+          </ul>
+        </nav>
+        <a class="btn btn--primary btn--lg drawer__cta" href="#contact" (click)="close()">{{ t().cta }}</a>
+      </div>
+    </div>
+    <div class="drawer__scrim" aria-hidden="true" (click)="close()"></div>
+  </div>
+</header>

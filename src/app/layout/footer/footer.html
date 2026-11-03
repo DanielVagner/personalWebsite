@@ -1,0 +1,20 @@
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <p class="footer__copy">© {{ year }} {{ t().owner }} · {{ t().city }}</p>
+
+      <div class="footer__meta">
+        <nav [attr.aria-label]="t().linksLabel">
+          <ul class="footer__links" role="list">
+            @for (link of t().links; track link.href) {
+              <li>
+                <a class="footer__link" [href]="link.href">{{ link.label }}</a>
+              </li>
+            }
+          </ul>
+        </nav>
+        <p class="footer__note mono">{{ t().builtWith }}</p>
+      </div>
+    </div>
+  </div>
+</footer>

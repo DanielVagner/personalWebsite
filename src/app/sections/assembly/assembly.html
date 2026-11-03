@@ -1,0 +1,154 @@
+@let tx = t();
+@let m = tx.mock;
+<section #section class="asm" [class.asm--static]="isStatic()" [attr.aria-label]="tx.sectionLabel">
+  @if (!isStatic()) {
+    <!-- One snap point per step: a short scroll lands exactly on the next step. -->
+    @for (s of tx.steps; track $index) {
+      <span class="asm__snap" aria-hidden="true" [style.--i]="$index"></span>
+    }
+  }
+  <div #stage class="asm__stage">
+    <div class="asm__grid" aria-hidden="true"></div>
+
+    <div class="asm__layout container">
+      <div class="asm__copy">
+        <p class="eyebrow asm__eyebrow">{{ tx.eyebrow }}</p>
+
+        @if (isStatic()) {
+          <h2 class="h asm__title">{{ tx.heading }}</h2>
+          <ol class="asm__list" role="list">
+            @for (s of tx.steps; track $index) {
+              <li class="asm__item">
+                <h3 class="asm__item-title">
+                  <span class="mono asm__item-name">{{ s.name }}</span>
+                  <span class="asm__item-line">{{ s.title }}</span>
+                </h3>
+                <p class="asm__item-text">{{ s.text }}</p>
+              </li>
+            }
+          </ol>
+        } @else {
+          <h2 class="h asm__title">
+            <span class="asm__title-main">{{ tx.heading }}</span>
+            <span class="asm__swap asm__title-step" aria-hidden="true">
+              @for (s of tx.steps; track $index) {
+                <span class="asm__fade" [class.is-active]="$index === step()">{{ s.title }}</span>
+              }
+            </span>
+          </h2>
+          <!-- Every step stays reachable for screen readers, independent of scroll position. -->
+          <ol class="sr-only" [attr.aria-label]="tx.stepsLabel">
+            @for (s of tx.steps; track $index) {
+              <li [attr.aria-current]="$index === step() ? 'step' : null">
+                <h3>{{ s.name }}: {{ s.title }}</h3>
+                <p>{{ s.text }}</p>
+              </li>
+            }
+          </ol>
+          <div class="asm__swap asm__texts" aria-hidden="true">
+            @for (s of tx.steps; track $index) {
+              <p class="asm__fade asm__text" [class.is-active]="$index === step()">{{ s.text }}</p>
+            }
+          </div>
+          <ol class="asm__steps" aria-hidden="true">
+            @for (s of tx.steps; track $index) {
+              <li class="mono asm__step" [class.is-active]="$index === step()" [attr.aria-current]="$index === step() ? 'step' : null">
+                <span class="asm__dot" aria-hidden="true"></span>{{ s.name }}
+              </li>
+            }
+          </ol>
+        }
+      </div>
+
+      <div #slot class="asm__slot">
+        <div class="asm__device" [style.--device-scale]="deviceScale()">
+          <div class="asm__glow" aria-hidden="true" [style.opacity]="glow()"></div>
+
+          <div class="ph" role="img" [class.ph--android]="platform() === 'android'" [attr.aria-label]="tx.phoneLabel" [style.transform]="phone()">
+            <div class="ph__shell"></div>
+            <div class="ph__screen"></div>
+            <div class="ph__island"></div>
+            <div class="mono ph__status"><span>{{ m.time }}</span><span>{{ m.signal }}</span></div>
+
+            <div class="ly ly--1" [style.transform]="layers()[0].transform" [style.opacity]="layers()[0].opacity">
+              <div class="ly1__top">
+                <span class="ly1__brand">{{ m.brand }}</span>
+                <span class="ly1__avatar">{{ m.avatar }}</span>
+              </div>
+              <div class="mono ly1__date">{{ m.date }}</div>
+              <div class="ly1__title">{{ m.title }}</div>
+              <div class="ly1__sub">{{ m.subtitle }}</div>
+            </div>
+
+            <div class="ly ly--2" [style.transform]="layers()[1].transform" [style.opacity]="layers()[1].opacity">
+              <div class="ly2__head"><span>{{ m.goalLabel }}</span><span>{{ m.more }}</span></div>
+              <svg class="ly2__ring" width="104" height="104" viewBox="0 0 104 104" aria-hidden="true" focusable="false">
+                <circle cx="52" cy="52" r="42" fill="none" stroke="rgba(168,189,255,.15)" stroke-width="9" />
+                <circle
+                  cx="52"
+                  cy="52"
+                  r="42"
+                  fill="none"
+                  stroke="#A8BDFF"
+                  stroke-width="9"
+                  stroke-linecap="round"
+                  stroke-dasharray="221.7 263.9"
+                  transform="rotate(-90 52 52)"
+                />
+                <text x="52" y="56" text-anchor="middle" font-size="22" font-weight="700" fill="#EEF2FA">{{ m.ringValue }}</text>
+                <text x="52" y="70" text-anchor="middle" font-size="7.5" fill="#8D99AF">{{ m.ringSub }}</text>
+              </svg>
+              <div class="ly2__foot">{{ m.goalProgress }}</div>
+            </div>
+
+            <div class="ly ly--3" [style.transform]="layers()[2].transform" [style.opacity]="layers()[2].opacity">
+              <div class="ly3__card">
+                <div class="ly3__value">{{ m.statSteps }}</div>
+                <div class="ly3__label">{{ m.statStepsLabel }}</div>
+              </div>
+              <div class="ly3__card">
+                <div class="ly3__value">{{ m.statMinutes }}<span class="ly3__unit">&nbsp;{{ m.statMinutesUnit }}</span></div>
+                <div class="ly3__label">{{ m.statMinutesLabel }}</div>
+              </div>
+            </div>
+
+            <div class="ly ly--4" [style.transform]="layers()[3].transform" [style.opacity]="layers()[3].opacity">
+              <span>{{ m.cta }}</span><span class="ly4__icon">{{ m.ctaIcon }}</span>
+            </div>
+
+            <div class="ly ly--5" [style.transform]="layers()[4].transform" [style.opacity]="layers()[4].opacity">
+              @for (tab of m.tabs; track $index) {
+                <span class="ly5__tab" [class.is-active]="$first">
+                  <span class="ly5__icon ly5__icon--{{ $index }}"></span>{{ tab }}
+                </span>
+              }
+            </div>
+            <div class="ph__home"></div>
+          </div>
+
+          <div class="asm__platforms" role="group" [attr.aria-label]="pt().groupLabel">
+            @for (p of platforms; track p) {
+              <button
+                type="button"
+                class="mono asm__platform"
+                [class.is-active]="platform() === p"
+                [attr.aria-pressed]="platform() === p"
+                (click)="platform.set(p)"
+              >
+                {{ pt()[p] }}
+              </button>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    @if (!isStatic()) {
+      <div class="asm__progress container" aria-hidden="true">
+        <span class="mono">{{ tx.steps[0].name }}</span>
+        <span class="asm__track"><span class="asm__bar" [style.transform]="bar()"></span></span>
+        <span class="mono">{{ tx.steps[tx.steps.length - 1].name }}</span>
+      </div>
+    }
+  </div>
+</section>

@@ -1,0 +1,53 @@
+<section id="about" class="section section--surface about" aria-labelledby="about-title">
+  <div class="container about__grid">
+    <div class="about__media" appReveal>
+      <div class="about__photo">
+        <img
+          src="/images/daniel-vagner.webp"
+          width="640"
+          height="640"
+          loading="lazy"
+          decoding="async"
+          [alt]="t().photoAlt"
+        />
+        <span class="about__badge" aria-hidden="true">
+          <app-logo-mark [size]="52" [blink]="false" />
+        </span>
+      </div>
+    </div>
+
+    <div class="about__content" appReveal [revealDelay]="120">
+      <span class="eyebrow">{{ t().eyebrow }}</span>
+      <h2 class="h about__title" id="about-title">
+        {{ t().titleLine1 }}<br />
+        <span class="grad">{{ t().titleLine2 }}</span>
+      </h2>
+      <p class="about__lead">{{ t().lead }}</p>
+      <p class="about__body">{{ t().body }}</p>
+
+      <ul class="about__facts" role="list" [attr.aria-label]="t().factsLabel">
+        @for (fact of t().facts; track $index) {
+          <li class="fact">
+            <span class="fact__value">{{ fact.value }}</span>
+            <span class="fact__label mono">{{ fact.label }}</span>
+          </li>
+        }
+      </ul>
+
+      <ul class="about__links" role="list" [attr.aria-label]="t().linksLabel">
+        <li>
+          <a class="link about__link" [href]="links.linkedin" target="_blank" rel="noopener noreferrer">
+            {{ t().linkedin }}<span aria-hidden="true">&nbsp;›</span>
+            <span class="sr-only">{{ t().newTab }}</span>
+          </a>
+        </li>
+        <li>
+          <a class="link about__link" [href]="links.github" target="_blank" rel="noopener noreferrer">
+            {{ t().github }}<span aria-hidden="true">&nbsp;›</span>
+            <span class="sr-only">{{ t().newTab }}</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>

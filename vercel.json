@@ -1,4 +1,9 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "angular",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/daniel-vagner-dev/browser",
+  "redirects": [{ "source": "/cv", "destination": "/", "permanent": true }],
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/(.*)", "destination": "/index.html" }

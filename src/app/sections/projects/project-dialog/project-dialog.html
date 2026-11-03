@@ -1,0 +1,75 @@
+<dialog
+  #dlg
+  class="dlg"
+  [attr.aria-labelledby]="titleId"
+  (close)="onClose()"
+  (pointerdown)="onPointerDown($event)"
+  (click)="onClick($event)"
+>
+  <button type="button" class="close" [attr.aria-label]="t().dialog.close" (click)="close()">
+    <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+    </svg>
+  </button>
+
+  <div #scroller class="scroller">
+    @if (project(); as p) {
+      <app-project-preview class="media" [project]="p" variant="detail" />
+
+      <div class="content">
+        <header class="intro">
+          <p class="kicker mono">{{ p.kicker }}</p>
+          <h2 class="h title" [id]="titleId">{{ p.title }}</h2>
+          <p class="type">{{ p.type }}</p>
+        </header>
+
+        <div class="blocks">
+          <section class="block">
+            <h3 class="block__title">{{ t().dialog.brief }}</h3>
+            <p>{{ p.brief }}</p>
+          </section>
+
+          <section class="block">
+            <h3 class="block__title">{{ t().dialog.solution }}</h3>
+            <p>{{ p.solution }}</p>
+            <ul class="features" role="list">
+              @for (feature of p.features; track $index) {
+                <li>{{ feature }}</li>
+              }
+            </ul>
+          </section>
+
+          <section class="block">
+            <h3 class="block__title">{{ t().dialog.role }}</h3>
+            <p>{{ p.role }}</p>
+          </section>
+
+          <section class="block">
+            <h3 class="block__title">{{ t().dialog.tech }}</h3>
+            <ul class="tags" role="list">
+              @for (tag of p.tags; track tag) {
+                <li class="tag">{{ tag }}</li>
+              }
+            </ul>
+            @if (p.url) {
+              <a class="link visit" [href]="p.url" target="_blank" rel="noopener">
+                {{ t().dialog.visit }} <span aria-hidden="true">↗</span>
+                <span class="sr-only">{{ t().dialog.newTab }}</span>
+              </a>
+            }
+          </section>
+        </div>
+      </div>
+
+      <footer class="cta">
+        <div class="cta__copy">
+          <p class="cta__title">{{ t().dialog.ctaTitle }}</p>
+          <p class="cta__text">{{ t().dialog.ctaText }}</p>
+        </div>
+        <a class="btn btn--primary btn--lg cta__btn" href="#contact" (click)="goToContact($event)">
+          {{ t().dialog.ctaButton }} <span aria-hidden="true">→</span>
+        </a>
+      </footer>
+    }
+  </div>
+</dialog>

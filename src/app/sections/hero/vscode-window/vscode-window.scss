@@ -1,0 +1,817 @@
+@use 'mixins' as *;
+
+// VS Code Dark+ chrome
+$bg: #1e1e1e;
+$side: #252526;
+$tab: #2d2d2d;
+$line: #3c3c3c;
+$fg: #cccccc;
+
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.vs {
+  --lh: 19px;
+  --code-size: 12.5px;
+  --rows: 17;
+  /* phones: the code box shows this many lines and scrolls */
+  --rows-sm: 7;
+
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius);
+  background: $bg;
+  box-shadow:
+    0 50px 140px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(0, 0, 0, 0.4);
+  color: $fg;
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: left;
+
+  @include up($bp-md) {
+    --lh: 20px;
+  }
+
+  @include up($bp-xl) {
+    --code-size: 13px;
+  }
+
+  button {
+    font: inherit;
+  }
+
+  button:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: -2px;
+  }
+}
+
+.vs-ellipsis {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Title bar ── */
+.vs-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 34px;
+  padding-left: 12px;
+  background: #2c2c2e;
+}
+
+.vs-lights {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 7px;
+  margin-right: 6px;
+
+  span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ff5f57;
+
+    &:nth-child(2) {
+      background: #febc2e;
+    }
+
+    &:nth-child(3) {
+      background: #28c840;
+    }
+  }
+}
+
+.vs-menu {
+  display: none;
+  flex: 0 0 auto;
+  font-size: 12px;
+
+  span {
+    padding: 3px 7px;
+    border-radius: 5px;
+  }
+
+  @media (min-width: 900px) {
+    display: flex;
+  }
+}
+
+.vs-command {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  min-width: 0;
+  padding-right: 12px;
+}
+
+.vs-command__box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 420px;
+  height: 22px;
+  padding: 0 10px;
+  overflow: hidden;
+  border: 1px solid #4a4a4c;
+  border-radius: 6px;
+  background: #232325;
+  font-size: 12px;
+
+  svg {
+    flex: 0 0 auto;
+  }
+}
+
+/* ── Layout ──
+   < 768: editor only (code box above a large preview)
+   768–1023: activity bar + editor; the side bar opens as an overlay
+   ≥ 1024: activity bar + side bar + editor */
+.vs-body {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+
+  @include up($bp-md) {
+    grid-template-columns: 48px minmax(0, 1fr);
+  }
+
+  @include up($bp-lg) {
+    grid-template-columns: 48px 200px minmax(0, 1fr);
+  }
+
+  @include up($bp-xl) {
+    grid-template-columns: 48px 220px minmax(0, 1fr);
+  }
+
+  .vs--collapsed & {
+    @include up($bp-md) {
+      grid-template-columns: 48px minmax(0, 1fr);
+    }
+  }
+}
+
+/* ── Activity bar ── */
+.vs-activity {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #333333;
+
+  @include up($bp-md) {
+    display: flex;
+  }
+}
+
+.vs-act {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #858585;
+  cursor: pointer;
+
+  &:hover,
+  &.is-active {
+    color: #fff;
+  }
+
+  &.is-active {
+    box-shadow: inset 2px 0 0 #fff;
+  }
+}
+
+.vs-act--static {
+  cursor: default;
+
+  &:hover {
+    color: #858585;
+  }
+}
+
+/* ── Side bar ── */
+.vs-side {
+  display: none;
+  flex-direction: column;
+  min-width: 0;
+  background: $side;
+
+  @include up($bp-md) {
+    display: flex;
+  }
+
+  // Tablets: no room next to code + preview, so it floats over the code.
+  @media (min-width: $bp-md) and (max-width: ($bp-lg - 0.02px)) {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 48px;
+    z-index: 3;
+    width: min(240px, 50%);
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+  }
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.vs-side__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  height: 35px;
+  padding: 0 12px 0 20px;
+  color: #bbbbbb;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.vs-side__more {
+  letter-spacing: 0.1em;
+}
+
+.vs-section {
+  display: flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 8px 0 2px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.vs-side__foot {
+  margin-top: auto;
+  padding-top: 10px;
+
+  .vs-section {
+    border-top: 1px solid $line;
+  }
+}
+
+.vs-chev {
+  flex: 0 0 16px;
+  color: #c5c5c5;
+}
+
+.vs-chev--closed {
+  transform: rotate(-90deg);
+}
+
+.vs-tree {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.vs-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 22px;
+  padding: 0 8px 0 var(--pad, 4px);
+  border: 0;
+  background: transparent;
+  color: $fg;
+  text-align: left;
+}
+
+.vs-row--file {
+  cursor: pointer;
+
+  &:hover {
+    background: #2a2d2e;
+  }
+
+  &.is-active {
+    background: #37373d;
+    color: #fff;
+  }
+}
+
+// HTML file icon (Seti theme)
+.vs-icon {
+  flex: 0 0 22px;
+  color: #e37933;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: -0.08em;
+  text-align: center;
+}
+
+/* Run view */
+.vs-pane {
+  padding: 2px 14px 14px 20px;
+}
+
+.vs-note {
+  margin: 8px 0 0;
+  color: #a6a6a6;
+  font-size: 12px;
+}
+
+.vs-run {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  min-height: 28px;
+  margin-top: 6px;
+  padding: 4px 8px;
+  border: 0;
+  border-radius: 2px;
+  background: #0e639c;
+  color: #fff;
+  cursor: pointer;
+
+  &:hover {
+    background: #1177bb;
+  }
+}
+
+/* ── Editor area ── */
+.vs-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: $bg;
+}
+
+.vs-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+
+  @include up($bp-md) {
+    grid-template-columns: minmax(0, 11fr) minmax(0, 9fr);
+  }
+
+  @include up($bp-lg) {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  }
+}
+
+.vs-group {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.vs-group--preview {
+  border-top: 1px solid $line;
+
+  @include up($bp-md) {
+    border-top: 0;
+    border-left: 1px solid $line;
+  }
+}
+
+.vs-tabs {
+  display: flex;
+  flex: 0 0 auto;
+  overflow-x: auto;
+  background: $side;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.vs-tab {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 7px;
+  height: 35px;
+  padding: 0 10px 0 12px;
+  border: 0;
+  border-right: 1px solid $side;
+  background: $tab;
+  color: #969696;
+  white-space: nowrap;
+  cursor: pointer;
+
+  .vs-icon {
+    flex-basis: auto;
+  }
+
+  &:hover {
+    color: #fff;
+  }
+
+  &.is-active {
+    background: $bg;
+    color: #fff;
+    box-shadow: inset 0 1px 0 var(--accent);
+  }
+
+  @include down($bp-md) {
+    height: 44px;
+  }
+}
+
+.vs-x {
+  display: none;
+  width: 16px;
+  border-radius: 4px;
+  font-size: 15px;
+  line-height: 16px;
+  text-align: center;
+  opacity: 0;
+
+  .vs-tab:hover & {
+    opacity: 1;
+  }
+
+  @include up($bp-xl) {
+    display: block;
+  }
+}
+
+/* Preview header: one static tab + reload */
+.vs-tabs--preview {
+  align-items: stretch;
+  justify-content: space-between;
+  overflow: hidden;
+
+  .vs-tab {
+    flex: 0 1 auto;
+    min-width: 0;
+    cursor: default;
+  }
+}
+
+.vs-preview-icon {
+  flex: 0 0 auto;
+  color: #75beff;
+}
+
+.vs-reload {
+  display: grid;
+  flex: 0 0 40px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #c5c5c5;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+  }
+}
+
+.vs-preview {
+  height: 392px;
+
+  @include up($bp-md) {
+    // Same height as breadcrumbs + code, so both columns line up.
+    height: calc(var(--rows) * var(--lh) + 16px + 22px);
+  }
+}
+
+.vs-crumbs {
+  display: none;
+  align-items: center;
+  gap: 4px;
+  height: 22px;
+  padding: 0 14px;
+  overflow: hidden;
+  color: #a9a9a9;
+  white-space: nowrap;
+
+  .vs-icon {
+    flex-basis: auto;
+  }
+
+  @include up($bp-md) {
+    display: flex;
+  }
+}
+
+.vs-editor {
+  display: flex;
+  flex: 1 1 auto;
+
+  @include up($bp-md) {
+    min-height: calc(var(--rows) * var(--lh) + 16px);
+  }
+}
+
+.vs-scroll {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-height: calc(var(--rows-sm) * var(--lh) + 16px);
+  overflow: auto;
+  overscroll-behavior: contain;
+
+  @include up($bp-md) {
+    max-height: none;
+    overflow-y: hidden;
+  }
+}
+
+.vs-code-wrap {
+  position: relative;
+  display: flex;
+  width: max-content;
+  min-width: 100%;
+  padding: 8px 0;
+  font-family: var(--font-mono);
+  font-size: var(--code-size);
+  line-height: var(--lh);
+}
+
+.vs-current {
+  position: absolute;
+  top: calc(8px + var(--cur, 0) * var(--lh));
+  right: 0;
+  left: 0;
+  height: var(--lh);
+  border: 2px solid #282828;
+}
+
+.vs-gutter {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  min-width: 42px;
+  padding: 0 14px 0 8px;
+  background: $bg;
+  color: #858585;
+  text-align: right;
+  user-select: none;
+
+  @include up($bp-xl) {
+    min-width: 56px;
+    padding: 0 22px 0 18px;
+  }
+}
+
+.vs-num.is-current {
+  color: #c6c6c6;
+}
+
+.vs-code {
+  position: relative;
+  display: block;
+  flex: 1 1 auto;
+  padding-right: 16px;
+  font: inherit;
+  white-space: pre;
+  tab-size: 2;
+  color: #d4d4d4;
+}
+
+.vs-line {
+  display: block;
+  min-height: var(--lh);
+}
+
+// Lines, numbers and minimap bars appear as they are "typed".
+.vs-line,
+.vs-num,
+.vs-mini {
+  opacity: 0;
+}
+
+.vs-line {
+  transform: translateY(4px);
+}
+
+.vs-line.is-in,
+.vs-num.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+.vs-caret {
+  display: inline-block;
+  width: 2px;
+  height: calc(var(--lh) - 2px);
+  margin-left: 1px;
+  vertical-align: top;
+  background: #aeafad;
+}
+
+.vs-minimap {
+  display: none;
+  flex: 0 0 64px;
+  padding: 8px 6px 0 0;
+  border-left: 1px solid $side;
+
+  @include up($bp-xl) {
+    display: block;
+  }
+}
+
+.vs-mini {
+  display: block;
+  max-width: 100%;
+  height: 3px;
+  margin-bottom: 1px;
+  border-radius: 1px;
+
+  &.is-in {
+    opacity: 0.55;
+  }
+}
+
+/* ── Panel / terminal ── */
+.vs-panel {
+  border-top: 1px solid $line;
+}
+
+.vs-panel__tabs {
+  display: flex;
+  align-items: flex-end;
+  gap: 22px;
+  height: 35px;
+  padding: 0 14px;
+  overflow: hidden;
+  color: #969696;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+
+  span {
+    padding-bottom: 7px;
+
+    @include down($bp-sm) {
+      display: none;
+    }
+  }
+
+  .is-active {
+    display: inline;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #e7e7e7;
+    color: #e7e7e7;
+  }
+}
+
+.vs-term {
+  display: block;
+  min-height: calc(4 * 19px + 20px);
+  padding: 6px 14px 14px;
+  font-size: 12.5px;
+  line-height: 19px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.vs-term__line {
+  display: block;
+}
+
+.vs-term__indent {
+  padding-left: 2ch;
+}
+
+.t-green {
+  color: #23d18b;
+}
+
+.t-blue {
+  color: #3b8eea;
+}
+
+.vs-block {
+  display: inline-block;
+  width: 8px;
+  height: 15px;
+  vertical-align: -3px;
+  background: #aeafad;
+}
+
+/* ── Status bar ── */
+.vs-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 4px;
+  min-height: 22px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 12px;
+}
+
+.vs-status__group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 14px;
+  min-width: 0;
+}
+
+.vs-status__group--end {
+  gap: 0 16px;
+  padding: 0 12px 0 10px;
+}
+
+.vs-remote {
+  display: flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 10px;
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.vs-hide-sm {
+  @include down($bp-sm) {
+    display: none;
+  }
+}
+
+/* Comfortable targets on touch screens */
+@media (pointer: coarse) {
+  .vs-tab,
+  .vs-row--file,
+  .vs-run {
+    min-height: 44px;
+  }
+
+  .vs-reload {
+    flex-basis: 44px;
+  }
+}
+
+/* ── Motion ── */
+@include motion {
+  .vs-line.is-in,
+  .vs-num.is-in,
+  .vs-mini.is-in {
+    transition:
+      opacity 0.3s ease-out,
+      transform 0.3s ease-out;
+  }
+
+  .vs-current {
+    transition: top 0.12s ease-out;
+  }
+
+  .vs-term__line {
+    animation: vs-in 0.35s ease-out both;
+    animation-delay: var(--d, 0ms);
+  }
+
+  .vs-caret,
+  .vs-block {
+    animation: vs-blink 1s steps(1) infinite;
+  }
+
+  .vs-act,
+  .vs-tab,
+  .vs-row--file,
+  .vs-reload {
+    transition:
+      color 0.15s,
+      background-color 0.15s;
+  }
+
+  .vs-x {
+    transition: opacity 0.15s;
+  }
+}
+
+@keyframes vs-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+@keyframes vs-blink {
+  50% {
+    opacity: 0;
+  }
+}
