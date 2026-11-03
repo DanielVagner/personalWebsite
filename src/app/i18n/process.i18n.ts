@@ -19,11 +19,11 @@ export const PROCESS_TEXT: Translated<ProcessText> = {
     titleLine1: 'Jasný postup.',
     titleLine2: 'Žádná překvapení.',
     intro:
-      'Od prvního hovoru po spuštění víte, v jaké fázi projekt je, co se právě dělá a co přijde dál. A celou dobu jednáte přímo se mnou.',
+      'Během celé spolupráce víte, v jaké fázi projekt je, co se právě dělá a co přijde dál. A jednáte přímo se mnou.',
     steps: [
       {
         title: 'Úvodní hovor',
-        text: 'Probereme, čeho chcete dosáhnout, kdo bude aplikaci používat a s jakými omezeními je potřeba počítat. Řeknu vám upřímně, jestli a jak má smysl projekt stavět – i kdyby odpověď měla znít jinak, než čekáte.',
+        text: 'Probereme, čeho chcete dosáhnout, kdo bude aplikaci používat a s jakými omezeními je potřeba počítat. Upřímně vám řeknu, jestli má smysl projekt stavět a jak do toho jít – i kdyby to nebyla odpověď, kterou čekáte.',
       },
       {
         title: 'Návrh a odhad',
@@ -31,11 +31,11 @@ export const PROCESS_TEXT: Translated<ProcessText> = {
       },
       {
         title: 'Vývoj po etapách',
-        text: 'Pracuji v krátkých iteracích a pravidelně vám ukazuji, co je hotové. Během vývoje máte přístup k funkční verzi, takže pokrok vidíte na vlastní oči, ne jen v mých zprávách.',
+        text: 'Pracuji v krátkých cyklech a pravidelně vám ukazuji, co je hotové. Během vývoje máte přístup k funkční verzi, takže pokrok vidíte na vlastní oči, ne jen v mých zprávách.',
       },
       {
         title: 'Spuštění a podpora',
-        text: 'Postarám se o nasazení a u mobilních aplikací i o vydání v App Storu a na Google Play. Předám vám zdrojový kód i dokumentaci, a pokud budete chtít, budu aplikaci dál rozvíjet a udržovat.',
+        text: 'Aplikaci uvedu do ostrého provozu a u mobilních aplikací zajistím i vydání v App Storu a na Google Play. Předám vám zdrojový kód i dokumentaci, a pokud budete chtít, budu aplikaci dál rozvíjet a udržovat.',
       },
     ],
   },

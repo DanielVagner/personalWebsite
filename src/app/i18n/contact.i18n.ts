@@ -75,8 +75,8 @@ export interface ContactText {
 export const CONTACT_TEXT: Translated<ContactText> = {
   cs: {
     eyebrow: 'Začněme rozhovorem',
-    titleLine1: 'Váš nápad.',
-    titleLine2: 'Pojďme ho postavit.',
+    titleLine1: 'Máte nápad?',
+    titleLine2: 'Udělejme z něj aplikaci.',
     replyNote: 'Obvykle se ozvu do jednoho až dvou dnů.',
 
     formTitle: 'Popište mi svůj projekt',
@@ -96,7 +96,7 @@ export const CONTACT_TEXT: Translated<ContactText> = {
       description: 'Popis projektu',
       descriptionPlaceholder: 'Co má aplikace umět, pro koho je a co už máte hotové…',
       descriptionHelp:
-        'Alespoň 20 znaků. Hodí se cíl projektu, hlavní funkce a to, co už máte (design, backend, podklady).',
+        'Alespoň 20 znaků. Uveďte třeba cíl projektu, hlavní funkce a to, co už máte (design, backend, podklady).',
     },
     projectTypes: {
       'web-app': 'Webová aplikace',
@@ -108,7 +108,7 @@ export const CONTACT_TEXT: Translated<ContactText> = {
     deadlines: {
       asap: 'Co nejdříve',
       month: 'Do měsíce',
-      quarter: '1–3 měsíce',
+      quarter: 'Za 1–3 měsíce',
       later: 'Za více než 3 měsíce',
       flexible: 'Nespěchá',
     },
@@ -129,14 +129,14 @@ export const CONTACT_TEXT: Translated<ContactText> = {
     summaryLabel: 'Shrnutí poptávky',
     sendAnother: 'Poslat další poptávku',
 
-    errorTitle: 'Zprávu se nepodařilo odeslat.',
+    errorTitle: 'Poptávku se nepodařilo odeslat.',
     errorText:
       'Zkuste to prosím znovu nebo mi napište e-mailem – údaje z formuláře se do něj doplní automaticky.',
     mailFallback: 'Napsat e-mailem',
     copyEmail: 'Zkopírovat adresu',
     copied: 'Adresa zkopírována',
     copyFailed: (email) => `Kopírování se nepovedlo. Adresa je ${email}.`,
-    mailSubject: (type) => (type ? `Poptávka projektu – ${type}` : 'Poptávka projektu'),
+    mailSubject: (type) => (type ? `Poptávka – ${type}` : 'Nová poptávka'),
 
     summary: {
       name: 'Jméno',
@@ -158,7 +158,7 @@ export const CONTACT_TEXT: Translated<ContactText> = {
     nextTitle: 'Co bude dál',
     nextSteps: [
       'Přečtu si vaši poptávku a ozvu se vám.',
-      'Domluvíme si krátký úvodní hovor o vašich cílech a možnostech.',
+      'Domluvíme si krátký úvodní hovor o tom, čeho chcete dosáhnout.',
       'Pošlu vám návrh postupu a odhad času i nákladů.',
     ],
   },

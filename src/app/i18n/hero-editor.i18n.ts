@@ -180,7 +180,7 @@ export const HERO_EDITOR_TEXT: Translated<HeroEditorText> = {
         booked: (d, t) => `${d}${NB}${t}`,
         cart: (n) => `košík: ${n}`,
       },
-      addedToCart: (n) => `Přidáno do${NB}košíku. Počet položek v${NB}košíku: ${n}`,
+      addedToCart: (n) => `Přidáno do${NB}košíku. Celkem položek: ${n}`,
     },
     booking: {
       tab: 'Rezervace',
@@ -202,7 +202,7 @@ export const HERO_EDITOR_TEXT: Translated<HeroEditorText> = {
       heading: 'Volné termíny',
       slots: [
         { time: '9:00', service: 'Střih', length: `45${NB}min` },
-        { time: '10:30', service: 'Střih a barva', length: `90${NB}min` },
+        { time: '10:30', service: `Střih a${NB}barvení`, length: `90${NB}min` },
         { time: '14:15', service: 'Konzultace', length: `20${NB}min` },
       ],
       cta: 'Rezervovat',

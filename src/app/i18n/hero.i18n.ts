@@ -18,7 +18,7 @@ export const HERO_TEXT: Translated<HeroText> = {
     titleLine1: 'Aplikace na míru.',
     titleLine2: 'Od nápadu po spuštění.',
     subtitle:
-      'Navrhuji a vyvíjím webové aplikace v Angularu nebo Reactu a mobilní aplikace v Ionicu nebo React Native – včetně architektury, která celek drží pohromadě. Pro firmy i startupy – s více než 11 lety zkušeností.',
+      'Navrhuji a vyvíjím webové aplikace v Angularu nebo Reactu a mobilní aplikace v Ionicu nebo React Native. Promyslím i architekturu, aby se aplikace dala dál snadno rozvíjet. Pracuji pro firmy i startupy a mám za sebou přes 11 let praxe.',
     ctaPrimary: 'Probrat projekt',
     ctaSecondary: 'Prohlédnout projekty',
     scroll: 'Dolů',

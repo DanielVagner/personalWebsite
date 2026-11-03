@@ -25,7 +25,7 @@ export const SERVICES_TEXT: Translated<ServicesText> = {
     titleTop: 'Web, mobil i architektura.',
     titleBottom: 'Z jedné ruky.',
     intro:
-      'Vyberu technologie, které váš produkt opravdu potřebuje – ne ty, které jsou zrovna v módě. A postarám se, aby výsledek fungoval spolehlivě a dobře vypadal na každé obrazovce.',
+      'Vyberu technologie, které váš produkt opravdu potřebuje, ne ty, které jsou zrovna v módě. Výsledek bude spolehlivě fungovat a dobře vypadat na každé obrazovce.',
     cards: [
       {
         id: 'web',
@@ -41,7 +41,7 @@ export const SERVICES_TEXT: Translated<ServicesText> = {
       {
         id: 'mobile',
         title: 'Mobilní aplikace',
-        text: 'Aplikace pro iOS i Android v Ionicu s Capacitorem nebo v React Native. O celý projekt se postarám od prvního commitu až po vydání v App Storu a na Google Play.',
+        text: 'Aplikace pro iOS i Android v Ionicu s Capacitorem nebo v React Native. Celý projekt zvládnu sám, od prvního řádku kódu až po vydání v App Storu a na Google Play.',
         points: [
           'Jeden společný kód pro iOS i Android',
           'Nativní integrace: HealthKit, Garmin, poloha, platby',
@@ -52,7 +52,7 @@ export const SERVICES_TEXT: Translated<ServicesText> = {
       {
         id: 'lead',
         title: 'Architektura a vedení vývoje',
-        text: 'Technická rozhodnutí, díky kterým zůstane kód přehledný a udržitelný, i když produkt i tým porostou. Opírám se o zkušenosti z role softwarového architekta a z vedení menších týmů.',
+        text: 'Technická rozhodnutí, díky kterým zůstane kód přehledný a snadno udržovatelný, i když produkt i tým porostou. Vycházím ze zkušeností, které jsem získal jako softwarový architekt a vedoucí menších týmů.',
         points: [
           'Audit stávajícího kódu a code review s konkrétními doporučeními',
           'Technické vedení a mentoring vývojářů',

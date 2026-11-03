@@ -10,7 +10,7 @@ export const SITE_TEXT: Translated<SiteText> = {
   cs: {
     title: 'Daniel Vágner – webové a mobilní aplikace na zakázku',
     description:
-      'Freelance vývojář webových a mobilních aplikací v Angularu, Reactu, Ionicu a React Native. Návrh, architektura a vývoj od nápadu po spuštění. V Praze i na dálku.',
+      'Webové a mobilní aplikace v Angularu, Reactu, Ionicu a React Native od vývojáře na volné noze. Navrhnu a vyvinu vaši aplikaci od nápadu po spuštění. V Praze i na dálku.',
     skipLink: 'Přeskočit na obsah',
   },
   en: {

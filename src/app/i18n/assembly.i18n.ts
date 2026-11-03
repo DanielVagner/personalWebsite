@@ -51,37 +51,37 @@ export const ASSEMBLY_TEXT: Translated<AssemblyText> = {
     steps: [
       {
         name: 'Záměr',
-        title: 'Začíná to záměrem.',
-        text: 'Každá obrazovka má mít jeden jasný úkol – tady na první pohled ukázat dnešní aktivitu. Než cokoli nakreslím, ujasníme si, co má uživatel zjistit a co udělat.',
+        title: 'Na začátku je záměr.',
+        text: 'Každá obrazovka má mít jeden jasný úkol – tahle má na první pohled ukázat dnešní aktivitu. Než cokoli nakreslím, ujasníme si, co má uživatel zjistit a co udělat.',
       },
       {
         name: 'Struktura',
-        title: 'Jasná orientace.',
-        text: 'Datum a krátký nadpis dávají obrazovce kontext. Co k sobě patří, stojí pohromadě, takže uživatel hned ví, kde je.',
+        title: 'Snadná orientace.',
+        text: 'Datum a krátký nadpis prozradí, o čem obrazovka je. Co k sobě patří, stojí pohromadě, takže uživatel hned ví, kde je.',
       },
       {
         name: 'Obsah',
         title: 'To hlavní uprostřed.',
-        text: 'Kruh ukazuje, kolik procent cíle už máte splněno, a přesná čísla ho doplňují, aby nikdo nemusel hádat. Barva pomáhá, význam nese text.',
+        text: 'Kruh ukazuje, kolik procent cíle už máte splněno, a přesná čísla ho doplňují, aby nikdo nemusel hádat. Barva pomáhá, ale to podstatné řekne text.',
       },
       {
         name: 'Data',
         title: 'Skutečná data, skutečné stavy.',
-        text: 'Čísla přicházejí z API a přepočítá se jen to, co se změnilo. Načítání, prázdný stav i chyba jsou navržené předem, ne ponechané náhodě.',
+        text: 'Čísla se načítají ze serveru a aplikace přepočítá jen to, co se změnilo. Předem myslím i na to, jak bude obrazovka vypadat při načítání, bez dat nebo když něco selže.',
       },
       {
         name: 'Ovládání',
         title: 'Všechno na dosah.',
-        text: 'Zaznamenat aktivitu je otázka jednoho klepnutí. Spodní navigace drží hlavní sekce pod palcem.',
+        text: 'Aktivitu zaznamenáte jedním klepnutím. Hlavní sekce jsou ve spodní liště, kam palec snadno dosáhne.',
       },
       {
         name: 'Spuštění',
         title: 'Připraveno na každý den.',
-        text: 'Design, obsah i chování teď tvoří jeden celek – přístupný, plynulý a spolehlivý. Teprve pak může aplikace jít mezi lidi.',
+        text: 'Design, obsah i chování teď do sebe zapadají. Aplikace je plynulá, spolehlivá a snadno ji ovládne každý. Teprve takhle může jít mezi lidi.',
       },
     ],
     phoneLabel:
-      'Ukázková obrazovka mobilní aplikace pro sledování denní aktivity. Skládá se vrstvu po vrstvě: nadpis, kruh s plněním denního cíle, statistiky, tlačítko pro záznam aktivity a spodní navigace.',
+      'Ukázková obrazovka mobilní aplikace pro sledování denní aktivity. Skládá se vrstvu po vrstvě: nadpis, kruh ukazující plnění denního cíle, statistiky, tlačítko pro záznam aktivity a spodní navigace.',
     mock: {
       time: '9:41',
       signal: '●●● ▰',

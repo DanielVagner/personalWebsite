@@ -162,7 +162,7 @@ export const PROJECTS_TEXT: Translated<ProjectsText> = {
     eyebrow: 'Vybrané projekty',
     title: 'Různé produkty.',
     titleMuted: 'Stejná pečlivost.',
-    intro: 'Zdraví mozku, koncerty a vstupenky, zdravotnické přístroje, ERP a výroba, nakupování online, počítačové vidění i firemní prezentace. Na mobilu, na webu i na desktopu.',
+    intro: 'Aplikace pro zdraví mozku, koncerty a vstupenky, zdravotnické přístroje, řízení výroby, nakupování online i počítačové vidění – a k tomu firemní web. Na mobilu, na webu i na desktopu.',
     caseStudy: 'Případová studie',
     openSuffix: ' – otevřít případovou studii',
     tagsLabel: 'Použité technologie',
@@ -184,40 +184,40 @@ export const PROJECTS_TEXT: Translated<ProjectsText> = {
         title: 'Tolion – Brain Health Coach',
         type: 'Mobilní aplikace',
         summary:
-          'Aplikace pro zdraví mozku s AI koučem, doporučeními aktivit na míru a sledováním kognitivní výkonnosti.',
+          'Aplikace pro zdraví mozku s AI koučem, osobními doporučeními aktivit a sledováním kognitivní výkonnosti.',
         alt: 'Webové stránky aplikace Tolion se dvěma obrazovkami v telefonu: rizikové faktory a věk mozku',
         brief:
-          'Dát lidem do ruky osobního kouče pro zdraví mozku – aplikaci, která poradí, co pro svůj mozek dělat, a ukáže, jak se jim daří. Musí přitom spolehlivě běžet na telefonu, bezpečně pracovat se zdravotními daty a napojit se na zdroje, které lidé už používají: Apple HealthKit a hodinky Garmin.',
+          'Dát lidem do ruky osobního kouče pro zdraví mozku – aplikaci, která poradí, co pro svůj mozek dělat, a ukáže, jak se jim daří. Aplikace přitom musí spolehlivě běžet na telefonu, bezpečně pracovat se zdravotními daty a napojit se na služby a zařízení, které lidé už používají: Apple HealthKit a hodinky Garmin.',
         solution:
           'Mobilní aplikace postavená na Ionicu, Angularu a Capacitoru s backendem v ASP.NET Web API. Je dostupná v App Storu.',
         features: [
-          'AI kouč a personalizovaná doporučení aktivit',
+          'AI kouč s doporučeními aktivit na míru',
           'Sledování kognitivní výkonnosti a ukazatel věku mozku (Brain Age)',
           'Týdenní přehledy pokroku',
           'Napojení na Apple HealthKit a Garmin Health',
         ],
-        role: 'Na projektu pracuji ve společnosti HTEC jako Senior Software Engineer napříč celým stackem – od mobilní aplikace po API. Starám se o architekturu, přihlašování přes Azure AD B2C s PKCE, integraci HealthKitu a Garminu, výkon i uživatelský zážitek.',
+        role: 'Na projektu pracuji ve společnosti HTEC jako Senior Software Engineer a vyvíjím mobilní aplikaci i API. Mám na starosti architekturu, přihlašování přes Azure AD B2C s PKCE, napojení na HealthKit a Garmin, výkon i to, aby se aplikace dobře používala.',
       },
       hudba: {
         kicker: 'KONCERTY / OPEN AIR',
         title: 'Hudba na vinicích',
         type: 'Mobilní aplikace',
         summary:
-          'Aplikace pro open-air koncerty na vinicích: program, nákup vstupenek, hledání akcí podle polohy a navigace na místo.',
+          'Aplikace pro koncerty pod širým nebem na vinicích: program, nákup vstupenek, hledání akcí podle polohy a navigace na místo.',
         alt: 'Tři obrazovky aplikace Hudba na vinicích: úvod s nejbližším koncertem, odpočtem a počasím, přehled koncertů s filtry a seznam vinařství',
         brief:
-          'Česká série open-air koncertů na vinicích potřebovala aplikaci, ve které návštěvníci najdou koncerty, koupí si vstupenky a bez bloudění dojedou na vinici, kde se akce koná.',
+          'Série koncertů pod širým nebem na českých vinicích potřebovala aplikaci, ve které návštěvníci najdou program, koupí si vstupenky a bez bloudění dojedou až na místo.',
         solution:
           'Mobilní aplikace v React Native, která návštěvníka provede od výběru koncertu až na místo konání.',
         features: [
           'Přehled koncertů a vyhledávání akcí podle polohy',
           'Nákup vstupenek přes platební bránu',
-          'Odpočet do vašeho nejbližšího koncertu a předpověď počasí',
-          'Detail vinařství s GPS souřadnicemi, navigací a harmonogramem dne',
-          'Vstupenky přímo v aplikaci s QR kódem pro vstup',
+          'Odpočet do nejbližšího koncertu a předpověď počasí',
+          'Detail vinařství s GPS souřadnicemi, navigací a programem dne',
+          'Vstupenky s QR kódem přímo v aplikaci',
           'Filtrování koncertů podle data, místa a interpreta',
         ],
-        role: 'Zakázka na volné noze, kterou jsem celou postavil sám v React Native a TypeScriptu – od obrazovek přes práci s polohou a navigaci až po napojení platební brány.',
+        role: 'Šlo o zakázku na volné noze. Celou aplikaci jsem sám napsal v React Native a TypeScriptu, včetně práce s polohou, navigace a napojení na platební bránu.',
         extraTags: ['Geolokace', 'Platební brána'],
       },
       mdas: {
@@ -225,24 +225,24 @@ export const PROJECTS_TEXT: Translated<ProjectsText> = {
         title: 'MDAS – Data Analysis Software',
         type: 'Desktopová aplikace',
         summary:
-          'Desktopová aplikace pro sledování bezpečnostních upozornění a regulatorní shody implantabilních zdravotnických přístrojů.',
+          'Desktopová aplikace, která u implantabilních zdravotnických přístrojů hlídá bezpečnostní upozornění a soulad s předpisy.',
         alt: 'Rozhraní aplikace MDAS se souhrnem záznamu a přehledem kanálů EKG a EGM',
         brief:
-          'U implantabilních zdravotnických přístrojů, jako jsou inzulínové pumpy, kardiostimulátory a defibrilátory, je nutné mít pod kontrolou bezpečnostní upozornění a regulatorní shodu. Cílem byla desktopová aplikace, která záznamy z přístrojů přehledně zpracuje a zobrazí.',
+          'U implantabilních zdravotnických přístrojů, jako jsou inzulínové pumpy, kardiostimulátory a defibrilátory, je nutné hlídat bezpečnostní upozornění a soulad s předpisy. Cílem bylo vytvořit desktopovou aplikaci, která záznamy z přístrojů přehledně zpracuje a zobrazí.',
         solution: 'Desktopová aplikace postavená na Angularu a Electronu s částmi napsanými v C#.',
         features: [
-          'Sledování bezpečnostních upozornění a regulatorní shody',
+          'Sledování bezpečnostních upozornění a souladu s předpisy',
           'Souhrn záznamu z přístroje',
           'Přehled kanálů EKG a EGM',
         ],
-        role: 'Podílel jsem se na vývoji aplikace: frontend v Angularu a TypeScriptu běžící v Electronu, práce na části v C# a převod návrhů z Figmy do funkčního rozhraní.',
+        role: 'Podílel jsem se na vývoji aplikace: psal jsem frontend v Angularu a TypeScriptu, který běží v Electronu, pracoval na části v C# a převáděl návrhy z Figmy do funkčního rozhraní.',
       },
       qrticket: {
         kicker: 'AKCE / ODBAVENÍ',
         title: 'QR Ticketing System',
         type: 'Mobilní aplikace',
         summary:
-          'Odbavovací aplikace pro akce: skenování QR vstupenek online i offline, přehled návštěvnosti a exporty pro pořadatele.',
+          'Aplikace pro odbavení návštěvníků na akcích: skenování QR vstupenek online i offline, přehled návštěvnosti a exporty pro pořadatele.',
         alt: 'Logo xticket.cz',
         brief:
           'Pořadatelé akcí potřebovali rychle a spolehlivě odbavovat návštěvníky u vstupu – i tam, kde je slabý nebo žádný signál – a mít po akci k dispozici přehled o návštěvnosti.',
@@ -250,18 +250,18 @@ export const PROJECTS_TEXT: Translated<ProjectsText> = {
         features: [
           'Skenování QR kódů vstupenek',
           'Online i offline režim',
-          'Sledování návštěvnosti v reálném čase',
+          'Průběžný přehled návštěvnosti',
           'Export přehledů pro pořadatele',
         ],
-        role: 'Vývoj mobilní aplikace v React Native: skenování QR kódů, offline-first práce s daty, přehledy návštěvnosti a exporty.',
+        role: 'Vyvíjel jsem mobilní aplikaci v React Native, včetně skenování QR kódů, práce s daty bez připojení, přehledů návštěvnosti a exportů.',
         extraTags: ['Offline režim', 'Skenování QR', 'Analytika', 'Exporty'],
       },
       findtastic: {
-        kicker: 'RETAIL / USA',
+        kicker: 'NAKUPOVÁNÍ / USA',
         title: 'Findtastic',
         type: 'Mobilní aplikace',
         summary:
-          'Srovnávač cen pro zákazníky v USA – sleduje ceny napříč e-shopy a ukazuje nejlepší nabídky v reálném čase.',
+          'Srovnávač cen pro zákazníky v USA – sleduje ceny v různých e-shopech a průběžně ukazuje nejlepší nabídky.',
         alt: 'Logo Findtastic',
         phoneAlts: [
           'Úvodní obrazovka aplikace Findtastic s přihlášením, registrací a vyhledávacím formulářem',
@@ -271,12 +271,12 @@ export const PROJECTS_TEXT: Translated<ProjectsText> = {
           'Ušetřit lidem při nakupování online čas i peníze: místo procházení jednoho e-shopu za druhým jim nabídnout přehled, kde je produkt právě nejvýhodnější.',
         solution: 'Mobilní aplikace v React Native a TypeScriptu napojená přes REST API na data o cenách.',
         features: [
-          'Sledování cen napříč e-shopy',
-          'Nejlepší nabídky v reálném čase',
+          'Sledování cen v různých e-shopech',
+          'Aktuálně nejvýhodnější nabídky',
           'Vyhledávání produktů podle názvu a cenového rozpětí',
-          'Používání s registrací i bez ní',
+          'Funguje s registrací i bez ní',
         ],
-        role: 'Vývoj mobilní aplikace v React Native a TypeScriptu a její napojení na REST API.',
+        role: 'Vyvíjel jsem mobilní aplikaci v React Native a TypeScriptu včetně napojení na REST API.',
         extraTags: ['REST API'],
       },
       ccvision: {
@@ -284,14 +284,14 @@ export const PROJECTS_TEXT: Translated<ProjectsText> = {
         title: 'CCVision – Computer Vision',
         type: 'Webová aplikace',
         summary:
-          'Webová aplikace pro detekci a rozpoznávání objektů v reálném čase, propojená s různými hardwarovými platformami.',
-        alt: 'Úvodní stránka CCVis o pokročilé analýze videa s nabídkou řešení',
+          'Webová aplikace, která v reálném čase vyhledává a rozpoznává objekty v obraze a dá se propojit s různým hardwarem.',
+        alt: 'Úvodní stránka CCVis: pokročilá analýza videa a přehled nabízených řešení',
         brief:
-          'Zpřístupnit počítačové vidění přes jedno webové rozhraní bez ohledu na to, na jakém hardwaru analýza obrazu běží.',
+          'Vytvořit jedno webové rozhraní pro počítačové vidění, které funguje bez ohledu na to, na jakém hardwaru analýza obrazu běží.',
         solution: 'Webová aplikace v Angularu a TypeScriptu s rozhraním navrženým v Adobe XD.',
         features: [
           'Detekce a rozpoznávání objektů v reálném čase',
-          'Integrace s různými hardwarovými platformami',
+          'Propojení s různým hardwarem',
         ],
         role: 'Podílel jsem se na vývoji frontendu v Angularu a TypeScriptu podle návrhů z Adobe XD.',
       },
@@ -300,20 +300,20 @@ export const PROJECTS_TEXT: Translated<ProjectsText> = {
         title: 'ERP systémy a řízení výroby',
         type: 'Webové aplikace',
         summary:
-          'Interní ERP systémy a nástroj pro řízení výrobní linky v reálném čase: přehled výroby, metriky kvality a podklady pro rozhodování.',
+          'Interní ERP systémy a nástroj pro řízení výrobní linky: průběžný přehled výroby i kvality a podklady pro rozhodování.',
         mediaNote: 'Ilustrační náhled – skutečné systémy jsou interní a neveřejné.',
         alt: 'Ilustrační náhled dvou interních systémů: přehled ERP s tržbami, objednávkami a sklady a řízení výrobní linky s výkonem, stavem stanic a vadami',
         brief:
-          'Firmy potřebovaly interní systémy pro každodenní chod – od běžné firemní agendy až po sledování výrobní linky v reálném čase. Zaměstnanci se v nich musí rychle zorientovat a mít potřebná data vždy po ruce.',
+          'Firmy potřebovaly interní systémy pro každodenní provoz – na běžnou administrativu i na sledování výrobní linky. Zaměstnanci se v nich měli rychle zorientovat a mít potřebná data vždy po ruce.',
         solution:
-          'Webové aplikace v Angularu a TypeScriptu. O práci s daty se starají RxJS a NgXs, rozhraní stojí na vlastních komponentách postavených nad Angular Material CDK.',
+          'Webové aplikace v Angularu a TypeScriptu. Tok dat a stav aplikace řeší RxJS a NgXs, rozhraní je složené z vlastních komponent postavených na Angular Material CDK.',
         features: [
           'Interní ERP systém s vlastní knihovnou komponent nad Material CDK',
           'Řízení výrobní linky v reálném čase',
-          'Sledování toku komponent a metrik kvality',
-          'Podklady pro optimalizaci výrobních procesů',
+          'Sledování toku dílů a ukazatelů kvality',
+          'Podklady pro zlepšování výroby',
         ],
-        role: 'Na ERP systémech jsem pracoval opakovaně – jako frontend vývojář ve Foxconnu a později jako senior engineer v CertiConu. Stavěl jsem uživatelská rozhraní, práci s daty v aplikaci a znovupoužitelné komponenty.',
+        role: 'Na ERP systémech jsem pracoval opakovaně – jako frontendový vývojář ve Foxconnu a později jako Senior Engineer v CertiConu. Stavěl jsem uživatelská rozhraní i znovupoužitelné komponenty a řešil práci s daty.',
       },
       tpodlahy: {
         kicker: 'PODLAHY / WEB',
@@ -324,14 +324,14 @@ export const PROJECTS_TEXT: Translated<ProjectsText> = {
         alt: 'Úvodní stránka webu TPodlahy.cz s nadpisem „Podlahy, které vydrží celý život.“ a fotkou pokládky parket',
         brief:
           'Podlahářská firma potřebovala web, který srozumitelně představí její služby, ukáže hotovou práci a zákazníkům usnadní první kontakt.',
-        solution: 'Responzivní web v Reactu a TypeScriptu, který dobře funguje na mobilu i na počítači.',
+        solution: 'Web v Reactu a TypeScriptu, který dobře funguje na mobilu i na počítači.',
         features: [
           'Přehled služeb',
           'Fotogalerie',
           'Kontaktní formulář',
           'Informace o vinylových podlahách, laminátu a renovaci parket',
         ],
-        role: 'Vývoj webu v Reactu a TypeScriptu, styly v SCSS a responzivní rozvržení pro všechny velikosti obrazovek.',
+        role: 'Web jsem vyvinul v Reactu a TypeScriptu, styly napsal v SCSS a rozvržení přizpůsobil všem velikostem obrazovek.',
         extraTags: ['Responzivní design'],
       },
     },
