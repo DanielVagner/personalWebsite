@@ -140,7 +140,7 @@ export const PROJECTS: readonly ProjectBase[] = [
     theme: 'navy',
     media: 'plain',
     image: img('erp-systemy.webp', 1800, 1200),
-    tags: ['Angular', 'TypeScript', 'RxJS', 'NgXs', 'Material CDK'],
+    tags: ['Angular', 'TypeScript', 'RxJS', 'NGXS', 'Material CDK'],
     featured: true,
   },
 ];
@@ -306,7 +306,7 @@ export const PROJECTS_TEXT: Translated<ProjectsText> = {
         brief:
           'Firmy potřebovaly interní systémy pro každodenní provoz – na běžnou administrativu i na sledování výrobní linky. Zaměstnanci se v nich měli rychle zorientovat a mít potřebná data vždy po ruce.',
         solution:
-          'Webové aplikace v Angularu a TypeScriptu. Tok dat a stav aplikace řeší RxJS a NgXs, rozhraní je složené z vlastních komponent postavených na Angular Material CDK.',
+          'Webové aplikace v Angularu a TypeScriptu. Tok dat a stav aplikace řeší RxJS a NGXS, rozhraní je složené z vlastních komponent postavených na Angular Material CDK.',
         features: [
           'Interní ERP systém s vlastní knihovnou komponent nad Material CDK',
           'Řízení výrobní linky v reálném čase',
@@ -321,7 +321,7 @@ export const PROJECTS_TEXT: Translated<ProjectsText> = {
         type: 'Webová prezentace',
         summary:
           'Web pro podlahářskou firmu: přehled služeb, fotogalerie, kontaktní formulář a informace o vinylu, laminátu i renovaci parket.',
-        alt: 'Úvodní stránka webu TPodlahy.cz s nadpisem „Podlahy, které vydrží celý život.“ a fotkou pokládky parket',
+        alt: 'Úvodní stránka webu TPodlahy.cz s nadpisem „Podlahy, které vydrží celý život“ a fotkou pokládky parket',
         brief:
           'Podlahářská firma potřebovala web, který srozumitelně představí její služby, ukáže hotovou práci a zákazníkům usnadní první kontakt.',
         solution: 'Web v Reactu a TypeScriptu, který dobře funguje na mobilu i na počítači.',
@@ -480,7 +480,7 @@ export const PROJECTS_TEXT: Translated<ProjectsText> = {
         brief:
           'Companies needed internal systems for day-to-day operations – from records and business processes to monitoring a production line in real time. People have to find their way around quickly and have the data they need at hand.',
         solution:
-          'Web apps in Angular and TypeScript, with RxJS and NgXs for state management and custom components built on the Angular Material CDK.',
+          'Web apps in Angular and TypeScript, with RxJS and NGXS for state management and custom components built on the Angular Material CDK.',
         features: [
           'Internal ERP system with a custom component library on the Material CDK',
           'Real-time production line management',

@@ -22,7 +22,7 @@ export const ABOUT_TEXT: Translated<AboutText> = {
     titleLine1: '11+ let vývoje.',
     titleLine2: 'Pořád zvědavý.',
     lead:
-      'Jsem Senior Software Engineer. Ve společnosti HTEC teď vyvíjím mobilní zdravotní aplikaci Tolion Health (Ionic, Angular, ASP.NET). Předtím jsem se v CertiConu postupně vypracoval na softwarového architekta, vedl menší týmy a pracoval na projektech pro Bosch, Medtronic a Embitron. Zkušenosti z velkých projektů využívám i u menších zakázek.',
+      'Jsem Senior Software Engineer. Ve společnosti HTEC teď vyvíjím mobilní zdravotní aplikaci Tolion Health (Ionic, Angular, ASP.NET). Předtím jsem se v CertiConu postupně vypracoval na softwarového architekta, vedl menší týmy a pracoval na projektech pro Bosch, Medtronic a Embitron. Zkušenosti z velkých projektů využívám i u menších zakázek.',
     body:
       'Na volné noze vyvíjím od roku 2015 a nejvíc mě baví mít projekt celý v rukou a nést za něj odpovědnost od začátku do konce. Nejednáte s agenturou ani s prostředníkem, ale přímo s vývojářem, který bude váš projekt znát do detailu. Záleží mi na tom, aby se aplikace příjemně používala a aby se její kód dal snadno udržovat i za několik let.',
     photoAlt: 'Portrét Daniela Vágnera, vývojáře webových a mobilních aplikací',

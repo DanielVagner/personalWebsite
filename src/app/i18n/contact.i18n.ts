@@ -96,7 +96,7 @@ export const CONTACT_TEXT: Translated<ContactText> = {
       description: 'Popis projektu',
       descriptionPlaceholder: 'Co má aplikace umět, pro koho je a co už máte hotové…',
       descriptionHelp:
-        'Alespoň 20 znaků. Uveďte třeba cíl projektu, hlavní funkce a to, co už máte (design, backend, podklady).',
+        'Alespoň 20 znaků. Uveďte třeba cíl projektu, hlavní funkce a to, co už máte (design, backend, podklady).',
     },
     projectTypes: {
       'web-app': 'Webová aplikace',

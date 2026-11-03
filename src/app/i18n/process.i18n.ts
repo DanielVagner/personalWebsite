@@ -27,7 +27,7 @@ export const PROCESS_TEXT: Translated<ProcessText> = {
       },
       {
         title: 'Návrh a odhad',
-        text: 'Upřesníme rozsah, vybereme vhodné technologie a navrhnu architekturu v hrubých rysech. Dostanete odhad času a nákladů, a pokud to pomůže, i klikací prototyp ve Figmě, na kterém si vše vyzkoušíte ještě před začátkem vývoje.',
+        text: 'Upřesníme rozsah, vybereme vhodné technologie a navrhnu architekturu v hrubých rysech. Dostanete odhad času a nákladů a pokud to pomůže, i klikací prototyp ve Figmě, na kterém si vše vyzkoušíte ještě před začátkem vývoje.',
       },
       {
         title: 'Vývoj po etapách',
@@ -35,7 +35,7 @@ export const PROCESS_TEXT: Translated<ProcessText> = {
       },
       {
         title: 'Spuštění a podpora',
-        text: 'Aplikaci uvedu do ostrého provozu a u mobilních aplikací zajistím i vydání v App Storu a na Google Play. Předám vám zdrojový kód i dokumentaci, a pokud budete chtít, budu aplikaci dál rozvíjet a udržovat.',
+        text: 'Aplikaci uvedu do ostrého provozu a u mobilních aplikací zajistím i vydání v App Storu a na Google Play. Předám vám zdrojový kód i dokumentaci a pokud budete chtít, budu aplikaci dál rozvíjet a udržovat.',
       },
     ],
   },
