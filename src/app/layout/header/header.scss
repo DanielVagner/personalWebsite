@@ -337,10 +337,13 @@ $bp-nav: 1080px;
     display: none;
   }
 
+  // Closing: the curtain rolls back up quickly.
   @include motion {
+    clip-path: inset(0 0 100% 0);
     transition:
-      opacity 0.15s,
-      visibility 0s linear 0.15s;
+      clip-path 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.3s ease-in,
+      visibility 0s linear 0.3s;
   }
 
   // Tablets: a panel as tall as its content over a dimmed page (tap outside closes it).
@@ -355,9 +358,12 @@ $bp-nav: 1080px;
   opacity: 1;
   pointer-events: auto;
 
+  // Opening: the curtain unrolls down from under the bar with a long, soft ease-out.
   @include motion {
+    clip-path: inset(0);
     transition:
-      opacity 0.18s,
+      clip-path 0.55s var(--ease-out),
+      opacity 0.2s ease-out,
       visibility 0s;
   }
 }
@@ -408,17 +414,15 @@ $bp-nav: 1080px;
   }
 }
 
-// Rows share the spare height (up to a cap), so tall phones get roomier rows instead of a gap.
+// A compact list at the top; spare height on tall phones stays below it.
 .menu__list {
-  flex: 1 0 auto;
   display: grid;
   grid-auto-rows: minmax(64px, auto);
-  gap: 4px;
-  max-height: 620px;
-
-  @include up($bp-md) {
-    flex: none;
-  }
+  gap: 2px;
+  // Rows bleed into the gutter so their text lines up with the heading and the logo.
+  margin: 0 -10px;
+  padding: 0;
+  list-style: none;
 
   @media (max-height: 600px) {
     grid-auto-rows: minmax(56px, auto);
@@ -430,10 +434,6 @@ $bp-nav: 1080px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-auto-rows: minmax(48px, auto);
   }
-  // Rows bleed into the gutter so their text lines up with the heading and the logo.
-  margin: 0 -10px;
-  padding: 0;
-  list-style: none;
 }
 
 .menu__link {
@@ -622,27 +622,42 @@ $bp-nav: 1080px;
   }
 }
 
-// Rows rise in one after another; closing is a plain quick fade.
+// Opening: as the curtain unrolls, rows drift up one after another and the footer follows.
+// Closing: everything fades out together, no stagger, so it never feels sluggish.
 @include motion {
   .menu__list > li,
   .menu__foot {
     transition:
-      transform 0.32s var(--ease-out),
-      opacity 0.32s var(--ease-out);
+      transform 0.2s ease-in,
+      opacity 0.2s ease-in;
   }
 
   .menu:not(.menu--open) {
     .menu__list > li {
       opacity: 0;
-      transform: translateY(6px);
+      transform: translateY(14px);
     }
 
     .menu__foot {
-      transform: translateY(12px);
+      opacity: 0;
+      transform: translateY(16px);
     }
   }
 
-  .menu--open .menu__list > li {
-    transition-delay: calc(var(--i) * 30ms + 40ms);
+  .menu--open {
+    .menu__list > li,
+    .menu__foot {
+      transition:
+        transform 0.6s var(--ease-out),
+        opacity 0.45s ease-out;
+    }
+
+    .menu__list > li {
+      transition-delay: calc(var(--i) * 45ms + 90ms);
+    }
+
+    .menu__foot {
+      transition-delay: 0.3s;
+    }
   }
 }
