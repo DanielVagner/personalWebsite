@@ -157,13 +157,28 @@
                 <span class="vs-current" aria-hidden="true"></span>
                 <span class="vs-gutter" aria-hidden="true">
                   @for (line of lines(); track $index; let i = $index) {
-                    <span class="vs-num" [class.is-in]="i < shown()" [class.is-current]="i === current()">{{ i + 1 }}</span>
+                    <span
+                      class="vs-num"
+                      [class.is-in]="i < shown()"
+                      [class.is-current]="i === current()"
+                      [class.is-linked]="i === linkedLine()"
+                      [class.is-again]="i === linkedLine() && linkAgain()"
+                      >{{ i + 1 }}</span
+                    >
                   }
                 </span>
                 <code class="vs-code">
                   @for (line of lines(); track $index; let i = $index) {
-                    <span #codeLine class="vs-line" [class.is-in]="i < shown()"
-                      >@for (tk of line.tokens; track $index) {<span [style.color]="tk.color">{{ tk.text }}</span>}@if (i === current()) {<span class="vs-caret" aria-hidden="true"></span>}</span
+                    <span
+                      #codeLine
+                      class="vs-line"
+                      [class.is-in]="i < shown()"
+                      [class.is-hover]="i === hoverLine()"
+                      [class.is-linked]="i === linkedLine()"
+                      [class.is-again]="i === linkedLine() && linkAgain()"
+                      (pointerenter)="inspect($event, i)"
+                      (pointerleave)="state.inspected.set(null)"
+                      >@for (tk of line.tokens; track $index) {<span [style.color]="tk.color">{{ tk.text }}</span>}@if (i === current()) {<span class="vs-caret" aria-hidden="true"></span>}@if (i === hintLine()) {<span class="vs-hint" aria-hidden="true">{{ hintText() }}</span>}</span
                     >
                   }
                 </code>
@@ -193,6 +208,9 @@
               </svg>
               <span class="vs-ellipsis">{{ ed().preview(copy().tab) }}</span>
             </span>
+            @if (showTryIt()) {
+              <ng-container [ngTemplateOutlet]="tryIt" [ngTemplateOutletContext]="{ $implicit: 'vs-try--head' }" />
+            }
             <button
               type="button"
               class="vs-reload"
@@ -208,7 +226,17 @@
             </button>
           </div>
           <div class="vs-preview">
-            <app-editor-preview [id]="ids.preview" [file]="file()" [text]="ed()" [revealed]="revealed()" />
+            <!-- Phones: no room next to the tab title, so the pill floats over the preview's top edge -->
+            @if (showTryIt()) {
+              <ng-container [ngTemplateOutlet]="tryIt" [ngTemplateOutletContext]="{ $implicit: 'vs-try--float' }" />
+            }
+            <app-editor-preview
+              [id]="ids.preview"
+              [file]="file()"
+              [text]="ed()"
+              [revealed]="revealed()"
+              (interacted)="onInteract($event)"
+            />
           </div>
         </div>
       </div>
@@ -229,11 +257,13 @@
             @for (msg of copy().done; track $index) {
               <span class="vs-term__line vs-term__indent" [style.--d.ms]="450 + $index * 350"><span class="t-green">✓</span> {{ msg }}</span>
             }
+            <ng-container [ngTemplateOutlet]="appLog" />
             <span class="vs-term__line" style="--d: 1150ms"
               ><span class="t-green">{{ ed().term.user }}</span>:<span class="t-blue">{{ ed().term.cwd }}</span>$
               <span class="vs-block" aria-hidden="true"></span
             ></span>
           } @else {
+            <ng-container [ngTemplateOutlet]="appLog" />
             <span class="vs-term__line"
               ><span class="t-green">{{ ed().term.user }}</span>:<span class="t-blue">{{ ed().term.cwd }}</span>$
               <span class="vs-block" aria-hidden="true"></span
@@ -262,6 +292,26 @@
     </div>
   </div>
 </div>
+
+<!-- What the clicked app "did" (book / add to cart), newest last -->
+<ng-template #appLog>
+  @for (entry of state.log(); track entry.id) {
+    <span class="vs-term__line vs-term__indent"
+      ><span class="t-yellow">{{ entry.fn }}</span> → {{ entry.result }} <span class="t-green">✓</span></span
+    >
+  }
+</ng-template>
+
+<!-- "Click to see the code" – until the first click (one copy is hidden by CSS) -->
+<ng-template #tryIt let-place>
+  <span [class]="'vs-try ' + place">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M9 9l10 4-4.2 1.8L13 19z" />
+      <path d="M6 6L4.5 4.5M9 5V3M5 9H3" />
+    </svg>
+    <span class="vs-ellipsis">{{ ed().interact.tryIt }}</span>
+  </span>
+</ng-template>
 
 <ng-template #icon let-id>
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

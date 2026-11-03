@@ -3,42 +3,105 @@
     @let b = text().booking;
     <div class="pv-phone">
       <div class="pv-screen">
-        <span class="pv-island"></span>
-        <div class="pv-statusbar">
+        <span class="pv-island" aria-hidden="true"></span>
+        <div class="pv-statusbar" aria-hidden="true">
           <span>{{ b.clock }}</span>
           <span class="pv-sys"><span class="pv-signal"></span><span class="pv-battery"></span></span>
         </div>
 
         <div class="pv-in pv-appbar" [class.is-in]="on('bar')">
           <span class="pv-h1">{{ b.title }}</span>
-          <span class="pv-avatar"></span>
+          <span class="pv-avatar" aria-hidden="true"></span>
         </div>
 
-        <div class="pv-in pv-days pv-stagger" [class.is-in]="on('days')">
+        <div
+          class="pv-in pv-days pv-stagger"
+          role="radiogroup"
+          [attr.aria-label]="b.dayGroup"
+          [class.is-in]="on('days')"
+          [class.is-inspect]="s.inspected() === 'day'"
+          [attr.inert]="inert('days')"
+          (keydown)="moveFocus($event)"
+          (pointerenter)="hover($event, 'day')"
+          (pointerleave)="leave('day')"
+          (focusin)="focusIn($event, 'day')"
+          (focusout)="leave('day')"
+        >
           @for (d of b.days; track d.date; let i = $index) {
-            <span class="pv-day" [class.is-active]="i === activeDay" [style.--i]="i">
+            <button
+              type="button"
+              class="pv-btn pv-day"
+              [class.is-active]="i === s.day()"
+              [style.--i]="i"
+              [attr.aria-label]="d.name + ' ' + d.date + ' – ' + d.full"
+              role="radio"
+              [attr.aria-checked]="i === s.day()"
+              [tabIndex]="tabStop('day', i)"
+              (click)="act('day', i)"
+            >
               <span>{{ d.name }}</span>
               <strong>{{ d.date }}</strong>
-            </span>
+            </button>
           }
         </div>
 
         <span class="pv-in pv-heading" [class.is-in]="on('heading')">{{ b.heading }}</span>
 
-        <div class="pv-in pv-slots pv-stagger" [class.is-in]="on('slots')">
-          @for (s of b.slots; track s.time; let i = $index) {
-            <span class="pv-slot" [class.is-active]="i === pickedSlot" [style.--i]="i">
-              <strong class="pv-slot__time">{{ s.time }}</strong>
+        <div
+          class="pv-in pv-slots pv-stagger"
+          role="radiogroup"
+          [attr.aria-label]="b.heading"
+          [class.is-in]="on('slots')"
+          [class.is-inspect]="s.inspected() === 'slot'"
+          [attr.inert]="inert('slots')"
+          (keydown)="moveFocus($event)"
+          (pointerenter)="hover($event, 'slot')"
+          (pointerleave)="leave('slot')"
+          (focusin)="focusIn($event, 'slot')"
+          (focusout)="leave('slot')"
+        >
+          @for (slot of b.slots; track slot.time; let i = $index) {
+            <button
+              type="button"
+              class="pv-btn pv-slot"
+              [class.is-active]="i === s.slot()"
+              [style.--i]="i"
+              role="radio"
+              [attr.aria-checked]="i === s.slot()"
+              [tabIndex]="tabStop('slot', i)"
+              (click)="act('slot', i)"
+            >
+              <strong class="pv-slot__time">{{ slot.time }}</strong>
               <span class="pv-slot__info">
-                <span class="pv-ellipsis">{{ s.service }}</span>
-                <span class="pv-dim">{{ s.length }}</span>
+                <span class="pv-ellipsis">{{ slot.service }}</span>
+                <span class="pv-dim">{{ slot.length }}</span>
               </span>
-            </span>
+            </button>
           }
         </div>
 
-        <span class="pv-in pv-in--pop pv-cta pv-cta--phone" [class.is-in]="on('cta')">{{ b.cta }}</span>
-        <span class="pv-home"></span>
+        @if (s.toast(); as msg) {
+          <span class="pv-toast" aria-hidden="true">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+            <span class="pv-ellipsis">{{ msg }}</span>
+          </span>
+        }
+
+        <button
+          type="button"
+          class="pv-btn pv-in pv-in--pop pv-cta pv-cta--phone"
+          [class.is-in]="on('cta')"
+          [class.is-inspect]="s.inspected() === 'book'"
+          [attr.inert]="inert('cta')"
+          (click)="act('book')"
+          (pointerenter)="hover($event, 'book')"
+          (pointerleave)="leave('book')"
+          (focusin)="focusIn($event, 'book')"
+          (focusout)="leave('book')"
+        >
+          {{ b.cta }}
+        </button>
+        <span class="pv-home" aria-hidden="true"></span>
       </div>
     </div>
   }
@@ -46,7 +109,7 @@
   @case ('dashboard') {
     @let d = text().dashboard;
     <div class="pv-browser">
-      <div class="pv-browser__bar">
+      <div class="pv-browser__bar" aria-hidden="true">
         <span class="pv-dots"><span></span><span></span><span></span></span>
         <span class="pv-url">{{ d.url }}</span>
       </div>
@@ -56,40 +119,106 @@
           <span class="pv-in pv-in--pop pv-tag" [class.is-in]="on('tag')">{{ d.tag }}</span>
         </div>
 
-        <div class="pv-in pv-kpis pv-stagger" [class.is-in]="on('kpis')">
+        <div
+          class="pv-in pv-kpis pv-stagger"
+          role="radiogroup"
+          [attr.aria-label]="d.kpiGroup"
+          [class.is-in]="on('kpis')"
+          [class.is-inspect]="s.inspected() === 'kpi'"
+          [attr.inert]="inert('kpis')"
+          (keydown)="moveFocus($event)"
+          (pointerenter)="hover($event, 'kpi')"
+          (pointerleave)="leave('kpi')"
+          (focusin)="focusIn($event, 'kpi')"
+          (focusout)="leave('kpi')"
+        >
           @for (k of d.kpis; track k.label; let i = $index) {
-            <span class="pv-card pv-kpi" [style.--i]="i">
+            <button
+              type="button"
+              class="pv-btn pv-card pv-kpi"
+              [class.is-active]="i === s.kpi()"
+              [style.--i]="i"
+              role="radio"
+              [attr.aria-checked]="i === s.kpi()"
+              [tabIndex]="tabStop('kpi', i)"
+              (click)="act('kpi', i)"
+            >
               <span class="pv-kpi__label pv-ellipsis">{{ k.label }}</span>
               <strong class="pv-kpi__value pv-ellipsis">{{ k.value }}</strong>
-            </span>
+            </button>
           }
         </div>
 
         <div class="pv-in pv-card pv-chart" [class.is-in]="on('chart')">
           <span class="pv-card__title">{{ d.chartTitle }}</span>
-          <span class="pv-bars">
-            @for (bar of bars(); track $index) {
-              <span class="pv-bar">
-                <span class="pv-bar__track">
-                  <span class="pv-bar__fill" [style.height.%]="bar.height" [style.--i]="$index"></span>
+          <div
+            class="pv-bars"
+            role="radiogroup"
+            [attr.aria-label]="d.chartTitle"
+            [class.has-pick]="s.bar() !== null"
+            [class.is-inspect]="s.inspected() === 'bar'"
+            [attr.inert]="inert('chart')"
+            (keydown)="moveFocus($event)"
+            (pointerenter)="hover($event, 'bar')"
+            (pointerleave)="leave('bar')"
+            (focusin)="focusIn($event, 'bar')"
+            (focusout)="leave('bar')"
+          >
+            @for (bar of bars(); track $index; let i = $index) {
+              <button
+                type="button"
+                class="pv-btn pv-bar"
+                [class.is-active]="i === s.bar()"
+                [attr.aria-label]="bar.label"
+                role="radio"
+                [attr.aria-checked]="i === s.bar()"
+                [tabIndex]="tabStop('bar', i)"
+                (click)="act('bar', i)"
+              >
+                <span class="pv-bar__track" [style.--h.%]="bar.height">
+                  <span class="pv-bar__fill" [style.height.%]="bar.height" [style.--i]="i"></span>
+                  @if (i === s.bar()) {
+                    <span class="pv-tip" aria-hidden="true">{{ bar.value }}</span>
+                  }
                 </span>
                 <span class="pv-bar__day">{{ bar.day }}</span>
-              </span>
+              </button>
             }
-          </span>
+          </div>
         </div>
 
         <div class="pv-in pv-card pv-table" [class.is-in]="on('tableTitle')">
           <span class="pv-card__title">{{ d.tableTitle }}</span>
-          <span class="pv-rows pv-stagger" [class.is-in]="on('rows')">
+          <div
+            class="pv-rows pv-stagger"
+            role="radiogroup"
+            [attr.aria-label]="d.tableTitle"
+            [class.is-in]="on('rows')"
+            [class.is-inspect]="s.inspected() === 'row'"
+            [attr.inert]="inert('rows')"
+            (keydown)="moveFocus($event)"
+            (pointerenter)="hover($event, 'row')"
+            (pointerleave)="leave('row')"
+            (focusin)="focusIn($event, 'row')"
+            (focusout)="leave('row')"
+          >
             @for (o of d.orders; track o.id; let i = $index) {
-              <span class="pv-row" [style.--i]="i">
+              <button
+                type="button"
+                class="pv-btn pv-row"
+                [class.is-active]="i === s.row()"
+                [style.--i]="i"
+                role="radio"
+                [attr.aria-checked]="i === s.row()"
+                [tabIndex]="tabStop('row', i)"
+                (click)="act('row', i)"
+              >
                 <span class="pv-dim">{{ o.id }}</span>
                 <strong class="pv-row__total">{{ o.total }}</strong>
                 <span class="pv-pill" [attr.data-tone]="o.tone">{{ o.status }}</span>
-              </span>
+              </button>
             }
-          </span>
+          </div>
         </div>
       </div>
     </div>
@@ -98,28 +227,33 @@
   @case ('product') {
     @let p = text().product;
     <div class="pv-browser">
-      <div class="pv-browser__bar">
+      <div class="pv-browser__bar" aria-hidden="true">
         <span class="pv-dots"><span></span><span></span><span></span></span>
         <span class="pv-url">{{ p.url }}</span>
       </div>
       <div class="pv-page">
         <div class="pv-in pv-shopbar" [class.is-in]="on('nav')">
           <span class="pv-logo pv-ellipsis">{{ p.shop }}</span>
-          <svg class="pv-cart" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-            <path d="M3 4h2l2.4 11h10.8L21 7H6.2" />
-            <circle cx="9" cy="19.5" r="1.4" />
-            <circle cx="17" cy="19.5" r="1.4" />
-          </svg>
+          <span class="pv-cart" role="img" [attr.aria-label]="p.cartLabel(s.cart())">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <path d="M3 4h2l2.4 11h10.8L21 7H6.2" />
+              <circle cx="9" cy="19.5" r="1.4" />
+              <circle cx="17" cy="19.5" r="1.4" />
+            </svg>
+            @if (s.cart() > 0) {
+              <span class="pv-badge" [class.pv-badge--odd]="s.cart() % 2 === 1" aria-hidden="true">{{ cartBadge() }}</span>
+            }
+          </span>
         </div>
 
         <div class="pv-product">
-          <div class="pv-in pv-in--scale pv-gallery" [class.is-in]="on('gallery')">
-            <svg viewBox="0 0 120 100" aria-hidden="true" focusable="false">
+          <div class="pv-in pv-in--scale pv-gallery" [class.is-in]="on('gallery')" aria-hidden="true">
+            <svg viewBox="0 0 120 100" focusable="false">
               <path d="M44 14c-4 4 4 7 0 11M56 10c-4 5 4 8 0 14M68 14c-4 4 4 7 0 11" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity="0.8" />
               <ellipse cx="56" cy="90" rx="36" ry="5" fill="#000" opacity="0.1" />
-              <path d="M86 46h5a12 12 0 0 1 0 24h-5" fill="none" stroke="#c9ad85" stroke-width="7" />
-              <path d="M26 32h60v44a14 14 0 0 1-14 14H40a14 14 0 0 1-14-14z" [attr.fill]="swatches[0]" />
-              <ellipse cx="56" cy="32" rx="30" ry="5" fill="#c9ad85" />
+              <path class="pv-tint" d="M86 46h5a12 12 0 0 1 0 24h-5" fill="none" stroke-width="7" [attr.stroke]="mug().rim" />
+              <path class="pv-tint" d="M26 32h60v44a14 14 0 0 1-14 14H40a14 14 0 0 1-14-14z" [attr.fill]="mug().fill" />
+              <ellipse class="pv-tint" cx="56" cy="32" rx="30" ry="5" [attr.fill]="mug().rim" />
               <path d="M30 44v28" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity="0.35" />
             </svg>
           </div>
@@ -127,26 +261,84 @@
           <div class="pv-info">
             <span class="pv-in pv-h1" [class.is-in]="on('title')">{{ p.name }}</span>
             <span class="pv-in pv-rating" [class.is-in]="on('rating')">
-              <span class="pv-stars">
-                @for (s of stars; track s) {
-                  <svg width="9" height="9" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                    <path d="M12 2l3 6.6 7.2.8-5.4 4.9 1.5 7.1L12 17.8l-6.3 3.6 1.5-7.1L1.8 9.4 9 8.6z" />
-                  </svg>
+              <span
+                class="pv-stars"
+                role="radiogroup"
+                [attr.aria-label]="p.ratingGroup"
+                [class.is-inspect]="s.inspected() === 'star'"
+                [attr.inert]="inert('rating')"
+                (keydown)="moveFocus($event)"
+                (pointerenter)="hover($event, 'star')"
+                (pointerleave)="leave('star')"
+                (focusin)="focusIn($event, 'star')"
+                (focusout)="leave('star')"
+              >
+                @for (n of stars; track n) {
+                  <button
+                    type="button"
+                    class="pv-btn pv-star"
+                    [class.is-off]="s.rating() !== null && n > s.rating()!"
+                    [attr.aria-label]="p.star(n)"
+                    role="radio"
+                    [attr.aria-checked]="n === s.rating()"
+                    [tabIndex]="tabStop('star', n - 1)"
+                    (click)="act('star', n)"
+                  >
+                    <svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                      <path d="M12 2l3 6.6 7.2.8-5.4 4.9 1.5 7.1L12 17.8l-6.3 3.6 1.5-7.1L1.8 9.4 9 8.6z" />
+                    </svg>
+                  </button>
                 }
               </span>
-              <span class="pv-dim pv-ellipsis">{{ p.rating }}</span>
+              <span class="pv-dim pv-ellipsis">{{ s.rating() === null ? p.rating : p.yourRating(s.rating()!) }}</span>
             </span>
             <strong class="pv-in pv-price" [class.is-in]="on('price')">{{ p.price }}</strong>
             <span class="pv-in pv-stock" [class.is-in]="on('stock')">{{ p.stock }}</span>
             <span class="pv-in pv-colors" [class.is-in]="on('colors')">
-              <span class="pv-swatches pv-stagger" [class.is-in]="on('colors')">
-                @for (c of swatches; track c; let i = $index) {
-                  <span class="pv-swatch" [class.is-active]="i === 0" [style.background]="c" [style.--i]="i"></span>
+              <span
+                class="pv-swatches pv-stagger"
+                role="radiogroup"
+                [attr.aria-label]="p.colorGroup"
+                [class.is-in]="on('colors')"
+                [class.is-inspect]="s.inspected() === 'swatch'"
+                [attr.inert]="inert('colors')"
+                (keydown)="moveFocus($event)"
+                (pointerenter)="hover($event, 'swatch')"
+                (pointerleave)="leave('swatch')"
+                (focusin)="focusIn($event, 'swatch')"
+                (focusout)="leave('swatch')"
+              >
+                @for (c of swatches; track c.fill; let i = $index) {
+                  <button
+                    type="button"
+                    class="pv-btn pv-swatch"
+                    [class.is-active]="i === s.swatch()"
+                    [style.background]="c.fill"
+                    [style.--i]="i"
+                    [attr.aria-label]="p.color(p.colors[i])"
+                    role="radio"
+                    [attr.aria-checked]="i === s.swatch()"
+                    [tabIndex]="tabStop('swatch', i)"
+                    (click)="act('swatch', i)"
+                  ></button>
                 }
               </span>
-              <span class="pv-dim pv-ellipsis">{{ p.color }}</span>
+              <span class="pv-dim pv-ellipsis" aria-hidden="true">{{ p.color(p.colors[s.swatch()]) }}</span>
             </span>
-            <span class="pv-in pv-in--pop pv-cta" [class.is-in]="on('cta')">{{ p.cta }}</span>
+            <button
+              type="button"
+              class="pv-btn pv-in pv-in--pop pv-cta"
+              [class.is-in]="on('cta')"
+              [class.is-inspect]="s.inspected() === 'cart'"
+              [attr.inert]="inert('cta')"
+              (click)="act('cart')"
+              (pointerenter)="hover($event, 'cart')"
+              (pointerleave)="leave('cart')"
+              (focusin)="focusIn($event, 'cart')"
+              (focusout)="leave('cart')"
+            >
+              {{ p.cta }}
+            </button>
           </div>
         </div>
       </div>

@@ -470,6 +470,56 @@ $fg: #cccccc;
   color: #75beff;
 }
 
+// "Try clicking the preview" – until the first click
+.vs-try {
+  display: flex;
+  flex: 0 0 auto;
+  max-width: 62%;
+  align-items: center;
+  align-self: center;
+  gap: 5px;
+  min-width: 0;
+  margin: 0 4px 0 auto;
+  padding: 2px 8px;
+  border: 1px solid rgba(117, 190, 255, 0.35);
+  border-radius: 999px;
+  background: rgba(117, 190, 255, 0.12);
+  color: #b5dcff;
+  font-size: 11px;
+  white-space: nowrap;
+
+  svg {
+    flex: 0 0 auto;
+  }
+}
+
+// Phones: the tab title needs the header row, so the pill floats over the
+// preview's top edge (decorative status / address bar) instead.
+.vs-try--head {
+  @include down($bp-md) {
+    display: none;
+  }
+}
+
+.vs-try--float {
+  position: absolute;
+  top: 8px;
+  right: 0;
+  left: 0;
+  z-index: 2;
+  width: max-content;
+  max-width: calc(100% - 24px);
+  margin: 0 auto;
+  border-color: rgba(117, 190, 255, 0.5);
+  background: #12283c;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+
+  @include up($bp-md) {
+    display: none;
+  }
+}
+
 .vs-reload {
   display: grid;
   flex: 0 0 40px;
@@ -487,6 +537,7 @@ $fg: #cccccc;
 }
 
 .vs-preview {
+  position: relative;
   height: 392px;
 
   @include up($bp-md) {
@@ -529,6 +580,9 @@ $fg: #cccccc;
   max-height: calc(var(--rows-sm) * var(--lh) + 16px);
   overflow: auto;
   overscroll-behavior: contain;
+  // VS Code-like slim scrollbar (a long inlay hint can make lines overflow)
+  scrollbar-color: rgba(121, 121, 121, 0.4) transparent;
+  scrollbar-width: thin;
 
   @include up($bp-md) {
     max-height: none;
@@ -557,6 +611,9 @@ $fg: #cccccc;
 }
 
 .vs-gutter {
+  --gut-l: 8px;
+  --gut-r: 14px;
+
   position: sticky;
   left: 0;
   z-index: 1;
@@ -564,16 +621,24 @@ $fg: #cccccc;
   flex: 0 0 auto;
   flex-direction: column;
   min-width: 42px;
-  padding: 0 14px 0 8px;
+  padding: 0 var(--gut-r) 0 var(--gut-l);
   background: $bg;
   color: #858585;
   text-align: right;
   user-select: none;
 
   @include up($bp-xl) {
+    --gut-l: 18px;
+    --gut-r: 22px;
+
     min-width: 56px;
-    padding: 0 22px 0 18px;
   }
+}
+
+// Numbers span the whole gutter, so a linked line's accent bar sits at its edge.
+.vs-num {
+  margin: 0 calc(-1 * var(--gut-r)) 0 calc(-1 * var(--gut-l));
+  padding: 0 var(--gut-r) 0 var(--gut-l);
 }
 
 .vs-num.is-current {
@@ -611,6 +676,38 @@ $fg: #cccccc;
 .vs-num.is-in {
   opacity: 1;
   transform: none;
+}
+
+// Preview element under the mouse → its code line (like DevTools' inspect).
+.vs-line.is-hover {
+  background: rgba(38, 79, 120, 0.45);
+}
+
+// Clicked preview element → the line that drives it. Static with reduced motion,
+// otherwise it fades back (two keyframe names so a repeated click restarts it).
+// The accent bar lives in the sticky gutter, so it stays visible when the code
+// box is scrolled sideways (phones).
+.vs-line.is-linked,
+.vs-num.is-linked {
+  background: color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
+.vs-num.is-linked {
+  box-shadow: inset -2px 0 0 var(--accent);
+  color: #fff;
+}
+
+// VS Code-style inlay hint with the element's new value
+.vs-hint {
+  display: inline-block;
+  margin-left: 1ch;
+  padding: 0 5px;
+  border-radius: 3px;
+  background: rgba(97, 97, 97, 0.3);
+  color: #a6a6a6;
+  font-size: 0.88em;
+  line-height: calc(var(--lh) - 4px);
+  vertical-align: 1px;
 }
 
 .vs-caret {
@@ -704,6 +801,10 @@ $fg: #cccccc;
   color: #3b8eea;
 }
 
+.t-yellow {
+  color: #dcdcaa;
+}
+
 .vs-block {
   display: inline-block;
   width: 8px;
@@ -779,6 +880,25 @@ $fg: #cccccc;
     transition: top 0.12s ease-out;
   }
 
+  .vs-line.is-hover {
+    transition: background-color 0.12s;
+  }
+
+  .vs-line.is-linked,
+  .vs-num.is-linked {
+    animation: vs-link 1.5s cubic-bezier(0.5, 0, 0.75, 1) both;
+  }
+
+  .vs-line.is-again,
+  .vs-num.is-again {
+    animation-name: vs-link-again;
+  }
+
+  .vs-hint,
+  .vs-try {
+    animation: vs-in 0.3s ease-out both;
+  }
+
   .vs-term__line {
     animation: vs-in 0.35s ease-out both;
     animation-delay: var(--d, 0ms);
@@ -807,6 +927,20 @@ $fg: #cccccc;
   from {
     opacity: 0;
     transform: translateY(4px);
+  }
+}
+
+@keyframes vs-link {
+  to {
+    background-color: transparent;
+    box-shadow: inset -2px 0 0 transparent;
+  }
+}
+
+@keyframes vs-link-again {
+  to {
+    background-color: transparent;
+    box-shadow: inset -2px 0 0 transparent;
   }
 }
 

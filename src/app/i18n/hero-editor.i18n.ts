@@ -17,7 +17,10 @@ export interface DemoCopy {
 export interface BookingCopy extends DemoCopy {
   readonly clock: string;
   readonly title: string;
-  readonly days: readonly { readonly name: string; readonly date: string }[];
+  /** `full` is the accessible name of the day chip. */
+  readonly days: readonly { readonly name: string; readonly full: string; readonly date: string }[];
+  /** Accessible name of the day picker. */
+  readonly dayGroup: string;
   readonly heading: string;
   readonly slots: readonly {
     readonly time: string;
@@ -25,6 +28,8 @@ export interface BookingCopy extends DemoCopy {
     readonly length: string;
   }[];
   readonly cta: string;
+  /** Toast inside the phone after "Book now", e.g. "Booked: Wed 10:30 am". */
+  readonly booked: (day: string, time: string) => string;
 }
 
 /** Web app dashboard shown in a mini browser. All figures are sample data. */
@@ -33,8 +38,14 @@ export interface DashboardCopy extends DemoCopy {
   readonly title: string;
   readonly tag: string;
   readonly kpis: readonly { readonly label: string; readonly value: string }[];
+  /** Accessible name of the key figure cards. */
+  readonly kpiGroup: string;
   readonly chartTitle: string;
   readonly chartDays: readonly string[];
+  /** Full day names for the chart bars' accessible names. */
+  readonly chartDaysFull: readonly string[];
+  /** Sample revenue per bar (adds up to the revenue key figure). */
+  readonly chartValues: readonly string[];
   readonly tableTitle: string;
   readonly orders: readonly {
     readonly id: string;
@@ -52,8 +63,42 @@ export interface ProductCopy extends DemoCopy {
   readonly rating: string;
   readonly price: string;
   readonly stock: string;
-  readonly color: string;
+  /** Accessible name of the star picker. */
+  readonly ratingGroup: string;
+  /** Accessible name of one star. */
+  readonly star: (n: number) => string;
+  /** Replaces the review summary once a star is picked. */
+  readonly yourRating: (n: number) => string;
+  readonly colorGroup: string;
+  /** Colour names, same order as the swatches. */
+  readonly colors: readonly string[];
+  /** "Color: Sand" – label next to the swatches and each swatch's accessible name. */
+  readonly color: (name: string) => string;
+  /** Accessible name of the cart icon with its item count. */
+  readonly cartLabel: (n: number) => string;
   readonly cta: string;
+}
+
+/** Plain-language feedback when a visitor clicks something in the live preview. */
+export interface InteractCopy {
+  /** Hint pill next to the preview header. */
+  readonly tryIt: string;
+  /** Inlay hints shown at the end of the code line that drives the clicked element. */
+  readonly hint: {
+    readonly selected: (value: string) => string;
+    readonly booked: (day: string, time: string) => string;
+    readonly bar: (day: string, value: string) => string;
+    readonly color: (name: string) => string;
+    readonly rating: (n: number) => string;
+    readonly cart: (n: number) => string;
+  };
+  /** Terminal log results, printed after `book() →` / `addToCart() →`. */
+  readonly log: {
+    readonly booked: (day: string, time: string) => string;
+    readonly cart: (n: number) => string;
+  };
+  /** Screen-reader announcement after adding to the cart. */
+  readonly addedToCart: (n: number) => string;
 }
 
 export interface HeroEditorText {
@@ -82,6 +127,7 @@ export interface HeroEditorText {
     readonly spaces: string;
     readonly encoding: string;
   };
+  readonly interact: InteractCopy;
   readonly booking: BookingCopy;
   readonly dashboard: DashboardCopy;
   readonly product: ProductCopy;
@@ -120,6 +166,22 @@ export const HERO_EDITOR_TEXT: Translated<HeroEditorText> = {
       spaces: 'Mezery: 2',
       encoding: 'UTF-8',
     },
+    interact: {
+      tryIt: `Klikněte a${NB}uvidíte kód`,
+      hint: {
+        selected: (v) => `vybráno: ${v}`,
+        booked: (d, t) => `rezervováno: ${d}${NB}${t}`,
+        bar: (d, v) => `${d}: ${v}`,
+        color: (n) => `barva: ${n}`,
+        rating: (n) => `hodnocení: ${n}${NB}z${NB}5`,
+        cart: (n) => `košík: ${n}`,
+      },
+      log: {
+        booked: (d, t) => `${d}${NB}${t}`,
+        cart: (n) => `košík: ${n}`,
+      },
+      addedToCart: (n) => `Přidáno do${NB}košíku. Počet položek v${NB}košíku: ${n}`,
+    },
     booking: {
       tab: 'Rezervace',
       label: `Náhled mobilní aplikace pro rezervace: výběr dne, volné termíny a${NB}tlačítko Rezervovat`,
@@ -130,12 +192,13 @@ export const HERO_EDITOR_TEXT: Translated<HeroEditorText> = {
       clock: '9:41',
       title: 'Rezervace',
       days: [
-        { name: 'Po', date: '14' },
-        { name: 'Út', date: '15' },
-        { name: 'St', date: '16' },
-        { name: 'Čt', date: '17' },
-        { name: 'Pá', date: '18' },
+        { name: 'Po', full: 'pondělí 14.', date: '14' },
+        { name: 'Út', full: 'úterý 15.', date: '15' },
+        { name: 'St', full: 'středa 16.', date: '16' },
+        { name: 'Čt', full: 'čtvrtek 17.', date: '17' },
+        { name: 'Pá', full: 'pátek 18.', date: '18' },
       ],
+      dayGroup: 'Den',
       heading: 'Volné termíny',
       slots: [
         { time: '9:00', service: 'Střih', length: `45${NB}min` },
@@ -143,6 +206,7 @@ export const HERO_EDITOR_TEXT: Translated<HeroEditorText> = {
         { time: '14:15', service: 'Konzultace', length: `20${NB}min` },
       ],
       cta: 'Rezervovat',
+      booked: (d, t) => `Rezervováno: ${d}${NB}${t}`,
     },
     dashboard: {
       tab: 'Objednávky',
@@ -159,8 +223,19 @@ export const HERO_EDITOR_TEXT: Translated<HeroEditorText> = {
         { label: 'Tržby', value: `84${NB}200${NB}Kč` },
         { label: 'Průměr', value: `658${NB}Kč` },
       ],
+      kpiGroup: 'Ukazatele',
       chartTitle: 'Tržby za týden',
       chartDays: ['Po', 'Út', 'St', 'Čt', 'Pá', 'So', 'Ne'],
+      chartDaysFull: ['pondělí', 'úterý', 'středa', 'čtvrtek', 'pátek', 'sobota', 'neděle'],
+      chartValues: [
+        `8${NB}700${NB}Kč`,
+        `11${NB}700${NB}Kč`,
+        `7${NB}600${NB}Kč`,
+        `14${NB}700${NB}Kč`,
+        `13${NB}200${NB}Kč`,
+        `17${NB}700${NB}Kč`,
+        `10${NB}600${NB}Kč`,
+      ],
       tableTitle: 'Poslední objednávky',
       orders: [
         { id: '#1042', total: `1${NB}290${NB}Kč`, status: 'Zaplaceno', tone: 'paid' },
@@ -180,7 +255,13 @@ export const HERO_EDITOR_TEXT: Translated<HeroEditorText> = {
       rating: `4,9 · 126${NB}hodnocení`,
       price: `490${NB}Kč`,
       stock: 'Skladem',
-      color: 'Barva: písková',
+      ratingGroup: 'Vaše hodnocení',
+      star: (n) => `${n}${NB}z${NB}5 hvězdiček`,
+      yourRating: (n) => `Vaše hodnocení: ${n}${NB}z${NB}5`,
+      colorGroup: 'Barva',
+      colors: ['písková', 'šedomodrá', 'grafitová'],
+      color: (n) => `Barva: ${n}`,
+      cartLabel: (n) => `Košík, počet položek: ${n}`,
       cta: 'Přidat do košíku',
     },
   },
@@ -214,6 +295,22 @@ export const HERO_EDITOR_TEXT: Translated<HeroEditorText> = {
       spaces: 'Spaces: 2',
       encoding: 'UTF-8',
     },
+    interact: {
+      tryIt: 'Click to see the code',
+      hint: {
+        selected: (v) => `selected: ${v}`,
+        booked: (d, t) => `booked: ${d} ${t}`,
+        bar: (d, v) => `${d}: ${v}`,
+        color: (n) => `color: ${n}`,
+        rating: (n) => `rating: ${n} out of 5`,
+        cart: (n) => `cart: ${n}`,
+      },
+      log: {
+        booked: (d, t) => `${d} ${t}`,
+        cart: (n) => `cart: ${n}`,
+      },
+      addedToCart: (n) => `Added to cart. ${n} ${n === 1 ? 'item' : 'items'} in your cart`,
+    },
     booking: {
       tab: 'Bookings',
       label: 'Preview of a mobile booking app: day picker, available times and a Book now button',
@@ -221,12 +318,13 @@ export const HERO_EDITOR_TEXT: Translated<HeroEditorText> = {
       clock: '9:41',
       title: 'Bookings',
       days: [
-        { name: 'Mon', date: '14' },
-        { name: 'Tue', date: '15' },
-        { name: 'Wed', date: '16' },
-        { name: 'Thu', date: '17' },
-        { name: 'Fri', date: '18' },
+        { name: 'Mon', full: 'Monday 14', date: '14' },
+        { name: 'Tue', full: 'Tuesday 15', date: '15' },
+        { name: 'Wed', full: 'Wednesday 16', date: '16' },
+        { name: 'Thu', full: 'Thursday 17', date: '17' },
+        { name: 'Fri', full: 'Friday 18', date: '18' },
       ],
+      dayGroup: 'Day',
       heading: 'Available times',
       slots: [
         { time: `9:00${NB}am`, service: 'Haircut', length: `45${NB}min` },
@@ -234,12 +332,16 @@ export const HERO_EDITOR_TEXT: Translated<HeroEditorText> = {
         { time: `2:15${NB}pm`, service: 'Consultation', length: `20${NB}min` },
       ],
       cta: 'Book now',
+      booked: (d, t) => `Booked: ${d} ${t}`,
     },
     dashboard: {
       tab: 'Orders',
       label:
         'Preview of a web app: an orders dashboard with three key figures, a weekly revenue chart and the latest orders (sample data)',
-      done: ['Orders dashboard ready for testing', 'Done – works in the browser on desktop and tablet'],
+      done: [
+        'Orders dashboard ready for testing',
+        'Done – works in the browser on desktop and tablet',
+      ],
       url: 'admin.your-company.com',
       title: 'Orders overview',
       tag: 'Sample data',
@@ -248,8 +350,11 @@ export const HERO_EDITOR_TEXT: Translated<HeroEditorText> = {
         { label: 'Revenue', value: '€3,420' },
         { label: 'Average', value: '€26.72' },
       ],
+      kpiGroup: 'Key figures',
       chartTitle: 'Weekly revenue',
       chartDays: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      chartDaysFull: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      chartValues: ['€353', '€475', '€307', '€598', '€537', '€721', '€429'],
       tableTitle: 'Latest orders',
       orders: [
         { id: '#1042', total: '€52.00', status: 'Paid', tone: 'paid' },
@@ -267,7 +372,13 @@ export const HERO_EDITOR_TEXT: Translated<HeroEditorText> = {
       rating: '4.9 · 126 reviews',
       price: '€19.90',
       stock: 'In stock',
-      color: 'Color: Sand',
+      ratingGroup: 'Your rating',
+      star: (n) => `${n} out of 5 stars`,
+      yourRating: (n) => `Your rating: ${n} out of 5`,
+      colorGroup: 'Color',
+      colors: ['Sand', 'Slate blue', 'Graphite'],
+      color: (n) => `Color: ${n}`,
+      cartLabel: (n) => `Cart: ${n} ${n === 1 ? 'item' : 'items'}`,
       cta: 'Add to cart',
     },
   },

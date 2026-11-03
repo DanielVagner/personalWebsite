@@ -27,10 +27,15 @@ export type RevealId =
   | 'colors'
   | 'cta';
 
+/** Preview elements a visitor can click; each one is driven by one code line. */
+export type TargetId = 'day' | 'slot' | 'book' | 'bar' | 'kpi' | 'row' | 'swatch' | 'star' | 'cart';
+
 export interface CodeLine {
   readonly text: string;
   /** Preview element that appears together with this line. */
   readonly reveals?: RevealId;
+  /** Clickable preview element this line drives (highlighted when it is clicked). */
+  readonly binds?: TargetId;
 }
 
 /** An example file: a short Angular template and the screen it produces. */
@@ -48,16 +53,17 @@ export interface DemoFile {
 // tablet width up (and on most phones).
 const booking = (c: BookingCopy): CodeLine[] => [
   { text: `<h1 class="app-bar">${c.title}</h1>`, reveals: 'bar' },
-  { text: '@for (day of week(); track day) {' },
-  { text: '  <span [class.active]="day === today">', reveals: 'days' },
-  { text: '    {{ day }}' },
+  { text: '@for (d of week(); track d) {' },
+  { text: '  <span [class.active]="d === day()">', reveals: 'days', binds: 'day' },
+  { text: '    {{ d }}' },
   { text: '  </span>' },
   { text: '}' },
   { text: `<h2>${c.heading}</h2>`, reveals: 'heading' },
-  { text: '@for (slot of slots(); track slot.id) {' },
-  { text: '  <slot-card [slot]="slot" />', reveals: 'slots' },
+  { text: '@for (s of slots(); track s.id) {' },
+  { text: '  <slot-card [slot]="s"' },
+  { text: '    [active]="s === time()" />', reveals: 'slots', binds: 'slot' },
   { text: '}' },
-  { text: '<button (click)="book()">' },
+  { text: '<button (click)="book()">', binds: 'book' },
   { text: `  ${c.cta}`, reveals: 'cta' },
   { text: '</button>' },
 ];
@@ -67,14 +73,14 @@ const dashboard = (c: DashboardCopy): CodeLine[] => [
   { text: `<span class="tag">${c.tag}</span>`, reveals: 'tag' },
   { text: '<section class="kpis">' },
   { text: '  @for (kpi of kpis(); track kpi.id) {' },
-  { text: '    <kpi-card [kpi]="kpi" />', reveals: 'kpis' },
+  { text: '    <kpi-card [kpi]="kpi" />', reveals: 'kpis', binds: 'kpi' },
   { text: '  }' },
   { text: '</section>' },
-  { text: `<bar-chart title="${c.chartTitle}"`, reveals: 'chart' },
-  { text: '           [data]="sales()" />' },
+  { text: `<bar-chart title="${c.chartTitle}"` },
+  { text: '           [data]="sales()" />', reveals: 'chart', binds: 'bar' },
   { text: `<h2>${c.tableTitle}</h2>`, reveals: 'tableTitle' },
   { text: '@for (o of orders(); track o.id) {' },
-  { text: '  <order-row [order]="o" />', reveals: 'rows' },
+  { text: '  <order-row [order]="o" />', reveals: 'rows', binds: 'row' },
   { text: '}' },
 ];
 
@@ -82,7 +88,7 @@ const product = (c: ProductCopy): CodeLine[] => [
   { text: `<nav class="shop-bar">${c.shop}</nav>`, reveals: 'nav' },
   { text: '<product-gallery [photos]="photos()" />', reveals: 'gallery' },
   { text: '<h1>{{ product().name }}</h1>', reveals: 'title' },
-  { text: '<star-rating [value]="rating()" />', reveals: 'rating' },
+  { text: '<star-rating [(value)]="rating" />', reveals: 'rating', binds: 'star' },
   { text: '<p class="price">' },
   { text: '  {{ product().price | currency }}', reveals: 'price' },
   { text: '</p>' },
@@ -90,9 +96,9 @@ const product = (c: ProductCopy): CodeLine[] => [
   { text: `  <span class="stock">${c.stock}</span>`, reveals: 'stock' },
   { text: '}' },
   { text: '@for (c of colors; track c) {' },
-  { text: '  <swatch [color]="c" />', reveals: 'colors' },
+  { text: '  <swatch [color]="c" />', reveals: 'colors', binds: 'swatch' },
   { text: '}' },
-  { text: '<button (click)="addToCart()">' },
+  { text: '<button (click)="addToCart()">', binds: 'cart' },
   { text: `  ${c.cta}`, reveals: 'cta' },
   { text: '</button>' },
 ];

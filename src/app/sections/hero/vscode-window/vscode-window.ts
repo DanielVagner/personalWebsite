@@ -4,6 +4,8 @@ import {
   DOCUMENT,
   DestroyRef,
   ElementRef,
+  Injector,
+  afterNextRender,
   computed,
   inject,
   signal,
@@ -15,8 +17,9 @@ import { AnalyticsService } from '../../../core/analytics.service';
 import { LanguageService } from '../../../core/language.service';
 import { MotionService } from '../../../core/motion.service';
 import { ActivityId, HERO_EDITOR_TEXT } from '../../../i18n/hero-editor.i18n';
-import { DemoFile, RevealId, buildDemoFiles } from '../code-files';
+import { DemoFile, RevealId, TargetId, buildDemoFiles } from '../code-files';
 import { EditorPreview } from '../editor-preview/editor-preview';
+import { PreviewState } from '../editor-preview/preview-state';
 import { DARK_PLUS, Token, highlight } from '../highlight';
 
 interface EditorLine {
@@ -44,6 +47,8 @@ const ACTIVITY_BAR: readonly { readonly icon: ActivityIcon; readonly view?: Acti
 const FIRST_OPEN_DELAY = 1000;
 const OPEN_DELAY = 150;
 const LINE_STEP = 190;
+/** How long a code line stays highlighted after its preview element is clicked. */
+const LINK_MS = 1500;
 
 /** The explorer fits next to the code and the preview from this width up. */
 const WIDE_QUERY = '(min-width: 1024px)';
@@ -51,7 +56,8 @@ const WIDE_QUERY = '(min-width: 1024px)';
 /**
  * Interactive VS Code look-alike shown in the hero: an example template is typed
  * line by line on the left while a live preview assembles the resulting screen
- * on the right. Purely presentational – everything only changes local signals.
+ * on the right. Clicking the preview highlights the code line that drives the
+ * clicked element. Purely presentational – everything only changes local signals.
  */
 @Component({
   selector: 'app-vscode-window',
@@ -59,6 +65,7 @@ const WIDE_QUERY = '(min-width: 1024px)';
   templateUrl: './vscode-window.html',
   styleUrl: './vscode-window.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [PreviewState],
   host: {
     role: 'group',
     '[attr.aria-label]': 'ed().label',
@@ -69,6 +76,8 @@ export class VscodeWindow {
   private readonly analytics = inject(AnalyticsService);
   private readonly reduced = inject(MotionService).reduced;
   private readonly win = inject(DOCUMENT).defaultView;
+  private readonly injector = inject(Injector);
+  protected readonly state = inject(PreviewState);
 
   protected readonly activityBar = ACTIVITY_BAR;
   protected readonly htmlIcon = '<>';
@@ -91,7 +100,20 @@ export class VscodeWindow {
   /** Number of code lines typed so far. */
   private readonly typed = signal(0);
   private timer: ReturnType<typeof setTimeout> | undefined;
-  private replays = 0;
+  private announcements = 0;
+
+  /** Last clicked preview element; its line flashes (`seq` restarts the fade). */
+  private readonly link = signal<{ readonly target: TargetId; readonly seq: number } | null>(null);
+  private linkTimer: ReturnType<typeof setTimeout> | undefined;
+  private linkSeq = 0;
+  /** Element whose value is shown as an inlay hint (until the next reset). */
+  private readonly hintTarget = signal<TargetId | null>(null);
+  /** Caret moved to a clicked element's line; typing takes it back after the flash. */
+  private readonly cursorLine = signal<number | null>(null);
+  /** The visitor has tried the preview (this page view), which hides the hint pill. */
+  private readonly interacted = signal(false);
+  /** Targets already reported to analytics for the current file view. */
+  private readonly tracked = new Set<TargetId>();
 
   private readonly tabEls = viewChildren<ElementRef<HTMLButtonElement>>('tab');
   private readonly actEls = viewChildren<ElementRef<HTMLButtonElement>>('act');
@@ -113,7 +135,7 @@ export class VscodeWindow {
   );
   protected readonly done = computed(() => this.shown() >= this.lineCount());
   /** Index of the line holding the caret. */
-  protected readonly current = computed(() => Math.max(this.shown() - 1, 0));
+  protected readonly current = computed(() => this.cursorLine() ?? Math.max(this.shown() - 1, 0));
   protected readonly column = computed(() =>
     this.shown() ? (this.file().lines[this.current()]?.text.length ?? 0) + 1 : 1,
   );
@@ -126,6 +148,17 @@ export class VscodeWindow {
     }
     return set;
   });
+
+  protected readonly linkedLine = computed(() => this.lineOf(this.link()?.target));
+  /** Alternates on every click so the same line can flash again. */
+  protected readonly linkAgain = computed(() => (this.link()?.seq ?? 0) % 2 === 0);
+  protected readonly hoverLine = computed(() => this.lineOf(this.state.hovered()));
+  protected readonly hintLine = computed(() => this.lineOf(this.hintTarget()));
+  protected readonly hintText = computed(() => {
+    const target = this.hintTarget();
+    return target ? this.state.hint(target) : '';
+  });
+  protected readonly showTryIt = computed(() => this.done() && !this.interacted());
 
   protected readonly minimap = computed<MiniBar[]>(() =>
     this.file().lines.map(({ text }, i) => {
@@ -141,7 +174,10 @@ export class VscodeWindow {
 
   constructor() {
     const destroyRef = inject(DestroyRef);
-    destroyRef.onDestroy(() => this.stop());
+    destroyRef.onDestroy(() => {
+      this.stop();
+      this.clearLink();
+    });
 
     const mq = this.wideMq;
     if (mq) {
@@ -174,6 +210,59 @@ export class VscodeWindow {
 
   protected replay(): void {
     this.play(OPEN_DELAY, true);
+  }
+
+  /**
+   * A preview element was clicked: flash its code line, move the caret there, show
+   * the new value as an inlay hint and scroll the code box (never the page) to it.
+   */
+  protected onInteract(target: TargetId): void {
+    const line = this.lineOf(target);
+    if (line < 0) return;
+    this.interacted.set(true);
+    this.hintTarget.set(target);
+    this.cursorLine.set(line);
+
+    this.clearLink();
+    this.link.set({ target, seq: ++this.linkSeq });
+    this.linkTimer = setTimeout(() => {
+      this.linkTimer = undefined;
+      this.link.set(null);
+      // Still typing: the caret and the code box catch up with the newest line.
+      if (!this.done()) {
+        this.cursorLine.set(null);
+        this.follow(this.shown());
+      }
+    }, LINK_MS);
+
+    const message = this.state.announcement(target);
+    if (message) this.announce(message);
+
+    if (!this.tracked.has(target)) {
+      this.tracked.add(target);
+      this.analytics.track('demo_interaction', { demo: this.file().id, target });
+    }
+
+    afterNextRender(
+      {
+        earlyRead: () => this.revealTarget(line),
+        write: (pos) => {
+          if (pos) {
+            this.scrollBox()?.nativeElement.scrollTo({
+              ...pos,
+              behavior: this.reduced() ? 'auto' : 'smooth',
+            });
+          }
+        },
+      },
+      { injector: this.injector },
+    );
+  }
+
+  /** Mouse over a code line that drives a preview element → outline that element. */
+  protected inspect(event: PointerEvent, index: number): void {
+    if (event.pointerType !== 'mouse' || index >= this.shown()) return;
+    this.state.inspected.set(this.file().lines[index]?.binds ?? null);
   }
 
   protected selectActivity(id: ActivityId): void {
@@ -224,18 +313,22 @@ export class VscodeWindow {
    */
   private play(delay: number, announce = false): void {
     this.stop();
+    this.clearLink();
     this.typed.set(0);
     this.liveStatus.set('');
+    this.state.reset();
+    this.hintTarget.set(null);
+    this.cursorLine.set(null);
+    this.tracked.clear();
     const box = this.scrollBox()?.nativeElement;
-    if (box) box.scrollTop = 0;
+    if (box) {
+      box.scrollTop = 0;
+      box.scrollLeft = 0;
+    }
 
     const total = this.lineCount();
     const finish = () => {
-      if (!announce) return;
-      // Snapshot the text so a later language switch does not re-announce it;
-      // the alternating trailing space makes repeated replays announce again.
-      this.replays++;
-      this.liveStatus.set(this.copy().done.join('. ') + (this.replays % 2 ? '' : ' '));
+      if (announce) this.announce(this.copy().done.join('. '));
     };
     if (this.reduced()) {
       this.typed.set(total);
@@ -244,7 +337,12 @@ export class VscodeWindow {
     }
     const tick = (n: number) => {
       this.typed.set(n);
-      this.follow(n);
+      // While a clicked line flashes it keeps the caret and the code box scroll;
+      // typing goes on underneath and catches up when the flash ends.
+      if (this.linkTimer === undefined) {
+        this.cursorLine.set(null);
+        this.follow(n);
+      }
       if (n >= total) {
         this.timer = undefined;
         finish();
@@ -258,6 +356,61 @@ export class VscodeWindow {
   private stop(): void {
     if (this.timer !== undefined) clearTimeout(this.timer);
     this.timer = undefined;
+  }
+
+  private clearLink(): void {
+    if (this.linkTimer !== undefined) clearTimeout(this.linkTimer);
+    this.linkTimer = undefined;
+    this.link.set(null);
+  }
+
+  /**
+   * Polite screen-reader message. The text is a snapshot, so a later language
+   * switch does not re-announce it; the alternating trailing space makes a
+   * repeated message announce again.
+   */
+  private announce(text: string): void {
+    this.announcements++;
+    this.liveStatus.set(text + (this.announcements % 2 ? '' : ' '));
+  }
+
+  private lineOf(target: TargetId | null | undefined): number {
+    return target ? this.file().lines.findIndex((l) => l.binds === target) : -1;
+  }
+
+  /**
+   * Where the code box itself (never the page) has to scroll so a line and its
+   * inlay hint are visible – on phones the box shows only a few lines. Sideways it
+   * never goes past the line's first character (it would slide under the sticky
+   * gutter): the code that drives the element matters more than the hint, which
+   * may then be cut off at the edge. Null when no scrolling is needed.
+   */
+  private revealTarget(index: number): { top: number; left: number } | null {
+    const box = this.scrollBox()?.nativeElement;
+    const line = this.codeLines()[index]?.nativeElement;
+    if (!box || !line) return null;
+    const pad = 8;
+    const top = pad + line.offsetTop;
+    let y = box.scrollTop;
+    if (top < y || top + line.offsetHeight > y + box.clientHeight) {
+      y = Math.max(0, Math.round(top - (box.clientHeight - line.offsetHeight) / 2));
+    }
+    let x = box.scrollLeft;
+    const hint = line.querySelector<HTMLElement>('.vs-hint');
+    if (hint) {
+      const right = hint.getBoundingClientRect().right - box.getBoundingClientRect().left + x;
+      const text = this.file().lines[index]?.text ?? '';
+      const indent = text.length - text.trimStart().length;
+      // Monospace: any token's width / length is the character width.
+      const token = line.firstElementChild;
+      const chars = token?.textContent?.length ?? 0;
+      const charWidth = token && chars ? token.getBoundingClientRect().width / chars : 0;
+      x = Math.max(
+        0,
+        Math.min(Math.ceil(right + 12 - box.clientWidth), Math.floor(indent * charWidth)),
+      );
+    }
+    return x === box.scrollLeft && y === box.scrollTop ? null : { top: y, left: x };
   }
 
   /** Keeps the newest line in view when the code box is shorter than the file (phones). */

@@ -10,7 +10,8 @@ export type AnalyticsEvent =
   | 'case_study_opened'
   | 'language_changed'
   | 'platform_switched'
-  | 'demo_file_opened';
+  | 'demo_file_opened'
+  | 'demo_interaction';
 
 type EventProps = Record<string, string | number | boolean>;
 
