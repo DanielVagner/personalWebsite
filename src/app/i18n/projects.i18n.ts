@@ -93,7 +93,7 @@ export const PROJECTS: readonly ProjectBase[] = [
     id: 'hudba',
     theme: 'plum',
     media: 'plain',
-    image: img('hudba-na-vinicich.webp', 1536, 1024),
+    image: img('hudba-vinice.webp', 1800, 1200),
     tags: ['React Native', 'TypeScript'],
   },
   {
@@ -129,7 +129,7 @@ export const PROJECTS: readonly ProjectBase[] = [
     id: 'tpodlahy',
     theme: 'earth',
     media: 'browser',
-    image: img('tpodlahy.webp', 1600, 798),
+    image: img('tpodlahy-web.webp', 1800, 1125),
     tags: ['React', 'TypeScript', 'SCSS'],
     url: 'https://tpodlahy.cz',
   },
@@ -194,7 +194,7 @@ export const PROJECTS_TEXT: Translated<ProjectsText> = {
         type: 'Mobilní aplikace',
         summary:
           'Aplikace pro open-air koncerty na vinicích: program, nákup vstupenek, hledání akcí podle polohy a navigace na místo.',
-        alt: 'Obrazovky aplikace Hudba na vinicích: odpočet do nejbližšího koncertu, předpověď počasí a detail vinařství s harmonogramem dne',
+        alt: 'Tři obrazovky aplikace Hudba na vinicích: úvod s nejbližším koncertem, odpočtem a počasím, přehled koncertů s filtry a seznam vinařství',
         brief:
           'Česká série open-air koncertů na vinicích potřebovala aplikaci, ve které návštěvníci najdou koncerty, koupí si vstupenky a bez bloudění dojedou na vinici, kde se akce koná.',
         solution:
@@ -204,6 +204,8 @@ export const PROJECTS_TEXT: Translated<ProjectsText> = {
           'Nákup vstupenek přes platební bránu',
           'Odpočet do vašeho nejbližšího koncertu a předpověď počasí',
           'Detail vinařství s GPS souřadnicemi, navigací a harmonogramem dne',
+          'Vstupenky přímo v aplikaci s QR kódem pro vstup',
+          'Filtrování koncertů podle data, místa a interpreta',
         ],
         role: 'Zakázka na volné noze, kterou jsem celou postavil sám v React Native a TypeScriptu – od obrazovek přes práci s polohou a navigaci až po napojení platební brány.',
         extraTags: ['Geolokace', 'Platební brána'],
@@ -289,7 +291,7 @@ export const PROJECTS_TEXT: Translated<ProjectsText> = {
         type: 'Webová prezentace',
         summary:
           'Web pro podlahářskou firmu: přehled služeb, fotogalerie, kontaktní formulář a informace o vinylu, laminátu i renovaci parket.',
-        alt: 'Úvodní stránka webu TPodlahy.cz s nadpisem „Profesionální pokládka podlah“',
+        alt: 'Úvodní stránka webu TPodlahy.cz s nadpisem „Podlahy, které vydrží celý život.“ a fotkou pokládky parket',
         brief:
           'Podlahářská firma potřebovala web, který srozumitelně představí její služby, ukáže hotovou práci a zákazníkům usnadní první kontakt.',
         solution: 'Responzivní web v Reactu a TypeScriptu, který dobře funguje na mobilu i na počítači.',
@@ -350,7 +352,7 @@ export const PROJECTS_TEXT: Translated<ProjectsText> = {
         type: 'Mobile app',
         summary:
           'App for open-air concerts in vineyards: lineup, ticket sales, location-based event search and directions to the venue.',
-        alt: 'Hudba na vinicích app screens: countdown to the nearest concert, weather forecast and a winery detail with the day schedule',
+        alt: 'Three Hudba na vinicích app screens: home with the nearest concert, countdown and weather, the concert list with filters, and the list of wineries',
         brief:
           'A Czech series of open-air concerts held in vineyards needed an app where visitors can find concerts, buy tickets and get to the right vineyard without getting lost.',
         solution: 'A React Native app that takes visitors from picking a concert all the way to the venue.',
@@ -359,6 +361,8 @@ export const PROJECTS_TEXT: Translated<ProjectsText> = {
           'Ticket purchase through a payment gateway',
           'Countdown to your nearest concert and a weather forecast',
           'Winery detail with GPS coordinates, navigation and the day schedule',
+          'Tickets right in the app with a QR code for entry',
+          'Concert filters by date, venue and artist',
         ],
         role: 'A freelance project I built entirely on my own in React Native and TypeScript – from the screens through geolocation and navigation to the payment gateway integration.',
         extraTags: ['Geolocation', 'Payment gateway'],
@@ -441,7 +445,7 @@ export const PROJECTS_TEXT: Translated<ProjectsText> = {
         type: 'Website',
         summary:
           'Website for a flooring company: services, photo gallery, contact form and information on vinyl, laminate and parquet renovation.',
-        alt: 'TPodlahy.cz homepage with the headline “Professional floor installation”',
+        alt: 'TPodlahy.cz homepage with the headline “Floors that last a lifetime.” and a photo of parquet being laid',
         brief:
           'A flooring company needed a website that explains its services clearly, shows finished work and makes it easy for customers to get in touch.',
         solution: 'A responsive website in React and TypeScript that works well on phones and desktops alike.',
