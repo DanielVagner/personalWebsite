@@ -84,33 +84,12 @@ const img = (name: string, width: number, height: number): ProjectImage => ({
 
 export const PROJECTS: readonly ProjectBase[] = [
   {
-    id: 'tolion',
-    theme: 'teal',
-    media: 'browser',
-    image: img('tolion.webp', 1600, 879),
-    tags: ['Angular', 'Ionic + Capacitor', 'ASP.NET', 'HealthKit', 'AI/ML'],
-    featured: true,
-  },
-  {
     id: 'hudba',
     theme: 'plum',
     media: 'plain',
     image: img('hudba-vinice.webp', 1800, 1200),
     tags: ['React Native', 'TypeScript'],
-  },
-  {
-    id: 'mdas',
-    theme: 'slate',
-    media: 'browser',
-    image: img('mdas.webp', 1600, 899),
-    tags: ['Angular', 'TypeScript', 'C#', 'Electron', 'Figma'],
-  },
-  {
-    id: 'qrticket',
-    theme: 'berry',
-    media: 'logo',
-    image: img('qr-ticket.webp', 533, 239),
-    tags: ['React Native'],
+    featured: true,
   },
   {
     id: 'findtastic',
@@ -121,11 +100,11 @@ export const PROJECTS: readonly ProjectBase[] = [
     tags: ['React Native', 'TypeScript'],
   },
   {
-    id: 'ccvision',
-    theme: 'navy',
+    id: 'tolion',
+    theme: 'teal',
     media: 'browser',
-    image: img('CCVis.webp', 1600, 672),
-    tags: ['Angular', 'TypeScript', 'Adobe XD'],
+    image: img('tolion.webp', 1600, 879),
+    tags: ['Angular', 'Ionic + Capacitor', 'ASP.NET', 'HealthKit', 'AI/ML'],
   },
   {
     id: 'tpodlahy',
@@ -134,6 +113,27 @@ export const PROJECTS: readonly ProjectBase[] = [
     image: img('tpodlahy-web.webp', 1800, 1125),
     tags: ['React', 'TypeScript', 'SCSS'],
     url: 'https://tpodlahy.cz',
+  },
+  {
+    id: 'qrticket',
+    theme: 'berry',
+    media: 'logo',
+    image: img('qr-ticket.webp', 533, 239),
+    tags: ['React Native'],
+  },
+  {
+    id: 'ccvision',
+    theme: 'navy',
+    media: 'browser',
+    image: img('CCVis.webp', 1600, 672),
+    tags: ['Angular', 'TypeScript', 'Adobe XD'],
+  },
+  {
+    id: 'mdas',
+    theme: 'slate',
+    media: 'browser',
+    image: img('mdas.webp', 1600, 899),
+    tags: ['Angular', 'TypeScript', 'C#', 'Electron', 'Figma'],
   },
   {
     id: 'erp',
