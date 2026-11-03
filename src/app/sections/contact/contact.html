@@ -64,6 +64,12 @@
           <p class="card__text">{{ t().formIntro }}</p>
 
           <form class="brief__form" [formRoot]="brief">
+            <!-- Honeypot for bots: off-screen, skipped by keyboard, screen readers and autofill. -->
+            <div class="brief__hp" aria-hidden="true">
+              <label for="brief-hp">Leave this field empty</label>
+              <input id="brief-hp" type="text" tabindex="-1" autocomplete="off" [formField]="brief.hpField" />
+            </div>
+
             <div class="brief__row">
               <div class="field">
                 <label class="field__label" for="brief-name">{{ fields.name }}</label>
@@ -191,7 +197,7 @@
                 <p class="fallback__title">{{ t().errorTitle }}</p>
                 <p class="fallback__text">{{ t().errorText }}</p>
                 <div class="fallback__actions">
-                  <a class="btn btn--primary" [href]="mailtoHref()">{{ t().mailFallback }}</a>
+                  <a class="btn btn--primary" [href]="mailtoHref()" (click)="analytics.track('brief_mail_fallback')">{{ t().mailFallback }}</a>
                   <button type="button" class="btn btn--ghost" (click)="copyEmail()">{{ t().copyEmail }}</button>
                 </div>
                 <p class="fallback__copy" aria-live="polite">

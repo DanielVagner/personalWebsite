@@ -10,7 +10,7 @@
     <p class="hero__subtitle fade" style="--d: 300ms">{{ t().subtitle }}</p>
 
     <div class="hero__actions fade" style="--d: 450ms">
-      <a class="btn btn--primary btn--lg" href="#contact">{{ t().ctaPrimary }}</a>
+      <a class="btn btn--primary btn--lg" href="#contact" (click)="analytics.track('cta_click', { location: 'hero' })">{{ t().ctaPrimary }}</a>
       <a class="btn btn--ghost btn--lg" href="#projects">{{ t().ctaSecondary }}</a>
     </div>
 

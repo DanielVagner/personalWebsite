@@ -10,6 +10,7 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
+import { AnalyticsService } from '../../core/analytics.service';
 import { LanguageService } from '../../core/language.service';
 import { MotionService } from '../../core/motion.service';
 import { ASSEMBLY_TEXT } from '../../i18n/assembly.i18n';
@@ -44,6 +45,13 @@ export class Assembly {
   protected readonly pt = inject(LanguageService).select(ASSEMBLY_PLATFORM_TEXT);
   protected readonly platforms: readonly Platform[] = ['ios', 'android'];
   protected readonly platform = signal<Platform>('ios');
+  private readonly analytics = inject(AnalyticsService);
+
+  protected selectPlatform(platform: Platform): void {
+    if (platform === this.platform()) return;
+    this.platform.set(platform);
+    this.analytics.track('platform_switched', { to: platform });
+  }
   private readonly reduced = inject(MotionService).reduced;
   private readonly win = inject(DOCUMENT).defaultView;
   private readonly short = signal(this.win?.matchMedia?.(SHORT_QUERY).matches ?? false);

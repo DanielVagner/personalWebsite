@@ -10,7 +10,6 @@ export interface FooterText {
   city: string;
   linksLabel: string;
   links: FooterLink[];
-  builtWith: string;
 }
 
 const EMAIL_HREF = 'mailto:danielvagner05@gmail.com';
@@ -27,13 +26,11 @@ export const FOOTER_TEXT: Translated<FooterText> = {
     city: 'Praha',
     linksLabel: 'Profily a kontakt',
     links: [...PROFILE_LINKS, { label: 'E-mail', href: EMAIL_HREF }],
-    builtWith: 'Postaveno v Angularu 22',
   },
   en: {
     owner: 'Daniel Vágner',
     city: 'Prague',
     linksLabel: 'Profiles and contact',
     links: [...PROFILE_LINKS, { label: 'Email', href: EMAIL_HREF }],
-    builtWith: 'Built with Angular 22',
   },
 };

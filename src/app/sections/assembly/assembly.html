@@ -133,7 +133,7 @@
                 class="mono asm__platform"
                 [class.is-active]="platform() === p"
                 [attr.aria-pressed]="platform() === p"
-                (click)="platform.set(p)"
+                (click)="selectPlatform(p)"
               >
                 {{ pt()[p] }}
               </button>

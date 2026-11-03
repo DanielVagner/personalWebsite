@@ -31,6 +31,10 @@
               }
             ],
             "styles": [
+              "@fontsource-variable/inter/wght.css",
+              "@fontsource/jetbrains-mono/400.css",
+              "@fontsource/jetbrains-mono/500.css",
+              "@fontsource/jetbrains-mono/600.css",
               "src/styles.scss"
             ],
             "stylePreprocessorOptions": {
@@ -53,7 +57,15 @@
                   "maximumError": "32kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                },
+                "fonts": true
+              }
             },
             "development": {
               "optimization": false,

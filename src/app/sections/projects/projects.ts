@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, DOCUMENT, computed, inject, signal } from '@angular/core';
 
+import { AnalyticsService } from '../../core/analytics.service';
 import { LanguageService } from '../../core/language.service';
 import { MotionService } from '../../core/motion.service';
 import { RevealDirective } from '../../core/reveal.directive';
@@ -17,6 +18,7 @@ import { ProjectPreview } from './project-preview/project-preview';
 export class Projects {
   private readonly doc = inject(DOCUMENT);
   private readonly motion = inject(MotionService);
+  private readonly analytics = inject(AnalyticsService);
 
   protected readonly t = inject(LanguageService).select(PROJECTS_TEXT);
 
@@ -36,6 +38,7 @@ export class Projects {
   protected open(id: ProjectId, event: Event): void {
     this.opener = event.currentTarget as HTMLElement;
     this.activeId.set(id);
+    this.analytics.track('case_study_opened', { project: id });
   }
 
   protected onClosed({ toContact }: ProjectDialogClose): void {

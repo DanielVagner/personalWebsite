@@ -33,7 +33,7 @@
         }
       </div>
 
-      <a class="btn btn--primary bar__cta" href="#contact">{{ t().cta }}</a>
+      <a class="btn btn--primary bar__cta" href="#contact" (click)="trackCta('header')">{{ t().cta }}</a>
 
       <button
         #toggle
@@ -73,7 +73,7 @@
             }
           </ul>
         </nav>
-        <a class="btn btn--primary btn--lg drawer__cta" href="#contact" (click)="close()">{{ t().cta }}</a>
+        <a class="btn btn--primary btn--lg drawer__cta" href="#contact" (click)="trackCta('mobile_menu'); close()">{{ t().cta }}</a>
       </div>
     </div>
     <div class="drawer__scrim" aria-hidden="true" (click)="close()"></div>

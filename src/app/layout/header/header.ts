@@ -9,6 +9,7 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
+import { AnalyticsService } from '../../core/analytics.service';
 import { Lang, LanguageService } from '../../core/language.service';
 import { NAV_TEXT, NavSectionId } from '../../i18n/nav.i18n';
 import { LogoMark } from '../../shared/logo-mark';
@@ -31,6 +32,7 @@ const SPY_IDS: readonly NavSectionId[] = ['services', 'projects', 'process', 'ab
 })
 export class Header {
   private readonly languages = inject(LanguageService);
+  private readonly analytics = inject(AnalyticsService);
   private readonly doc = inject(DOCUMENT);
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly toggleBtn = viewChild.required<ElementRef<HTMLButtonElement>>('toggle');
@@ -94,6 +96,7 @@ export class Header {
   }
 
   protected setLang(lang: Lang): void {
+    if (lang !== this.lang()) this.analytics.track('language_changed', { to: lang });
     this.languages.set(lang);
   }
 
@@ -147,5 +150,9 @@ export class Header {
       body.style.removeProperty('overflow');
       body.style.removeProperty('padding-right');
     }
+  }
+
+  protected trackCta(location: string): void {
+    this.analytics.track('cta_click', { location });
   }
 }

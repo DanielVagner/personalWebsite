@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { AnalyticsService } from '../../core/analytics.service';
 import { LanguageService } from '../../core/language.service';
 import { HERO_TEXT } from '../../i18n/hero.i18n';
 import { LogoMark } from '../../shared/logo-mark';
@@ -13,4 +14,5 @@ import { VscodeWindow } from './vscode-window/vscode-window';
 })
 export class Hero {
   protected readonly t = inject(LanguageService).select(HERO_TEXT);
+  protected readonly analytics = inject(AnalyticsService);
 }

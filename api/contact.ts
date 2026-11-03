@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import nodemailer from 'nodemailer';
+import nodemailer, { type Transporter } from 'nodemailer';
 
 /** Upper bounds keep a single request from producing a huge e-mail. */
 const LIMITS = {
@@ -11,6 +11,26 @@ const LIMITS = {
 } as const;
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+/** Browsers send an Origin header; requests from other sites are refused. */
+const ALLOWED_ORIGIN = /^https:\/\/(www\.)?daniel-vagner\.dev$|^https:\/\/[a-z0-9-]+\.vercel\.app$|^http:\/\/localhost(:\d+)?$/;
+
+/**
+ * Best-effort throttle per IP. Serverless instances are short-lived, so this only slows
+ * down a single client hammering one warm instance; the real limit is a Vercel Firewall
+ * rate-limit rule on /api/contact.
+ */
+const RATE_WINDOW_MS = 10 * 60 * 1000;
+const RATE_MAX = 5;
+const hits = new Map<string, number[]>();
+
+function rateLimited(ip: string, now = Date.now()): boolean {
+  const recent = (hits.get(ip) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
+  recent.push(now);
+  hits.set(ip, recent);
+  if (hits.size > 1000) hits.clear();
+  return recent.length > RATE_MAX;
+}
 
 /** Trimmed string or '' for anything that is not a string; cut to `max` characters. */
 function field(value: unknown, max: number): string {
@@ -31,9 +51,22 @@ function escapeHtml(value: string): string {
     .replace(/'/g, '&#39;');
 }
 
-/** Safe for a header value such as the From display name or the subject. */
+/** Safe for a header value such as the Reply-To display name or the subject. */
 function headerSafe(value: string): string {
   return value.replace(/[\r\n"<>]/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+let transporter: Transporter | undefined;
+
+function mailer(user: string, pass: string): Transporter {
+  transporter ??= nodemailer.createTransport({
+    service: 'gmail',
+    auth: { user, pass },
+    connectionTimeout: 10_000,
+    greetingTimeout: 10_000,
+    socketTimeout: 15_000,
+  });
+  return transporter;
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -42,7 +75,32 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
+  // JSON only: plain HTML forms on other sites cannot post here without a CORS preflight.
+  const contentType = String(req.headers?.['content-type'] ?? '');
+  if (!contentType.toLowerCase().startsWith('application/json')) {
+    return res.status(415).json({ error: 'Unsupported Media Type' });
+  }
+
+  const origin = req.headers?.origin;
+  if (origin && !ALLOWED_ORIGIN.test(origin)) {
+    return res.status(403).json({ error: 'Forbidden' });
+  }
+
+  const forwarded = String(req.headers?.['x-forwarded-for'] ?? '');
+  const ip = forwarded.split(',')[0].trim() || 'unknown';
+  if (rateLimited(ip)) {
+    res.setHeader('Retry-After', String(RATE_WINDOW_MS / 1000));
+    return res.status(429).json({ error: 'Too many requests' });
+  }
+
   const body = (req.body ?? {}) as Record<string, unknown>;
+
+  // Honeypot: the field is invisible to people, so anything in it comes from a bot.
+  // Answer like a success so the bot has nothing to learn from.
+  if (field(body.hp_field, 200)) {
+    return res.status(200).json({ success: true });
+  }
+
   const name = line(body.name, LIMITS.name);
   const email = field(body.email, LIMITS.email);
   const company = line(body.company, LIMITS.company);
@@ -98,14 +156,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const subject = headerSafe(`Poptávka: ${projectType || 'projekt'} – ${name}`);
 
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: { user, pass },
-  });
-
   try {
-    await transporter.sendMail({
-      from: { name: headerSafe(name) || 'daniel-vagner.dev', address: user },
+    await mailer(user, pass).sendMail({
+      // Fixed sender name: the visitor cannot make a message from this account look like it came from someone else.
+      from: { name: 'daniel-vagner.dev – poptávka', address: user },
       to: user,
       replyTo: { name: headerSafe(name), address: email },
       subject,

@@ -11,6 +11,7 @@ import {
   viewChild,
 } from '@angular/core';
 
+import { AnalyticsService } from '../../../core/analytics.service';
 import { LanguageService } from '../../../core/language.service';
 import { PROJECTS_TEXT, Project } from '../../../i18n/projects.i18n';
 import { ProjectPreview } from '../project-preview/project-preview';
@@ -36,6 +37,7 @@ export class ProjectDialog {
   protected readonly titleId = 'project-dialog-title';
 
   private readonly doc = inject(DOCUMENT);
+  private readonly analytics = inject(AnalyticsService);
   private readonly dialog = viewChild.required<ElementRef<HTMLDialogElement>>('dlg');
   private readonly scroller = viewChild.required<ElementRef<HTMLElement>>('scroller');
 
@@ -66,6 +68,7 @@ export class ProjectDialog {
 
   protected goToContact(event: Event): void {
     event.preventDefault();
+    this.analytics.track('cta_click', { location: 'case_study', project: this.project()?.id ?? 'unknown' });
     this.toContact = true;
     this.close();
   }

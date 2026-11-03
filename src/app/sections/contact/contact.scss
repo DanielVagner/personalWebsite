@@ -513,3 +513,12 @@ $control-bg: var(--bg);
   letter-spacing: 1px;
   color: var(--accent-light);
 }
+
+.brief__hp {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}

@@ -12,6 +12,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { FormField, FormRoot, email, form, required, validate } from '@angular/forms/signals';
+import { AnalyticsService } from '../../core/analytics.service';
 import { Lang, LanguageService } from '../../core/language.service';
 import { RevealDirective } from '../../core/reveal.directive';
 import { CONTACT_TEXT, ContactText } from '../../i18n/contact.i18n';
@@ -35,6 +36,8 @@ interface Brief {
   projectType: ProjectType | '';
   deadline: Deadline | '';
   description: string;
+  /** Honeypot: hidden from people, so only bots fill it in. */
+  hpField: string;
 }
 
 type ValidatedField = 'name' | 'email' | 'projectType' | 'description';
@@ -48,6 +51,7 @@ const EMPTY_BRIEF: Brief = {
   projectType: '',
   deadline: '',
   description: '',
+  hpField: '',
 };
 
 /** Order in which invalid fields receive focus after a failed submit. */
@@ -78,6 +82,7 @@ function composeMessage(data: Brief, labels: ContactText, options: ContactText, 
 })
 export class Contact {
   private readonly language = inject(LanguageService);
+  protected readonly analytics = inject(AnalyticsService);
   private readonly injector = inject(Injector);
   private readonly doc = inject(DOCUMENT);
 
@@ -206,6 +211,7 @@ export class Contact {
           name: data.name.trim(),
           email: data.email.trim(),
           company: data.company.trim(),
+          hp_field: data.hpField,
           projectType: data.projectType ? seen.projectTypes[data.projectType] : '',
           deadline: data.deadline ? seen.deadlines[data.deadline] : '',
           language: CONTACT_TEXT[lang].languageName,
@@ -218,9 +224,15 @@ export class Contact {
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       this.sent.set(data);
       this.status.set('success');
+      this.analytics.track('brief_submitted', {
+        projectType: data.projectType || 'none',
+        deadline: data.deadline || 'none',
+        lang,
+      });
       afterNextRender({ write: () => this.successHeading()?.nativeElement.focus() }, { injector: this.injector });
     } catch {
       this.status.set('error');
+      this.analytics.track('brief_failed', { lang });
     }
     return undefined;
   }

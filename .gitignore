@@ -16,7 +16,10 @@ __screenshots__/
 
 # Vercel & local env
 .vercel
-.env*.local
+.env
+.env.*
+!.env.example
+**/.env
 
 # Editors & tools
 .idea/

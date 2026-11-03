@@ -11,6 +11,7 @@ import {
   viewChildren,
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
+import { AnalyticsService } from '../../../core/analytics.service';
 import { LanguageService } from '../../../core/language.service';
 import { MotionService } from '../../../core/motion.service';
 import { ActivityId, HERO_EDITOR_TEXT } from '../../../i18n/hero-editor.i18n';
@@ -65,6 +66,7 @@ const WIDE_QUERY = '(min-width: 1024px)';
 })
 export class VscodeWindow {
   protected readonly ed = inject(LanguageService).select(HERO_EDITOR_TEXT);
+  private readonly analytics = inject(AnalyticsService);
   private readonly reduced = inject(MotionService).reduced;
   private readonly win = inject(DOCUMENT).defaultView;
 
@@ -157,6 +159,7 @@ export class VscodeWindow {
   protected open(index: number): void {
     if (index === this.active()) return;
     this.active.set(index);
+    this.analytics.track('demo_file_opened', { file: this.files()[index]?.name ?? String(index) });
     this.play(OPEN_DELAY);
   }
 
