@@ -18,6 +18,8 @@ import { LogoMark } from '../../shared/logo-mark';
 const NAV_BREAKPOINT = 1080;
 
 const SPY_IDS: readonly NavSectionId[] = ['services', 'projects', 'process', 'about', 'contact'];
+/** Sticky header height plus the page's scroll-padding gap. */
+const HEADER_OFFSET = 80;
 
 @Component({
   selector: 'app-header',
@@ -43,8 +45,6 @@ export class Header {
   protected readonly scrolled = signal(false);
   protected readonly active = signal<NavSectionId | null>(null);
 
-  private readonly visible = new Set<NavSectionId>();
-
   constructor() {
     const destroyRef = inject(DestroyRef);
     destroyRef.onDestroy(() => this.lockScroll(false));
@@ -53,12 +53,18 @@ export class Header {
       const win = this.doc.defaultView;
       if (!win) return;
 
-      const onScroll = () => {
+      let frame = 0;
+      const update = () => {
+        frame = 0;
         this.scrolled.set(win.scrollY > 8);
         this.updateActive();
       };
+      const onScroll = () => {
+        if (!frame) frame = win.requestAnimationFrame(update);
+      };
       win.addEventListener('scroll', onScroll, { passive: true });
-      onScroll();
+      win.addEventListener('resize', onScroll, { passive: true });
+      update();
 
       // Leaving the mobile layout closes the panel.
       const desktop = win.matchMedia(`(min-width: ${NAV_BREAKPOINT}px)`);
@@ -67,30 +73,11 @@ export class Header {
       };
       desktop.addEventListener('change', onBreakpoint);
 
-      // Scroll-spy: a section is "current" while it crosses a band just below the header.
-      let observer: IntersectionObserver | undefined;
-      if ('IntersectionObserver' in win) {
-        observer = new IntersectionObserver(
-          (entries) => {
-            for (const entry of entries) {
-              const id = entry.target.id as NavSectionId;
-              if (entry.isIntersecting) this.visible.add(id);
-              else this.visible.delete(id);
-            }
-            this.updateActive();
-          },
-          { rootMargin: '-80px 0px -55% 0px', threshold: 0 },
-        );
-        for (const id of SPY_IDS) {
-          const el = this.doc.getElementById(id);
-          if (el) observer.observe(el);
-        }
-      }
-
       destroyRef.onDestroy(() => {
         win.removeEventListener('scroll', onScroll);
+        win.removeEventListener('resize', onScroll);
         desktop.removeEventListener('change', onBreakpoint);
-        observer?.disconnect();
+        if (frame) win.cancelAnimationFrame(frame);
       });
     });
   }
@@ -128,15 +115,26 @@ export class Header {
     this.lockScroll(open);
   }
 
+  /**
+   * Scroll-spy: the current section is the one crossing a probe line a third of the way
+   * down the viewport. A section that ends a pixel inside the header band (as after an
+   * anchor jump to the next one) can no longer win.
+   */
   private updateActive(): void {
     const win = this.doc.defaultView;
+    if (!win) return;
     const root = this.doc.documentElement;
-    // The last section may never reach the spy band; pin it once the page bottom is reached.
-    if (win && win.scrollY > 0 && win.innerHeight + win.scrollY >= root.scrollHeight - 2 && this.doc.getElementById('contact')) {
+    // The last section may never reach the probe line; pin it once the page bottom is reached.
+    if (win.scrollY > 0 && win.innerHeight + win.scrollY >= root.scrollHeight - 2 && this.doc.getElementById('contact')) {
       this.active.set('contact');
       return;
     }
-    this.active.set(SPY_IDS.find((id) => this.visible.has(id)) ?? null);
+    const probe = HEADER_OFFSET + (win.innerHeight - HEADER_OFFSET) / 3;
+    const current = SPY_IDS.find((id) => {
+      const rect = this.doc.getElementById(id)?.getBoundingClientRect();
+      return !!rect && rect.top <= probe && rect.bottom > probe;
+    });
+    this.active.set(current ?? null);
   }
 
   private lockScroll(lock: boolean): void {
