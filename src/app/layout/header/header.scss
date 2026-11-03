@@ -87,8 +87,14 @@ $bp-nav: 1080px;
 }
 
 .brand__tld {
+  display: inline-block;
   font-weight: 500;
   color: var(--accent-light);
+
+  // The monospaced dot sits in a full-width cell; pull it in so it reads ".dev", not ". dev".
+  &::first-letter {
+    margin: 0 -0.14em 0 -0.3em;
+  }
 }
 
 /* ── Desktop nav ───────────────────────────────────────────── */

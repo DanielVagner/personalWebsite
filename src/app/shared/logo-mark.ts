@@ -3,36 +3,33 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 let nextId = 0;
 
 /**
- * The "V" mark: a terminal prompt ">" turned 90° with a blinking cursor underneath.
+ * The DV monogram: a solid D with a symmetric V cut into it from the top.
  * Decorative – always aria-hidden; pair it with visible text or an aria-label on the parent.
+ * `framed` puts it on a dark rounded tile (same geometry as the favicon) for busy backgrounds.
  */
 @Component({
   selector: 'app-logo-mark',
   template: `
-    <svg [attr.width]="size()" [attr.height]="size()" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+    <svg
+      [attr.width]="size()"
+      [attr.height]="size()"
+      [attr.viewBox]="framed() ? '0 0 32 32' : '0 0 40 40'"
+      aria-hidden="true"
+      focusable="false"
+    >
       <defs>
-        <linearGradient [attr.id]="ids.v" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#E2E9FF" />
-          <stop offset=".55" stop-color="#A8BDFF" />
-          <stop offset="1" stop-color="#3D7BFF" />
-        </linearGradient>
-        <linearGradient [attr.id]="ids.bg" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#1A1F2B" />
-          <stop offset="1" stop-color="#0D1016" />
+        <linearGradient [attr.id]="gradientId" x1="0" y1="0" x2="0.6" y2="1">
+          <stop offset="0" stop-color="#DCE5FF" />
+          <stop offset="1" stop-color="#AFC3FF" />
         </linearGradient>
       </defs>
       @if (framed()) {
-        <rect x=".5" y=".5" width="39" height="39" rx="11" [attr.fill]="'url(#' + ids.bg + ')'" stroke="rgba(168,189,255,.28)" />
+        <rect width="32" height="32" rx="7" fill="#15171C" />
+        <rect x="0.5" y="0.5" width="31" height="31" rx="6.5" fill="none" stroke="#FFFFFF" stroke-opacity="0.08" />
+        <path [attr.fill]="fill" d="M4 5.5A1.5 1.5 0 0 1 5.5 4 L7.64 4A0.5 0.5 0 0 1 8.114 4.342 L14 22 L19.886 4.342A0.5 0.5 0 0 1 20.36 4 L24 4C26.79 4 28.5 7.8 28.5 14 L28.5 16C28.5 22.72 23 28 16 28 L5.5 28A1.5 1.5 0 0 1 4 26.5Z" />
+      } @else {
+        <path [attr.fill]="fill" d="M6 8A2 2 0 0 1 8 6 L10.279 6A1 1 0 0 1 11.228 6.684 L18 27 L24.772 6.684A1 1 0 0 1 25.721 6 L30 6C32.79 6 34.5 10.56 34.5 18 L34.5 20C34.5 27.84 28.12 34 20 34 L8 34A2 2 0 0 1 6 32Z" />
       }
-      <path
-        d="M11 11.5L20 25l9-13.5"
-        fill="none"
-        [attr.stroke]="'url(#' + ids.v + ')'"
-        stroke-width="3.6"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-      <rect class="cursor" [class.cursor--blink]="blink()" x="16" y="29.2" width="8" height="2.6" rx="1.3" fill="#A8BDFF" />
     </svg>
   `,
   styles: `
@@ -40,25 +37,13 @@ let nextId = 0;
       display: inline-flex;
       flex: 0 0 auto;
     }
-
-    @media (prefers-reduced-motion: no-preference) {
-      .cursor--blink {
-        animation: blink 1.1s steps(1) infinite;
-      }
-    }
-
-    @keyframes blink {
-      50% {
-        opacity: 0;
-      }
-    }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LogoMark {
   readonly size = input(34);
-  readonly framed = input(true);
-  readonly blink = input(true);
+  readonly framed = input(false);
 
-  protected readonly ids = { v: `lm-v-${nextId}`, bg: `lm-bg-${nextId++}` };
+  protected readonly gradientId = `dv-mark-${nextId++}`;
+  protected readonly fill = `url(#${this.gradientId}) #C4D3FF`;
 }
