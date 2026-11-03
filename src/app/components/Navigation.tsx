@@ -1,247 +1,239 @@
-import { useState, useEffect, useRef } from 'react';
-import { ThemeToggle } from './ThemeToggle';
-import { motion, AnimatePresence } from 'motion/react';
-import { useNavigate } from 'react-router';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { FileUser, Globe } from 'lucide-react';
-import ReactCountryFlag from 'react-country-flag';
+import { Github, Linkedin, Mail, Menu, Moon, Sun, X } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import { CONTACT } from '../data/site';
 
-const languages = [
-  { code: 'en', country: 'GB', label: 'English' },
-  { code: 'cs', country: 'CZ', label: 'Čeština' },
-];
+const SECTIONS = [
+  { id: 'work', key: 'nav.work' },
+  { id: 'services', key: 'nav.services' },
+  { id: 'about', key: 'nav.about' },
+] as const;
 
-function LangToggle() {
+function LangSwitch({ size = 'sm' }: { size?: 'sm' | 'lg' }) {
   const { i18n } = useTranslation();
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-  const currentLang = languages.find(l => i18n.language.startsWith(l.code)) ?? languages[0];
+  const current = i18n.language?.startsWith('cs') ? 'cs' : 'en';
 
-  useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
-    };
-    document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
-  }, []);
+  if (size === 'lg') {
+    return (
+      <div className="flex gap-px">
+        {(['en', 'cs'] as const).map((lng) => (
+          <button
+            key={lng}
+            type="button"
+            onClick={() => i18n.changeLanguage(lng)}
+            aria-pressed={current === lng}
+            className={`px-5 py-3.5 font-mono text-xs tracking-[0.06em] uppercase transition-colors ${
+              current === lng ? 'bg-ink text-ground' : 'bg-ground-2 text-muted hover:text-ink'
+            }`}
+          >
+            {lng}
+          </button>
+        ))}
+      </div>
+    );
+  }
 
   return (
-    <div ref={ref} className="relative">
-      <button
-        onClick={() => setOpen(o => !o)}
-        className="p-1.5 rounded-full text-zinc-500 dark:text-zinc-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-teal-50/80 dark:hover:bg-teal-950/50 active:scale-95 transition-all duration-200 cursor-pointer"
-      >
-        <Globe className="w-4 h-4" />
-      </button>
-
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -6, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -6, scale: 0.95 }}
-            transition={{ duration: 0.15, ease: 'easeOut' }}
-            className="absolute top-full mt-2 right-0 bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-white/8 rounded-xl shadow-lg shadow-black/10 dark:shadow-black/40 overflow-hidden min-w-[130px] z-50"
+    <div className="flex items-center gap-0.5">
+      {(['en', 'cs'] as const).map((lng, i) => (
+        <span key={lng} className="flex items-center">
+          {i === 1 && <span className="px-0.5 text-[11px] text-line-strong">/</span>}
+          <button
+            type="button"
+            onClick={() => i18n.changeLanguage(lng)}
+            aria-pressed={current === lng}
+            className={`px-1 py-1.5 font-mono text-[11.5px] uppercase transition-colors ${
+              current === lng ? 'text-ink' : 'text-faint hover:text-ink'
+            }`}
           >
-            {languages.map(lang => {
-              const isActive = currentLang.code === lang.code;
-              return (
-                <button
-                  key={lang.code}
-                  onClick={() => { i18n.changeLanguage(lang.code); setOpen(false); }}
-                  className={`w-full flex items-center gap-2.5 px-3 py-2.5 text-sm transition-colors cursor-pointer ${
-                    isActive
-                      ? 'bg-teal-50 dark:bg-teal-500/10 text-teal-600 dark:text-teal-400'
-                      : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-white/5'
-                  }`}
-                >
-                  <ReactCountryFlag countryCode={lang.country} svg style={{ width: '1.2em', height: '1.2em', borderRadius: '2px' }} />
-                  <span>{lang.label}</span>
-                </button>
-              );
-            })}
-          </motion.div>
-        )}
-      </AnimatePresence>
+            {lng}
+          </button>
+        </span>
+      ))}
     </div>
   );
 }
 
+function ThemeSwitch({ className = '' }: { className?: string }) {
+  const { t } = useTranslation();
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  const isDark = resolvedTheme === 'dark';
+
+  return (
+    <button
+      type="button"
+      onClick={() => setTheme(isDark ? 'light' : 'dark')}
+      aria-label={isDark ? t('nav.toLight') : t('nav.toDark')}
+      className={`flex p-1.5 text-muted transition-colors hover:text-ink ${className}`}
+    >
+      {mounted && isDark ? (
+        <Sun className="h-4 w-4" strokeWidth={1.7} />
+      ) : (
+        <Moon className="h-4 w-4" strokeWidth={1.7} />
+      )}
+    </button>
+  );
+}
+
 export function Navigation() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
-  const navigate = useNavigate();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
 
-  const navItems = [
-    { label: t('nav.home'), href: '#home' },
-    { label: t('nav.about'), href: '#about' },
-    { label: t('nav.skills'), href: '#skills' },
-    { label: t('nav.experience'), href: '#experience' },
-    { label: t('nav.projects'), href: '#projects' },
-    { label: t('nav.contact'), href: '#contact' },
-  ];
+  // The sheet owns the screen while it is open.
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [open]);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const sectionIds = ['home', 'about', 'skills', 'experience', 'projects', 'contact'];
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id);
-        });
-      },
-      { rootMargin: '-40% 0px -55% 0px', threshold: 0 }
-    );
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
-  }, []);
-
-  const scrollToSection = (href: string) => {
-    setIsMobileMenuOpen(false);
-    setTimeout(() => {
-      document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
-    }, 300);
-  };
-
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [open]);
 
   return (
     <>
-      {/* ── Desktop: floating pill ─────────────────────────────── */}
-      <div className="fixed top-5 left-0 right-0 z-50 hidden md:flex justify-center px-4 pointer-events-none">
-        <motion.nav
-          initial={{ y: -24, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          className={`pointer-events-auto flex items-center gap-0.5 rounded-full px-3 py-2 transition-all duration-400 ${
-            isScrolled
-              ? 'bg-white/85 dark:bg-zinc-950/85 backdrop-blur-2xl shadow-xl shadow-black/8 dark:shadow-black/40 border border-zinc-200/70 dark:border-white/8'
-              : 'bg-white/55 dark:bg-zinc-950/55 backdrop-blur-md border border-white/40 dark:border-white/5'
-          }`}
+      <header className="sticky top-0 z-40 border-b border-line bg-ground">
+        <div className="shell flex h-[58px] items-center justify-between md:h-[72px]">
+        <a
+          href="#top"
+          className="text-[14.5px] font-bold tracking-[-0.01em] text-ink uppercase no-underline md:text-base"
         >
-          {navItems.map((item) => {
-            const isActive = activeSection === item.href.slice(1);
-            return (
-              <button
-                key={item.href}
-                onClick={() => scrollToSection(item.href)}
-                className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer ${
-                  isActive
-                    ? 'bg-teal-500/10 dark:bg-teal-400/10 text-teal-600 dark:text-teal-400'
-                    : 'text-zinc-600 dark:text-zinc-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-teal-500/8 dark:hover:bg-teal-400/8'
-                }`}
-              >
-                {item.label}
-              </button>
-            );
-          })}
+          Daniel Vágner
+        </a>
 
-          <button
-            onClick={() => navigate('/cv')}
-            className="px-3 py-1.5 rounded-full text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-teal-500/8 dark:hover:bg-teal-400/8 active:scale-95 transition-all duration-200 cursor-pointer"
-          >
-            CV
-          </button>
-
-          <div className="h-4 w-px bg-zinc-200 dark:bg-zinc-700 mx-1" />
-
-          <LangToggle />
-
-          <div className="ml-1">
-            <ThemeToggle />
-          </div>
-        </motion.nav>
-      </div>
-
-
-      {/* ── Mobile ─────────────────────────────────────────────── */}
-      <nav className="fixed top-0 left-0 right-0 z-50 md:hidden">
-        <div className={`flex items-center justify-between px-5 py-3.5 transition-all duration-300 ${
-          isScrolled || isMobileMenuOpen
-            ? 'bg-white/90 dark:bg-zinc-950/90 backdrop-blur-xl border-b border-zinc-200/50 dark:border-white/8'
-            : 'bg-transparent'
-        }`}>
-          {/* Hamburger — left */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
-            aria-label="Toggle menu"
-          >
-            <div className="w-5 h-5 flex flex-col justify-center items-center relative">
-              <motion.span animate={{ rotate: isMobileMenuOpen ? 45 : 0, y: isMobileMenuOpen ? 0 : -5 }} transition={{ duration: 0.25 }} className="w-5 h-0.5 bg-current absolute" />
-              <motion.span animate={{ opacity: isMobileMenuOpen ? 0 : 1 }} transition={{ duration: 0.15 }} className="w-5 h-0.5 bg-current absolute" />
-              <motion.span animate={{ rotate: isMobileMenuOpen ? -45 : 0, y: isMobileMenuOpen ? 0 : 5 }} transition={{ duration: 0.25 }} className="w-5 h-0.5 bg-current absolute" />
-            </div>
-          </button>
-
-          {/* Lang + Theme — right */}
-          <div className="flex items-center gap-1">
-            <LangToggle />
-            <ThemeToggle />
-          </div>
-        </div>
-
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.18, ease: 'easeOut' }}
-              className="bg-white/98 dark:bg-zinc-950/98 backdrop-blur-2xl border-b border-zinc-200/50 dark:border-white/8 px-5 pb-5"
+        <nav className="hidden items-center gap-7.5 md:flex">
+          {SECTIONS.map((s) => (
+            <a
+              key={s.id}
+              href={`#${s.id}`}
+              className="text-[13px] font-medium tracking-[0.06em] text-muted uppercase no-underline transition-colors hover:text-ink"
             >
-              {/* Nav items — single column */}
-              <div className="flex flex-col pt-1">
-                {navItems.map((item, index) => {
-                  const isActive = activeSection === item.href.slice(1);
-                  return (
-                    <motion.button
-                      key={item.href}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.03, duration: 0.18 }}
-                      onClick={() => scrollToSection(item.href)}
-                      className={`flex items-center gap-3 py-3 text-sm font-medium text-left transition-colors cursor-pointer border-b border-zinc-100 dark:border-zinc-800/60 last:border-0 ${
-                        isActive
-                          ? 'text-teal-600 dark:text-teal-400'
-                          : 'text-zinc-600 dark:text-zinc-400'
-                      }`}
-                    >
-                      {item.label}
-                    </motion.button>
-                  );
-                })}
+              {t(s.key)}
+            </a>
+          ))}
+          <Link
+            to="/cv"
+            className="text-[13px] font-medium tracking-[0.06em] text-muted uppercase no-underline transition-colors hover:text-ink"
+          >
+            {t('nav.cv')}
+          </Link>
+
+          <span className="h-4 w-px bg-line" aria-hidden="true" />
+          <LangSwitch />
+          <ThemeSwitch />
+
+          <a
+            href="#contact"
+            className="bg-accent px-[18px] py-[11px] text-[12.5px] font-semibold tracking-[0.06em] text-on-accent uppercase no-underline transition-opacity hover:opacity-85"
+          >
+            {t('nav.start')}
+          </a>
+        </nav>
+
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          aria-label={t('nav.menu')}
+          aria-expanded={open}
+          className="-mr-2 flex p-3 text-ink md:hidden"
+        >
+          <Menu className="h-5.5 w-5.5" strokeWidth={1.8} />
+        </button>
+        </div>
+      </header>
+
+      {/* full-screen sheet, not a dropdown */}
+      {open && (
+        <div className="fixed inset-0 z-50 flex flex-col bg-ground md:hidden">
+          <div className="flex h-[58px] shrink-0 items-center justify-between border-b border-line px-5">
+            <span className="text-[14.5px] font-bold tracking-[-0.01em] uppercase">Daniel Vágner</span>
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              aria-label={t('nav.close')}
+              className="-mr-1 flex items-center gap-2.5 py-3.5 font-mono text-[11px] tracking-[0.1em] text-muted uppercase"
+            >
+              {t('nav.close')}
+              <X className="h-5 w-5 text-ink" strokeWidth={1.8} />
+            </button>
+          </div>
+
+          <nav className="flex grow flex-col overflow-y-auto px-5 pt-2">
+            {[...SECTIONS.map((s) => ({ href: `#${s.id}`, label: t(s.key) })), { href: '/cv', label: t('nav.cv') }].map(
+              (item, i) =>
+                item.href.startsWith('#') ? (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className="flex items-baseline gap-4.5 border-b border-line py-[18px] text-ink no-underline"
+                  >
+                    <span className="w-6 shrink-0 font-mono text-[11.5px] text-accent-ink">
+                      0{i + 1}
+                    </span>
+                    <span className="display text-[32px] leading-none">{item.label}</span>
+                  </a>
+                ) : (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    onClick={() => setOpen(false)}
+                    className="flex items-baseline gap-4.5 border-b border-line py-[18px] text-ink no-underline"
+                  >
+                    <span className="w-6 shrink-0 font-mono text-[11.5px] text-accent-ink">
+                      0{i + 1}
+                    </span>
+                    <span className="display text-[32px] leading-none">{item.label}</span>
+                  </Link>
+                ),
+            )}
+
+            <div className="mt-6.5 flex items-center justify-between">
+              <LangSwitch size="lg" />
+              <ThemeSwitch className="bg-ground-2 p-3.5" />
+            </div>
+
+            <div className="mt-auto pb-5">
+              <div className="flex gap-5 pb-5.5">
+                <a href={`mailto:${CONTACT.email}`} aria-label="Email" className="text-muted">
+                  <Mail className="h-5 w-5" strokeWidth={1.7} />
+                </a>
+                <a href={CONTACT.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="text-muted">
+                  <Linkedin className="h-5 w-5" strokeWidth={1.7} />
+                </a>
+                <a href={CONTACT.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="text-muted">
+                  <Github className="h-5 w-5" strokeWidth={1.7} />
+                </a>
               </div>
 
-              {/* Bottom row: site name + CV button */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: navItems.length * 0.03 + 0.05 }}
-                className="flex items-center justify-between mt-4"
-              >
-                <span className="text-xs text-zinc-400 dark:text-zinc-600 font-mono">daniel-vagner.dev</span>
-                <button
-                  onClick={() => { navigate('/cv'); setIsMobileMenuOpen(false); }}
-                  className="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold bg-teal-600 text-white hover:bg-teal-700 transition-colors cursor-pointer"
+              <div className="border-t border-line pt-5">
+                <div className="mb-3.5 flex items-center gap-2.5">
+                  <span className="h-1.5 w-1.5 bg-accent" aria-hidden="true" />
+                  <span className="font-mono text-[10.5px] tracking-[0.08em] text-ink uppercase">
+                    {t('hero.available')}
+                  </span>
+                </div>
+                <a
+                  href="#contact"
+                  onClick={() => setOpen(false)}
+                  className="block bg-accent py-[18px] text-center text-[13.5px] font-semibold tracking-[0.06em] text-on-accent uppercase no-underline"
                 >
-                  <FileUser className="w-3.5 h-3.5" />
-                  CV
-                </button>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </nav>
+                  {t('hero.cta')}
+                </a>
+              </div>
+            </div>
+          </nav>
+        </div>
+      )}
     </>
   );
 }

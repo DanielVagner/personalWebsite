@@ -1,117 +1,255 @@
 {
   "nav": {
-    "home": "Home",
-    "skills": "Skills",
+    "work": "Work",
+    "services": "Services",
     "about": "About",
-    "experience": "Experience",
-    "projects": "Projects",
-    "contact": "Contact"
+    "cv": "CV",
+    "contact": "Contact",
+    "start": "Start a project",
+    "menu": "Menu",
+    "close": "Close",
+    "toLight": "Switch to light mode",
+    "toDark": "Switch to dark mode"
   },
   "hero": {
-    "subtitle": "Senior Software Engineer · Team Lead & Architecture",
-    "description": "I build web apps with Angular / React and native mobile apps with Ionic / React Native, with a focus on clean architecture and good user experience. I reach for .NET on the back‑end when projects call for it.",
-    "viewProjects": "View Projects",
-    "getInTouch": "Get in Touch"
+    "available": "Available — 1–2 projects for Q2 2026",
+    "title1": "I build",
+    "title2": "web and",
+    "title3": "mobile apps",
+    "lead": "Eleven years of engineering, most of it in <1>Angular</1>. Architecture, interface and release handled by one senior developer — not a team you have to manage.",
+    "cta": "Tell me about your project",
+    "ctaSecondary": "See the work",
+    "location": "Prague, CZ — remote",
+    "photoAlt": "Daniel Vágner"
   },
-  "skills": {
-    "label": "What I work with",
-    "title": "Technical Skills",
-    "description": "Most of my time is spent on the front end, but I'm comfortable moving across the stack when the project needs it.",
-    "frontend": { "title": "Front-End", "subtitle": "Primary focus" },
-    "backend": { "title": "Back-End", "subtitle": "Microsoft stack" },
-    "mobile": { "title": "Mobile", "subtitle": "iOS & Android" },
-    "tools": { "title": "Tools & Ecosystem", "subtitle": "Day-to-day tooling" }
+  "coverage": {
+    "label": "What I cover",
+    "lead": "One person for the whole product — the app, the site, the API behind them and the release. Nothing gets handed to a third party halfway through.",
+    "mobile": "Mobile apps",
+    "mobileNote": "iOS & Android",
+    "webapps": "Web apps",
+    "webappsNote": "Portals & dashboards",
+    "sites": "Websites",
+    "sitesNote": "Presentation & e-shops",
+    "backend": "Back end",
+    "backendNote": "APIs & cloud",
+    "rowMobile": "Mobile",
+    "rowMobileValue": "React Native · Ionic + Capacitor · Swift bridges · HealthKit · Garmin SDK · offline-first sync · App Store & Google Play releases",
+    "rowWeb": "Web",
+    "rowWebValue": "Angular · React · TypeScript · RxJS · NGXS · micro-frontends · SCSS · Tailwind · design systems on Material CDK",
+    "rowBackend": "Back end",
+    "rowBackendValue": "C# · .NET · ASP.NET Web API · REST · Azure · Azure AD B2C authentication",
+    "rowAlso": "Also",
+    "rowAlsoValue": "UI design in Figma · analytics · CI/CD · code audits · taking over someone else's codebase"
   },
-  "about": {
-    "label": "Who I am",
-    "title": "About Me",
-    "description": "Senior Software Engineer with a background in software architecture and team leadership.",
-    "journeyTitle": "A bit about me",
-    "p1": "I'm a Senior Software Engineer currently at HTEC, working on a mobile-first health app built with Ionic, Angular and ASP.NET Web API. Before that, I spent several years at CertiCon where I eventually moved into a Software Architect role. Projects I've worked on include Bosch, Medtronic and Tolion.",
-    "p2": "Most of my work has been on the front end, but I've always been comfortable jumping into the full stack when needed. I've led small teams, shaped technical decisions, and tried to keep code quality and long-term maintainability high.",
-    "p3": "On the side, I've been doing freelance mobile development since 2015, mostly Ionic and Angular, with React Native more recently. I enjoy the end-to-end ownership that comes with it, from the first commit to publishing on the App Store.",
-    "h1Title": "11+ Years in the Field",
-    "h1Desc": "Across front-end, mobile and back-end in both product and agency environments",
-    "h2Title": "Architecture & Team Lead",
-    "h2Desc": "Led technical direction and mentored developers at CertiCon",
-    "h3Title": "Full-Stack Comfortable",
-    "h3Desc": "Angular and Ionic are my primary focus, but I have no problem switching to React, React Native, or jumping into .NET and C# when the project calls for it.",
-    "h4Title": "Always Learning",
-    "h4Desc": "Keeping up with new tools and patterns as the ecosystem evolves. Angular in particular is something I follow closely and actively stay current with.",
-    "philosophyTitle": "How I work",
-    "uc": "User First",
-    "ucDesc": "I try to build things that are actually pleasant to use",
-    "sd": "Readable Code",
-    "sdDesc": "Writing code the next developer can understand. Readability and maintainability are something I take seriously on every project.",
-    "pf": "Performance Matters",
-    "pfDesc": "Fast apps make users happy. I keep an eye on bundle size and render performance"
+  "angular": {
+    "label": "Speciality",
+    "title1": "Angular,",
+    "title2": "properly",
+    "lead": "Angular has been my main tool since version 2 landed in 2016 — on greenfield platforms at Bosch, on an ERP that six teams depend on, and in mobile apps through Ionic. I follow every release and keep up with where the framework is going.",
+    "p1": "Signals, standalone components, OnPush",
+    "p2": "Micro-frontends over module federation",
+    "p3": "RxJS & NGXS state at scale",
+    "p4": "Design systems on Material CDK",
+    "p5": "Ionic + Capacitor for iOS & Android",
+    "terminal": "Terminal"
   },
-  "experience": {
-    "label": "Where I've been",
-    "title": "Experience",
-    "description": "A look at the relevant roles from the last 10 years.",
-    "current": "Current",
+  "clients": {
+    "label": "Products I have written code for",
+    "own": "My own clients",
+    "ownNote": "since 2015"
+  },
+  "work": {
+    "label": "Work",
+    "title": "Apps in the stores that I built on my own — first commit to store listing.",
+    "also": "Also shipped",
+    "all": "All projects →",
     "items": {
-      "htec": "Building a mobile-first health product at Tolion Health. Full-stack across Ionic + Angular + Capacitor and ASP.NET Web API, with a focus on architecture, Azure AD B2C/PKCE auth, HealthKit/Garmin integration, performance, and UX.",
-      "freelance": "Coding has always been more than a job to me, so a few years ago I started taking on mobile projects in my spare time. I build iOS and Android apps with Ionic/Angular and React Native, handling everything myself from the first line of code to App Store submission. It's the kind of end-to-end ownership I enjoy.",
-      "ccvis": "Developed a web application for SaaS subscription activation on the Microsoft Azure Marketplace. Modular platform, reusable components, high development standards.",
-      "foxconn": "Front-end for an ERP system and real-time production line management tool, tracking component flow, quality metrics, and optimising manufacturing processes.",
-      "webdev": "Angular 2+, HTML5, CSS3 (SCSS), JavaScript, PrestaShop"
-    },
-    "projects": {
-      "bosch": {
-        "name": "Bosch",
-        "desc": "Greenfield Angular + TypeScript project for automobile diagnostics. Micro Frontends via module federation, RxJS, NRWL NGXS, Material CDK, Karma/Jasmine testing."
+      "hudba": {
+        "title": "Hudba na vinicích",
+        "stack": "React Native / Payments / Geolocation",
+        "desc": "Ticketing and discovery app for a Czech open-air concert series. Visitors buy tickets, find events near them and navigate to the vineyard. I took it from the first commit through both store reviews — and it went live for the 2025 season.",
+        "kind": "Mobile app · iOS & Android"
       },
-      "embitron": {
-        "name": "Embitron",
-        "desc": "Cloud application for recording and managing healthcare devices. C#, ASP.NET 6.0, Angular, Azure cloud services and storage."
+      "tolion": {
+        "title": "Tolion — brain health coach",
+        "stack": "Ionic + Angular / ASP.NET / HealthKit",
+        "desc": "Tracks cognitive performance and coaches users with personalised activities. HealthKit and Garmin integration, secure sign-in, weekly reports.",
+        "kind": "Health product"
       },
-      "erp": {
-        "name": "ERP",
-        "desc": "Internal ERP system using Angular, TypeScript, RxJS, NRWL NGXS and custom Material CDK components."
+      "qrticket": {
+        "title": "QR ticketing",
+        "stack": "React Native / Offline-first",
+        "desc": "Door-scanning app for events. Works with no signal at the gate and syncs when it is back.",
+        "kind": "Mobile app"
+      },
+      "tpodlahy": {
+        "title": "TPodlahy.cz",
+        "desc": "Presentation site for a flooring company — services, gallery and enquiry form.",
+        "kind": "Website"
+      },
+      "mdas": {
+        "title": "MDAS",
+        "desc": "Safety-alert and compliance tracking for implanted medical devices.",
+        "kind": "Desktop app"
+      },
+      "findtastic": {
+        "title": "Findtastic",
+        "desc": "Price comparison app for US shoppers, tracking offers across retailers in real time.",
+        "kind": "Mobile app"
       }
     }
   },
-  "projects": {
-    "label": "Things I've worked on",
-    "title": "Projects",
-    "description": "A few selected projects I've worked on over the years.",
-    "showMore": "Show {{count}} more",
-    "showLess": "Show less",
-    "showAll": "Show all",
-    "items": {
-      "hudba": "Concert app with ticket purchasing, location-based event search and vineyard navigation. Built for a Czech open-air concert series.",
-      "tolion": "Brain health app with AI coaching, personalized activity suggestions and cognitive performance tracking. Includes a Brain Age indicator and weekly summaries.",
-      "tpodlahy": "Website for a flooring company. Service overview, photo gallery, contact form and info about vinyl, laminate and parquet.",
-      "qrticket": "Event check-in app with QR scanning, online/offline mode, real-time attendance tracking and exportable reports for organizers.",
-      "findtastic": "Price comparison app for US customers. Tracks prices across multiple e-commerce stores and surfaces the best deals in real time.",
-      "mdas": "Desktop app for monitoring medical device safety alerts and regulatory compliance. Covers implantable devices like insulin pumps, pacemakers and defibrillators.",
-      "ccvision": "Web app for real-time object detection and recognition, integrated with various hardware platforms."
+  "services": {
+    "label": "Services",
+    "title": "What I take on",
+    "lead": "Four shapes of work. If yours does not fit any of them, say so anyway — I will tell you straight whether I am the right person.",
+    "s1": {
+      "title": "Mobile apps for iOS & Android",
+      "desc": "One codebase, both platforms, a native feel — React Native, or Angular + Ionic when the app should share code with your web product. I handle the store listings, review process and releases, published under your own developer account.",
+      "stack": "React Native / Angular + Ionic + Capacitor"
+    },
+    "s2": {
+      "title": "Angular web apps & platforms",
+      "desc": "Portals, dashboards, ERP-style systems. This is where I am strongest — Angular architecture that stays readable after three years and six developers."
+    },
+    "s3": {
+      "title": "MVP for a new product",
+      "desc": "Something real to show investors or first users, scoped down to what proves the point."
+    },
+    "s4": {
+      "title": "Rescue & takeover",
+      "desc": "The previous developer left, or the app became slow and fragile. I take it over and get it shipping again."
+    }
+  },
+  "process": {
+    "title": "How it goes",
+    "lead": "You always know what is being built, what it costs and when it lands.",
+    "s1": {
+      "title": "Free call, 30 minutes",
+      "desc": "You describe the idea. I say honestly whether I am the right person — sometimes the answer is no."
+    },
+    "s2": {
+      "title": "Scope & quote",
+      "desc": "Written breakdown: what gets built, in what order, what it costs, how long it takes."
+    },
+    "s3": {
+      "title": "Two-week blocks",
+      "desc": "Every two weeks a build you can install and try. Feedback goes into the next block."
+    },
+    "s4": {
+      "title": "Release & handover",
+      "desc": "Store submission, documentation and source code — all under your accounts."
+    }
+  },
+  "about": {
+    "label": "About",
+    "pull": "You are not hiring an agency, an account manager or a rotating team. You are hiring the person who writes the code.",
+    "p1": "By day I am a senior software engineer and application architect at HTEC, building a mobile health application in Angular and Ionic. The six years before that were at CertiCon, the last of them as software architect, leading Angular platforms for Bosch and Medtronic. Alongside all of it I have taken my own client work since 2015.",
+    "p2": "Practically, that means someone who has shipped inside regulated medical software and also alone on a weekend release. Same care, different paperwork.",
+    "stat1": "years shipping",
+    "stat2": "writing Angular since",
+    "stat3": "person you talk to",
+    "career": "Career",
+    "fullCv": "Full CV →",
+    "hire": "Ways to hire me",
+    "hire1": "Project, fixed scope",
+    "hire1Note": "4–12 weeks",
+    "hire2": "Ongoing development",
+    "hire2Note": "4–8 days / month",
+    "hire3": "Audit & consulting",
+    "hire3Note": "2–5 days",
+    "priceNote": "Price depends on scope, so there is no menu here. Describe what you need and you get a real estimate, usually within two days.",
+    "jobs": {
+      "htec": "Senior Engineer & Architect",
+      "freelance": "Independent developer",
+      "freelanceNote": "Own clients",
+      "certicon": "Software Architect",
+      "foxconn": "Front-end Developer"
     }
   },
   "contact": {
-    "label": "Get in touch",
-    "title": "Contact",
-    "description": "Have a project in mind or want to talk through an idea? Drop me a line.",
-    "formTitle": "Send me a message",
-    "formDesc": "I usually reply within a day or two.",
+    "label": "Contact",
+    "title1": "Tell me",
+    "title2": "what you",
+    "title3": "want built",
+    "lead": "Even a rough idea is enough to start. I reply within two working days, and the first call costs nothing.",
     "name": "Name",
     "namePlaceholder": "Your name",
     "email": "Email",
-    "emailPlaceholder": "your@email.com",
-    "message": "Message",
-    "messagePlaceholder": "What's on your mind?",
-    "send": "Send",
-    "sending": "Sending...",
-    "success": "Message sent. I'll get back to you soon.",
-    "error": "Something went wrong. Try again or email me directly.",
-    "connectTitle": "Or contact me directly",
-    "availableTitle": "Open to opportunities",
-    "availableDesc": "Looking at interesting full-time roles and freelance projects, especially front-end architecture, mobile development or anything TypeScript-heavy."
+    "emailPlaceholder": "you@company.com",
+    "kind": "What do you need",
+    "kinds": {
+      "mobile": "Mobile app",
+      "web": "Web app",
+      "mvp": "MVP",
+      "rescue": "Rescue a project",
+      "unsure": "Not sure yet"
+    },
+    "message": "A few sentences about it",
+    "messagePlaceholder": "What it should do, who it is for, and when you need it.",
+    "send": "Send it over",
+    "sending": "Sending…",
+    "success": "Sent. I will get back to you within two working days.",
+    "error": "That did not go through. Try again, or email me directly."
   },
   "footer": {
-    "built": "Built with React & TypeScript",
-    "source": "Source Code"
+    "legal": "Daniel Vágner · IČO 01673459"
+  },
+  "cv": {
+    "back": "Back to the site",
+    "download": "Save as PDF",
+    "role": "Senior Software Engineer · Application Architect",
+    "summary": "Angular-focused front-end engineer with eleven years in production code, moving comfortably across mobile, web and .NET back ends. Architecture and technical leadership on regulated medical and automotive software; end-to-end delivery of my own mobile products on the App Store and Google Play.",
+    "experience": "Experience",
+    "current": "Current",
+    "stack": "Core stack",
+    "frontend": "Front-end",
+    "mobile": "Mobile",
+    "backend": "Back-end & cloud",
+    "tools": "Tools",
+    "shipped": "Shipped to stores",
+    "education": "Education",
+    "school": "Secondary School, Malé Svatoňovice",
+    "field": "Security and Protection Studies",
+    "languages": "Languages",
+    "czech": "Czech",
+    "native": "Native",
+    "english": "English",
+    "englishLevel": "Professional working",
+    "jobs": {
+      "htec": {
+        "role": "Senior Software Engineer / Application Architect Associate",
+        "org": "HTEC · Prague, remote",
+        "desc": "Mobile-first health product (Tolion Health). Full-stack across Ionic + Angular + Capacitor and ASP.NET Web API — architecture, Azure AD B2C / PKCE auth, HealthKit and Garmin integration, performance and UX."
+      },
+      "freelance": {
+        "role": "Independent Software Engineer",
+        "org": "Own clients · Remote",
+        "desc": "iOS and Android applications with Ionic / Angular and React Native, owned from the first line of code to store publication. Clients in events, retail and small business."
+      },
+      "certicon": {
+        "role": "Software Architect",
+        "roleNote": "(from Senior Engineer)",
+        "org": "CertiCon a.s. · Prague",
+        "desc": "Technical lead and mentoring on greenfield Angular platforms. Bosch — vehicle diagnostics, micro-frontends over module federation, RxJS, NGXS, Material CDK. Embitron — cloud registry for medical devices, C# / ASP.NET 6 on Azure. Internal ERP — Angular with a custom component library."
+      },
+      "ccvis": {
+        "role": "Senior Software Engineer",
+        "roleNote": "(part-time)",
+        "org": "CCVis s.r.o. · Pardubice",
+        "desc": "Web application for activating SaaS subscriptions on Microsoft Azure Marketplace — modular platform, reusable component set."
+      },
+      "foxconn": {
+        "role": "Front-end Developer",
+        "org": "Foxconn CZ s.r.o. · Pardubice",
+        "desc": "Front end for an ERP system and a real-time production-line control tool: production overview, quality metrics, process optimisation."
+      },
+      "educa": {
+        "role": "Web Developer & IT",
+        "org": "EDUCA · Hradec Králové",
+        "desc": "Angular 2+, HTML5, SCSS, JavaScript and PrestaShop storefronts."
+      }
+    }
   }
 }

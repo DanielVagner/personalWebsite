@@ -1,139 +1,108 @@
-import { Briefcase, Code2, Layers, Lightbulb, UserCircle, FileCode, Zap } from 'lucide-react';
-import { motion } from 'motion/react';
-import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router';
+import { CAREER } from '../data/site';
 
 export function About() {
-  const { ref, isInView } = useScrollAnimation();
   const { t } = useTranslation();
 
-  const highlights = [
-    { icon: Briefcase, title: t('about.h1Title'), description: t('about.h1Desc') },
-    { icon: Code2, title: t('about.h2Title'), description: t('about.h2Desc') },
-    { icon: Layers, title: t('about.h3Title'), description: t('about.h3Desc') },
-    { icon: Lightbulb, title: t('about.h4Title'), description: t('about.h4Desc') },
+  const stats = [
+    { value: '11', label: t('about.stat1'), accent: false },
+    { value: '2016', label: t('about.stat2'), accent: false },
+    { value: '1', label: t('about.stat3'), accent: true },
   ];
 
-  const philosophy = [
-    { icon: UserCircle, title: t('about.uc'), desc: t('about.ucDesc') },
-    { icon: FileCode, title: t('about.sd'), desc: t('about.sdDesc') },
-    { icon: Zap, title: t('about.pf'), desc: t('about.pfDesc') },
+  const hires = [
+    { title: t('about.hire1'), note: t('about.hire1Note') },
+    { title: t('about.hire2'), note: t('about.hire2Note') },
+    { title: t('about.hire3'), note: t('about.hire3Note') },
   ];
 
   return (
-    <section
-      id="about"
-      ref={ref}
-      className="relative py-24 px-6 bg-transparent overflow-hidden"
-    >
-      {/* Subtle glow — bottom of section, mirroring Skills from top */}
+    <section id="about" className="py-12 md:pt-25 md:pb-26">
+      <div className="shell md:flex md:items-start md:gap-20">
+        <div className="md:w-[660px] md:shrink-0">
+          <span className="label text-accent-ink">{t('about.label')}</span>
 
-      <div className="max-w-6xl mx-auto relative">
-
-        {/* Header */}
-        <motion.div
-          className="text-center mb-14"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.55 }}
-        >
-          <span className="inline-block text-xs font-semibold tracking-[0.2em] uppercase text-teal-500 dark:text-teal-400 mb-4">
-            {t('about.label')}
-          </span>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-zinc-900 dark:text-zinc-50">
-            {t('about.title')}
-          </h2>
-          <p className="text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto leading-relaxed text-base">
-            {t('about.description')}
+          <p className="mt-5 text-2xl leading-[1.32] font-medium tracking-[-0.025em] md:mt-6.5 md:text-[29px]">
+            {t('about.pull')}
           </p>
-        </motion.div>
+          <p className="mt-5 text-base leading-[1.7] text-muted md:mt-6.5 md:text-[17px]">
+            {t('about.p1')}
+          </p>
+          <p className="mt-4 text-base leading-[1.7] text-muted md:mt-4.5 md:text-[17px]">
+            {t('about.p2')}
+          </p>
 
-        {/* Journey + highlight cards */}
-        <div className="grid md:grid-cols-2 gap-10 mb-6">
-
-          {/* Left: text */}
-          <motion.div
-            className="space-y-5"
-            initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
-            transition={{ duration: 0.55, delay: 0.1 }}
-          >
-            <h3 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100">
-              {t('about.journeyTitle')}
-            </h3>
-            <p className="text-zinc-500 dark:text-zinc-400 leading-relaxed text-base">{t('about.p1')}</p>
-            <p className="text-zinc-500 dark:text-zinc-400 leading-relaxed text-base">{t('about.p2')}</p>
-            <p className="text-zinc-500 dark:text-zinc-400 leading-relaxed text-base">{t('about.p3')}</p>
-          </motion.div>
-
-          {/* Right: 2×2 highlight cards */}
-          <motion.div
-            className="grid grid-cols-2 gap-3"
-            initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
-            transition={{ duration: 0.55, delay: 0.2 }}
-          >
-            {highlights.map((h, i) => {
-              const Icon = h.icon;
-              return (
-                <motion.div
-                  key={h.title}
-                  className="rounded-2xl bg-zinc-50 dark:bg-white/[0.03] border border-zinc-200/80 dark:border-white/[0.06] p-5 flex flex-col"
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-                  transition={{ duration: 0.4, delay: 0.25 + i * 0.08 }}
+          <div className="mt-8 flex border-t border-line pt-6 md:mt-11 md:pt-7">
+            {stats.map((s) => (
+              <div key={s.label} className="grow">
+                <div
+                  className={`text-[34px] leading-none font-bold tracking-[-0.04em] md:text-[44px] ${
+                    s.accent ? 'text-accent-ink' : ''
+                  }`}
                 >
-                  <div className="w-9 h-9 rounded-xl bg-teal-500/10 dark:bg-teal-500/15 flex items-center justify-center mb-3 shrink-0">
-                    <Icon className="w-4 h-4 text-teal-500 dark:text-teal-400" />
-                  </div>
-                  <h4 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm mb-1 leading-tight">
-                    {h.title}
-                  </h4>
-                  <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
-                    {h.description}
-                  </p>
-                </motion.div>
-              );
-            })}
-          </motion.div>
+                  {s.value}
+                </div>
+                <div className="mt-2 font-mono text-[9.5px] tracking-[0.09em] text-faint uppercase md:mt-2.5 md:text-[10.5px]">
+                  {s.label}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Philosophy strip */}
-        <motion.div
-          className="rounded-2xl bg-zinc-50 dark:bg-white/[0.03] border border-zinc-200/80 dark:border-white/[0.06] p-8"
-          initial={{ opacity: 0, y: 24 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-          transition={{ duration: 0.55, delay: 0.45 }}
-        >
-          <h3 className="text-base font-semibold text-center text-zinc-900 dark:text-zinc-100 mb-8 tracking-wide uppercase text-xs text-teal-500 dark:text-teal-400 tracking-[0.2em]">
-            {t('about.philosophyTitle')}
-          </h3>
-          <div className="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-zinc-200 dark:divide-zinc-800/80">
-            {philosophy.map((item, i) => {
-              const Icon = item.icon;
-              return (
-                <motion.div
-                  key={item.title}
-                  className="flex flex-col items-center text-center px-8 py-4 md:py-0 first:pt-0 last:pb-0 md:first:pl-0 md:last:pr-0"
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
-                  transition={{ duration: 0.4, delay: 0.55 + i * 0.08 }}
-                >
-                  <div className="w-10 h-10 rounded-xl bg-teal-500/10 dark:bg-teal-500/15 flex items-center justify-center mb-4">
-                    <Icon className="w-5 h-5 text-teal-500 dark:text-teal-400" />
-                  </div>
-                  <h4 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm mb-1.5">
-                    {item.title}
-                  </h4>
-                  <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-[200px]">
-                    {item.desc}
-                  </p>
-                </motion.div>
-              );
-            })}
-          </div>
-        </motion.div>
+        <div className="mt-10 md:mt-0 md:grow">
+          <span className="label text-faint">{t('about.career')}</span>
 
+          <div className="mt-4 border-t border-line md:mt-5.5">
+            {CAREER.map((job) => (
+              <div key={job.id} className="flex gap-4 border-b border-line py-4 md:gap-5">
+                <span
+                  className={`w-[74px] shrink-0 pt-1 font-mono text-[11px] md:w-[82px] md:text-[11.5px] ${
+                    job.accent ? 'text-accent-ink' : 'text-faint'
+                  }`}
+                >
+                  {job.period}
+                </span>
+                <span>
+                  <span className="block text-[15.5px] font-semibold md:text-[16.5px]">
+                    {t(`about.jobs.${job.id}`)}
+                  </span>
+                  <span className="block text-sm text-muted md:text-[14.5px]">
+                    {job.id === 'htec' && 'HTEC'}
+                    {job.id === 'freelance' && t('about.jobs.freelanceNote')}
+                    {job.id === 'certicon' && 'CertiCon'}
+                    {job.id === 'foxconn' && 'Foxconn CZ'}
+                  </span>
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <Link
+            to="/cv"
+            className="mt-5 block border border-line-strong py-4 text-center font-mono text-[11px] tracking-[0.1em] text-ink uppercase transition-colors hover:border-accent hover:text-accent-ink md:mt-6.5 md:inline-block md:border-0 md:border-b md:px-0 md:py-2 md:pb-2"
+          >
+            {t('about.fullCv')}
+          </Link>
+
+          <div className="mt-10 border-t border-line pt-6 md:mt-13 md:pt-7">
+            <span className="label text-faint">{t('about.hire')}</span>
+            <dl className="mt-4.5 flex flex-col gap-3.5 md:mt-5 md:gap-4">
+              {hires.map((h) => (
+                <div key={h.title} className="flex items-baseline justify-between gap-4 md:gap-5">
+                  <dt className="text-base font-semibold md:text-[16.5px]">{h.title}</dt>
+                  <dd className="m-0 shrink-0 font-mono text-[10.5px] whitespace-nowrap text-muted md:text-[11px]">
+                    {h.note}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+            <p className="mt-4.5 text-[15px] leading-[1.6] text-faint md:mt-5">
+              {t('about.priceNote')}
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );

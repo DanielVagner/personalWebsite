@@ -1,117 +1,255 @@
 {
   "nav": {
-    "home": "Úvod",
-    "skills": "Dovednosti",
+    "work": "Práce",
+    "services": "Služby",
     "about": "O mně",
-    "experience": "Zkušenosti",
-    "projects": "Projekty",
-    "contact": "Kontakt"
+    "cv": "CV",
+    "contact": "Kontakt",
+    "start": "Poptat projekt",
+    "menu": "Menu",
+    "close": "Zavřít",
+    "toLight": "Přepnout na světlý režim",
+    "toDark": "Přepnout na tmavý režim"
   },
   "hero": {
-    "subtitle": "Senior Software Engineer · Team Lead & Architektura",
-    "description": "Tvořím webové aplikace v Angular / React a nativní mobilní aplikace s Ionic / React Native. Dbám na čistou architekturu a dobré uživatelské rozhraní. Na back‑endu sahám po .NET, když to projekt vyžaduje.",
-    "viewProjects": "Zobrazit projekty",
-    "getInTouch": "Napište mi"
+    "available": "Volná kapacita — 1–2 projekty na Q2 2026",
+    "title1": "Stavím",
+    "title2": "weby a",
+    "title3": "mobilní apky",
+    "lead": "Jedenáct let vývoje, většinu z toho v <1>Angularu</1>. Architektura, rozhraní i vydání na jednom seniorním vývojáři — ne na týmu, který musíte řídit.",
+    "cta": "Napište mi o projektu",
+    "ctaSecondary": "Prohlédnout práci",
+    "location": "Praha — na dálku",
+    "photoAlt": "Daniel Vágner"
   },
-  "skills": {
-    "label": "S čím pracuji",
-    "title": "Technické dovednosti",
-    "description": "Většinu času trávím na frontendu, ale pohybuji se pohodlně po celém stacku podle toho, co projekt potřebuje.",
-    "frontend": { "title": "Front-End", "subtitle": "Primární zaměření" },
-    "backend": { "title": "Back-End", "subtitle": "Microsoft stack" },
-    "mobile": { "title": "Mobilní vývoj", "subtitle": "iOS & Android" },
-    "tools": { "title": "Nástroje & Ekosystém", "subtitle": "Každodenní práce" }
+  "coverage": {
+    "label": "Co všechno pokryju",
+    "lead": "Jeden člověk na celý produkt — aplikaci, web, API pod nimi i vydání. Nic se v polovině nepředává někomu dalšímu.",
+    "mobile": "Mobilní apky",
+    "mobileNote": "iOS a Android",
+    "webapps": "Webové aplikace",
+    "webappsNote": "Portály a dashboardy",
+    "sites": "Weby",
+    "sitesNote": "Prezentace a e-shopy",
+    "backend": "Backend",
+    "backendNote": "API a cloud",
+    "rowMobile": "Mobil",
+    "rowMobileValue": "React Native · Ionic + Capacitor · nativní můstky ve Swiftu · HealthKit · Garmin SDK · offline-first synchronizace · vydání na App Store a Google Play",
+    "rowWeb": "Web",
+    "rowWebValue": "Angular · React · TypeScript · RxJS · NGXS · micro-frontendy · SCSS · Tailwind · design systémy na Material CDK",
+    "rowBackend": "Backend",
+    "rowBackendValue": "C# · .NET · ASP.NET Web API · REST · Azure · přihlašování přes Azure AD B2C",
+    "rowAlso": "A dál",
+    "rowAlsoValue": "návrh UI ve Figmě · analytika · CI/CD · audity kódu · převzetí cizího projektu"
   },
-  "about": {
-    "label": "Kdo jsem",
-    "title": "O mně",
-    "description": "Senior Software Engineer se zkušenostmi v softwarové architektuře a vedení týmu.",
-    "journeyTitle": "Pár slov o mně",
-    "p1": "Pracuji jako Senior Software Engineer v HTEC, kde vyvíjím mobilní zdravotní aplikaci na Ionic, Angular a ASP.NET Web API. Předtím jsem strávil několik let v CertiConu, kde jsem postupem času převzal roli softwarového architekta. Mezi projekty, na kterých jsem pracoval, patří Bosch, Medtronic a Tolion.",
-    "p2": "Většina mé práce je na frontendu, ale vždy jsem se v případě potřeby bez problémů přesunul i do jiných částí stacku. Vedl jsem menší týmy, podílel se na technických rozhodnutích a snažil se udržet kvalitu kódu na rozumné úrovni.",
-    "p3": "Vedle hlavní práce se od roku 2015 věnuji freelance vývoji mobilních aplikací, převážně Ionic a Angular, v poslední době i React Native. Baví mě, že mám nad projektem úplnou kontrolu od prvního commitu až po publikaci na App Store a Google Play.",
-    "h1Title": "11+ let v oboru",
-    "h1Desc": "Frontend, mobilní vývoj i backend v produktových i agenturních prostředích",
-    "h2Title": "Architektura & vedení týmu",
-    "h2Desc": "Technické vedení a mentoring vývojářů v CertiConu",
-    "h3Title": "Full-Stack bez obav",
-    "h3Desc": "Primárně pracuji s Angularem a Ionicem, ale bez problému přepnu na React, React Native nebo skočím do .NET a C#, když to projekt vyžaduje.",
-    "h4Title": "Neustále se učím",
-    "h4Desc": "Sleduji nové nástroje a postupy jak se ekosystém vyvíjí. Zvláště mě zajímá Angular, jehož novinky aktivně sleduju a snažím se s ním držet krok.",
-    "philosophyTitle": "Jak pracuji",
-    "uc": "Uživatel na prvním místě",
-    "ucDesc": "Snažím se dělat věci, které jsou skutečně příjemné na používání",
-    "sd": "Čitelný kód",
-    "sdDesc": "Kód píšu tak, aby mu rozuměl i příští vývojář. Čitelnost a udržitelnost beru vážně na každém projektu.",
-    "pf": "Výkon se počítá",
-    "pfDesc": "Rychlé aplikace dělají uživatele spokojené. Hlídám si velikost bundlu a výkon renderování"
+  "angular": {
+    "label": "Specializace",
+    "title1": "Angular,",
+    "title2": "pořádně",
+    "lead": "Angular je můj hlavní nástroj od chvíle, kdy v roce 2016 vyšla dvojka — na greenfield platformách pro Bosch, na ERP, na kterém závisí šest týmů, i v mobilních aplikacích přes Ionic. Sleduju každý release a držím krok s tím, kam framework míří.",
+    "p1": "Signals, standalone komponenty, OnPush",
+    "p2": "Micro-frontendy přes module federation",
+    "p3": "RxJS a NGXS ve velkém",
+    "p4": "Design systémy na Material CDK",
+    "p5": "Ionic + Capacitor pro iOS a Android",
+    "terminal": "Terminál"
   },
-  "experience": {
-    "label": "Kde jsem byl",
-    "title": "Zkušenosti",
-    "description": "Přehled relevantních pozic za posledních 10 let.",
-    "current": "Aktuální",
+  "clients": {
+    "label": "Produkty, do kterých jsem psal kód",
+    "own": "Vlastní klienti",
+    "ownNote": "od roku 2015"
+  },
+  "work": {
+    "label": "Práce",
+    "title": "Aplikace ve storech, které jsem postavil sám — od prvního commitu po vydání.",
+    "also": "A dál",
+    "all": "Všechny projekty →",
     "items": {
-      "htec": "Vývoj mobilní zdravotní aplikace Tolion Health. Full-stack přes Ionic + Angular + Capacitor a ASP.NET Web API, se zaměřením na architekturu, Azure AD B2C/PKCE autentizaci, HealthKit/Garmin integraci, výkon a UX.",
-      "freelance": "Kódování mě baví víc než jen jako práce, proto jsem před pár lety začal brát vedlejší projekty ve volném čase. Stavím iOS a Android aplikace s Ionic/Angular a React Native, vše řeším sám od prvního řádku kódu až po publikaci na App Store. To je ten druh samostatnosti, který mě baví.",
-      "ccvis": "Vývoj webové aplikace pro aktivaci SaaS předplatného na Microsoft Azure Marketplace. Modulární platforma, znovupoužitelné komponenty, vysoké vývojové standardy.",
-      "foxconn": "Frontend pro ERP systém a nástroj pro řízení výrobní linky v reálném čase, přehled výroby, metriky kvality a optimalizace procesů.",
-      "webdev": "Angular 2+, HTML5, CSS3 (SCSS), JavaScript, PrestaShop"
-    },
-    "projects": {
-      "bosch": {
-        "name": "Bosch",
-        "desc": "Greenfield Angular + TypeScript projekt pro diagnostiku automobilů. Micro Frontends přes module federation, RxJS, NRWL NGXS, Material CDK, testování Karma/Jasmine."
+      "hudba": {
+        "title": "Hudba na vinicích",
+        "stack": "React Native / Platby / Geolokace",
+        "desc": "Appka na vstupenky a objevování koncertů pro českou open-air sérii. Návštěvník koupí lístek, najde akce ve svém okolí a nechá se navést do viničního areálu. Vzal jsem to od prvního commitu přes recenze obou storů — a naostro to jelo v sezóně 2025.",
+        "kind": "Mobilní aplikace · iOS a Android"
       },
-      "embitron": {
-        "name": "Embitron",
-        "desc": "Cloudová aplikace pro evidenci a správu zdravotnických přístrojů. C#, ASP.NET 6.0, Angular, Azure cloud services a úložiště."
+      "tolion": {
+        "title": "Tolion — kouč zdraví mozku",
+        "stack": "Ionic + Angular / ASP.NET / HealthKit",
+        "desc": "Sleduje kognitivní výkonnost a doporučuje uživateli aktivity na míru. Napojení na HealthKit a Garmin, zabezpečené přihlášení, týdenní přehledy.",
+        "kind": "Produkt pro zdraví"
       },
-      "erp": {
-        "name": "ERP",
-        "desc": "Interní ERP systém v Angular, TypeScript, RxJS, NRWL NGXS a vlastních Material CDK komponentách."
+      "qrticket": {
+        "title": "QR odbavení",
+        "stack": "React Native / Offline-first",
+        "desc": "Appka na skenování vstupenek u vchodu. Funguje i bez signálu a synchronizuje se, až se připojí.",
+        "kind": "Mobilní aplikace"
+      },
+      "tpodlahy": {
+        "title": "TPodlahy.cz",
+        "desc": "Prezentační web firmy na pokládku podlah — služby, galerie a poptávkový formulář.",
+        "kind": "Web"
+      },
+      "mdas": {
+        "title": "MDAS",
+        "desc": "Sledování bezpečnostních upozornění a regulatorní shody u implantovaných zdravotnických přístrojů.",
+        "kind": "Desktopová aplikace"
+      },
+      "findtastic": {
+        "title": "Findtastic",
+        "desc": "Srovnávač cen pro zákazníky v USA, sleduje nabídky napříč e-shopy v reálném čase.",
+        "kind": "Mobilní aplikace"
       }
     }
   },
-  "projects": {
-    "label": "Na čem jsem pracoval",
-    "title": "Projekty",
-    "description": "Pár vybraných projektů, na kterých jsem pracoval.",
-    "showMore": "Zobrazit dalších {{count}}",
-    "showLess": "Zobrazit méně",
-    "showAll": "Zobrazit vše",
-    "items": {
-      "hudba": "Appka pro objevování koncertů s koupí lístků, hledáním akcí podle polohy a navigací do viničních areálů. Postavena pro českou open-air koncertní sérii.",
-      "tolion": "Appka pro zdraví mozku s AI koučem, personalizovanými doporučeními aktivit a sledováním kognitivní výkonnosti. Součástí je ukazatel věku mozku a týdenní přehledy.",
-      "tpodlahy": "Web pro firmu pokládající podlahy. Přehled služeb, fotogalerie, kontaktní formulář a informace o vinylu, laminátě a renovaci parket.",
-      "qrticket": "Odbavovací appka pro akce s QR skenováním, online/offline režimem, sledováním návštěvnosti a exportovatelnými reporty pro pořadatele.",
-      "findtastic": "Srovnávač cen pro zákazníky v USA. Sleduje ceny napříč e-shopy a zobrazuje nejlepší nabídky v reálném čase.",
-      "mdas": "Desktopová aplikace pro sledování bezpečnostních upozornění zdravotnických přístrojů a regulatorní shody. Zaměřená na implantáty jako inzulínové pumpy, kardiostimulátory a defibrilátory.",
-      "ccvision": "Webová aplikace pro detekci a rozpoznávání objektů v reálném čase, integrovaná s různými hardwarovými platformami."
+  "services": {
+    "label": "Služby",
+    "title": "Co beru",
+    "lead": "Čtyři typy zakázek. Pokud ta vaše nesedí ani do jedné, ozvěte se stejně — řeknu vám na rovinu, jestli jsem ten správný člověk.",
+    "s1": {
+      "title": "Mobilní aplikace pro iOS a Android",
+      "desc": "Jedna kódová základna, obě platformy, nativní pocit — React Native, nebo Angular + Ionic, když má appka sdílet kód s vaším webem. Postarám se o zápisy ve storech, schvalovací proces i vydání, publikované pod vaším vlastním vývojářským účtem.",
+      "stack": "React Native / Angular + Ionic + Capacitor"
+    },
+    "s2": {
+      "title": "Webové aplikace a platformy v Angularu",
+      "desc": "Portály, dashboardy, systémy typu ERP. Tady jsem nejsilnější — architektura v Angularu, která je čitelná i po třech letech a šesti vývojářích."
+    },
+    "s3": {
+      "title": "MVP pro nový produkt",
+      "desc": "Něco skutečného, co ukážete investorům nebo prvním uživatelům, oříznuté na to, co ověří pointu."
+    },
+    "s4": {
+      "title": "Záchrana a převzetí",
+      "desc": "Původní vývojář odešel, nebo se appka stala pomalou a křehkou. Převezmu ji a rozjedu vydávání znovu."
+    }
+  },
+  "process": {
+    "title": "Jak to probíhá",
+    "lead": "Vždycky víte, co se staví, kolik to stojí a kdy to bude.",
+    "s1": {
+      "title": "Hovor zdarma, 30 minut",
+      "desc": "Popíšete nápad. Řeknu upřímně, jestli jsem ten správný člověk — někdy je odpověď ne."
+    },
+    "s2": {
+      "title": "Rozsah a cena",
+      "desc": "Písemný rozpis: co se postaví, v jakém pořadí, kolik to stojí a jak dlouho to potrvá."
+    },
+    "s3": {
+      "title": "Dvoutýdenní bloky",
+      "desc": "Každé dva týdny build, který si nainstalujete a vyzkoušíte. Připomínky jdou rovnou do dalšího bloku."
+    },
+    "s4": {
+      "title": "Vydání a předání",
+      "desc": "Odeslání do storu, dokumentace i zdrojový kód — všechno pod vašimi účty."
+    }
+  },
+  "about": {
+    "label": "O mně",
+    "pull": "Nenajímáte si agenturu, account manažera ani rotující tým. Najímáte si člověka, který ten kód píše.",
+    "p1": "Přes den jsem senior software engineer a application architect v HTEC, kde stavím mobilní zdravotní aplikaci v Angularu a Ionicu. Šest let předtím jsem byl v CertiConu, poslední z nich jako softwarový architekt, kde jsem vedl Angular platformy pro Bosch a Medtronic. Vedle toho všeho beru od roku 2015 vlastní zakázky.",
+    "p2": "Prakticky to znamená, že dostanete někoho, kdo vydával software v regulovaném zdravotnictví i sám o víkendu. Stejná péče, jiné papírování.",
+    "stat1": "let ve vývoji",
+    "stat2": "Angular od roku",
+    "stat3": "člověk, se kterým jednáte",
+    "career": "Kariéra",
+    "fullCv": "Celé CV →",
+    "hire": "Jak mě najmout",
+    "hire1": "Projekt s pevným rozsahem",
+    "hire1Note": "4–12 týdnů",
+    "hire2": "Dlouhodobá spolupráce",
+    "hire2Note": "4–8 dní měsíčně",
+    "hire3": "Audit a konzultace",
+    "hire3Note": "2–5 dní",
+    "priceNote": "Cena závisí na rozsahu, takže tu žádný ceník není. Popište, co potřebujete, a dostanete reálný odhad, obvykle do dvou dnů.",
+    "jobs": {
+      "htec": "Senior vývojář a architekt",
+      "freelance": "Vývojář na volné noze",
+      "freelanceNote": "Vlastní klienti",
+      "certicon": "Softwarový architekt",
+      "foxconn": "Front-end vývojář"
     }
   },
   "contact": {
-    "label": "Ozvěte se",
-    "title": "Kontakt",
-    "description": "Máte projekt nebo nápad, o kterém chcete mluvit? Napište mi.",
-    "formTitle": "Napište mi zprávu",
-    "formDesc": "Obvykle se ozvu do jednoho až dvou dnů.",
+    "label": "Kontakt",
+    "title1": "Napište mi,",
+    "title2": "co chcete",
+    "title3": "postavit",
+    "lead": "Stačí i hrubý nápad. Ozvu se do dvou pracovních dnů a první hovor nic nestojí.",
     "name": "Jméno",
     "namePlaceholder": "Vaše jméno",
     "email": "E-mail",
-    "emailPlaceholder": "vas@email.cz",
-    "message": "Zpráva",
-    "messagePlaceholder": "Vaše zpráva...",
+    "emailPlaceholder": "vy@firma.cz",
+    "kind": "Co potřebujete",
+    "kinds": {
+      "mobile": "Mobilní aplikaci",
+      "web": "Webovou aplikaci",
+      "mvp": "MVP",
+      "rescue": "Zachránit projekt",
+      "unsure": "Zatím nevím"
+    },
+    "message": "Pár vět o tom",
+    "messagePlaceholder": "Co to má umět, pro koho to je a do kdy to potřebujete.",
     "send": "Odeslat",
-    "sending": "Odesílám...",
-    "success": "Zpráva odeslána. Ozvu se co nejdříve.",
-    "error": "Něco se pokazilo. Zkuste to znovu nebo mi napište přímo na e-mail.",
-    "connectTitle": "Nebo mi napište přímo",
-    "availableTitle": "Otevřen novým příležitostem",
-    "availableDesc": "Zajímám se o fulltime pozice i freelance projekty, hlavně frontend architektura, mobilní vývoj nebo cokoli v TypeScriptu."
+    "sending": "Odesílám…",
+    "success": "Odesláno. Ozvu se do dvou pracovních dnů.",
+    "error": "Nepovedlo se to odeslat. Zkuste to znovu, nebo mi napište přímo na e-mail."
   },
   "footer": {
-    "built": "Postaveno v React & TypeScript",
-    "source": "Zdrojový kód"
+    "legal": "Daniel Vágner · IČO 01673459"
+  },
+  "cv": {
+    "back": "Zpět na web",
+    "download": "Uložit jako PDF",
+    "role": "Senior Software Engineer · Application Architect",
+    "summary": "Frontendový vývojář se zaměřením na Angular, jedenáct let v produkčním kódu, pohybuje se pohodlně po mobilu, webu i .NET backendu. Architektura a technické vedení na regulovaném zdravotnickém a automotive softwaru; vlastní mobilní produkty dotažené od návrhu až na App Store a Google Play.",
+    "experience": "Zkušenosti",
+    "current": "Nyní",
+    "stack": "Hlavní stack",
+    "frontend": "Front-end",
+    "mobile": "Mobil",
+    "backend": "Backend a cloud",
+    "tools": "Nástroje",
+    "shipped": "Vydáno do storů",
+    "education": "Vzdělání",
+    "school": "Střední škola, Malé Svatoňovice",
+    "field": "Bezpečnostně právní činnost",
+    "languages": "Jazyky",
+    "czech": "Čeština",
+    "native": "Rodilý mluvčí",
+    "english": "Angličtina",
+    "englishLevel": "Pracovní znalost",
+    "jobs": {
+      "htec": {
+        "role": "Senior Software Engineer / Application Architect Associate",
+        "org": "HTEC · Praha, na dálku",
+        "desc": "Mobilní zdravotní produkt (Tolion Health). Full-stack přes Ionic + Angular + Capacitor a ASP.NET Web API — architektura, přihlašování přes Azure AD B2C / PKCE, napojení na HealthKit a Garmin, výkon a UX."
+      },
+      "freelance": {
+        "role": "Vývojář na volné noze",
+        "org": "Vlastní klienti · Na dálku",
+        "desc": "Aplikace pro iOS a Android v Ionicu / Angularu a React Native, od prvního řádku kódu až po vydání ve storu. Klienti z oblasti akcí, maloobchodu a malého podnikání."
+      },
+      "certicon": {
+        "role": "Softwarový architekt",
+        "roleNote": "(dříve Senior Engineer)",
+        "org": "CertiCon a.s. · Praha",
+        "desc": "Technické vedení a mentoring na greenfield Angular platformách. Bosch — diagnostika vozidel, micro-frontendy přes module federation, RxJS, NGXS, Material CDK. Embitron — cloudová evidence zdravotnických přístrojů, C# / ASP.NET 6 na Azure. Interní ERP — Angular s vlastní knihovnou komponent."
+      },
+      "ccvis": {
+        "role": "Senior Software Engineer",
+        "roleNote": "(částečný úvazek)",
+        "org": "CCVis s.r.o. · Pardubice",
+        "desc": "Webová aplikace pro aktivaci SaaS předplatného na Microsoft Azure Marketplace — modulární platforma, znovupoužitelné komponenty."
+      },
+      "foxconn": {
+        "role": "Front-end vývojář",
+        "org": "Foxconn CZ s.r.o. · Pardubice",
+        "desc": "Frontend pro ERP systém a nástroj pro řízení výrobní linky v reálném čase: přehled výroby, metriky kvality, optimalizace procesů."
+      },
+      "educa": {
+        "role": "Webový vývojář a IT",
+        "org": "EDUCA · Hradec Králové",
+        "desc": "Angular 2+, HTML5, SCSS, JavaScript a e-shopy na PrestaShopu."
+      }
+    }
   }
 }

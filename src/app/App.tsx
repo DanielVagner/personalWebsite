@@ -1,10 +1,15 @@
+import { useEffect } from 'react';
 import { Routes, Route } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import { Navigation } from './components/Navigation';
 import { Hero } from './components/Hero';
-import { Skills } from './components/Skills';
+import { Coverage } from './components/Coverage';
+import { AngularSection } from './components/AngularSection';
+import { Clients } from './components/Clients';
+import { Work } from './components/Work';
+import { Services } from './components/Services';
+import { Process } from './components/Process';
 import { About } from './components/About';
-import { Experience } from './components/Experience';
-import { Projects } from './components/Projects';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { CV } from './components/CV';
@@ -12,20 +17,32 @@ import { ThemeProvider } from './providers/theme-provider';
 
 function Home() {
   return (
-    <div className="page-bg" style={{ overflowX: 'hidden', position: 'relative' }}>
+    <div className="overflow-x-hidden">
       <Navigation />
-      <Hero />
-      <About />
-      <Skills />
-      <Experience />
-      <Projects />
-      <Contact />
+      <main>
+        <Hero />
+        <Coverage />
+        <AngularSection />
+        <Clients />
+        <Work />
+        <Services />
+        <Process />
+        <About />
+        <Contact />
+      </main>
       <Footer />
     </div>
   );
 }
 
 export default function App() {
+  const { i18n } = useTranslation();
+
+  // Keep <html lang> honest — screen readers and search engines both read it.
+  useEffect(() => {
+    document.documentElement.lang = i18n.language?.startsWith('cs') ? 'cs' : 'en';
+  }, [i18n.language]);
+
   return (
     <ThemeProvider>
       <div className="min-h-screen">

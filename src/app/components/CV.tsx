@@ -1,268 +1,277 @@
-import { useNavigate } from 'react-router';
-import { ArrowLeft, Printer, Mail, MapPin, Globe } from 'lucide-react';
+import { useEffect } from 'react';
+import { Link } from 'react-router';
+import { useTranslation } from 'react-i18next';
+import { ArrowLeft, Download } from 'lucide-react';
+import { CONTACT } from '../data/site';
 import profilePic from '../../assets/profilpicture.jpg';
 
-const skills: Record<string, string[]> = {
-  'Front-End': ['Angular', 'React', 'TypeScript', 'Ionic', 'RxJS', 'NgXs', 'HTML5', 'SCSS'],
-  'Mobile': ['React Native', 'Capacitor', 'iOS', 'Android', 'HealthKit', 'Garmin SDK'],
-  'Back-End': ['C#', 'ASP.NET Web API', '.NET', 'Node.js'],
-  'Cloud & Tools': ['Azure AD B2C', 'Microsoft Azure', 'Git', 'Figma', 'Webpack', 'Vercel'],
-};
+const JOBS = [
+  { id: 'htec', period: '2025 —', current: true },
+  { id: 'freelance', period: '2015 —', current: true },
+  { id: 'certicon', period: '2019 – 2025', duration: '6 yrs 1 mo' },
+  { id: 'ccvis', period: '2022', duration: '3 mos' },
+  { id: 'foxconn', period: '2018 – 2019', duration: '1 yr 4 mos' },
+  { id: 'educa', period: '2016 – 2018' },
+] as const;
 
-const experiences = [
-  {
-    company: 'HTEC',
-    position: 'Senior Software Engineer',
-    period: 'Nov 2025 – Present',
-    location: 'Prague · Remote',
-    current: true,
-    description: 'Building a mobile-first health product (Tolion Health). Full-stack across Ionic + Angular + Capacitor and ASP.NET Web API — architecture, Azure AD B2C/PKCE auth, HealthKit/Garmin integration, performance and UX.',
-  },
-  {
-    company: 'Freelance',
-    position: 'Mobile & Web Developer',
-    period: '2015 – Present',
-    location: 'Remote',
-    current: true,
-    description: 'End-to-end development of web and mobile applications. On mobile, I work primarily with Ionic + Capacitor (formerly Cordova) and React Native, delivering native apps for both iOS and Android — from development through App Store and Google Play deployment.',
-  },
-  {
-    company: 'CertiCon a.s.',
-    position: 'Software Architect / Senior Software Engineer',
-    period: 'Aug 2020 – Dec 2025',
-    location: 'Prague',
-    description: 'Architecture and development of large Angular enterprise apps. Bosch diagnostics platform (Micro Frontends, module federation), Embitron healthcare cloud (C#, ASP.NET, Azure), and internal ERP system. Technical direction, code quality, team mentoring.',
-  },
-  {
-    company: 'CCVis s.r.o.',
-    position: 'Senior Software Engineer',
-    period: 'Oct – Dec 2022',
-    location: 'Pardubice',
-    description: 'SaaS subscription activation app on Microsoft Azure Marketplace. Front-end standardisation and performance refactoring.',
-  },
-  {
-    company: 'Foxconn CZ s.r.o.',
-    position: 'Front-End Developer',
-    period: 'Sep 2018 – Dec 2019',
-    location: 'Pardubice',
-    description: 'ERP and production line management app with real-time assembly line monitoring, component tracking, and quality metrics.',
-  },
+const STACK = {
+  frontend: ['Angular', 'React', 'TypeScript', 'RxJS', 'NGXS', 'Micro-frontends', 'SCSS'],
+  mobile: ['Ionic', 'React Native', 'Capacitor', 'HealthKit', 'Garmin SDK'],
+  backend: ['C# / .NET', 'ASP.NET Web API', 'Azure', 'Azure AD B2C'],
+  tools: ['Figma', 'Git', 'Azure DevOps', 'Karma / Jasmine'],
+} as const;
+
+const SHIPPED = [
+  'Hudba na vinicích',
+  'Tolion — Brain Health Coach',
+  'QR Ticketing System',
+  'Findtastic',
 ];
 
-const education = [
-  {
-    school: 'Secondary School, Malé Svatoňovice',
-    degree: 'Security and Protection Studies',
-    credential: 'Secondary School Leaving Certificate',
-    period: '2010 – 2013',
-  },
-];
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="cv-label label mb-4.5 border-b border-line pb-3.5 text-accent-ink">{children}</div>
+  );
+}
 
 export function CV() {
-  const navigate = useNavigate();
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    document.title = 'Daniel Vágner — CV';
+    return () => {
+      document.title = 'Daniel Vágner — I build web and mobile apps';
+    };
+  }, []);
+
+  function print() {
+    const previous = document.title;
+    document.title = 'Daniel_Vagner_CV';
+    window.print();
+    document.title = previous;
+  }
 
   return (
-    <div className="cv-wrapper min-h-screen bg-zinc-100 dark:bg-zinc-900 py-8 px-4">
+    <div className="min-h-screen bg-ground print:bg-white">
+      {/*
+        On screen this is the site's CV. On paper it has to be an A4 document:
+        white, two real columns inside 186mm, and typeset in points so it holds
+        its shape at any printer DPI. The screen layout's fixed 700px column is
+        wider than the printable area, which is what pushed it to three pages.
+      */}
       <style>{`
-        @page { margin: 0; size: A4; }
+        /*
+          Zero page margin on purpose: browsers draw their own URL/title/date
+          headers into the page margin, so removing the margin removes them.
+          The document's real margin then comes from padding on .cv-root.
+        */
+        @page { size: A4; margin: 0; }
+
         @media print {
           .cv-toolbar { display: none !important; }
-          html, body { background: white !important; margin: 0; padding: 0; }
-          .cv-wrapper { background: white !important; padding: 0 !important; margin: 0 !important; }
-          .cv-page {
-            box-shadow: none !important;
-            border-radius: 0 !important;
-            margin: 0 !important;
+          html, body { background: #fff !important; }
+
+          .cv-root {
+            --ground: #fff; --ground-2: #fff; --window: #fff;
+            --ink: #0c0c0d; --body: #2b2b30; --muted: #45454b; --faint: #5c5c63;
+            --line: #d5d5da; --line-strong: #0c0c0d; --accent-ink: #4d6b0f;
+            padding: 13mm 13mm 12mm !important;
             max-width: none !important;
-            width: 100% !important;
-            min-height: 297mm;
+            font-size: 9.5pt;
+            line-height: 1.4;
           }
-          .cv-sidebar {
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
-            min-height: 297mm;
-          }
-          .cv-exp-item { page-break-inside: avoid; break-inside: avoid; }
-          .cv-section { page-break-inside: avoid; break-inside: avoid; }
+
+          .cv-root * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+          /* two columns, sized to the page rather than to a breakpoint */
+          .cv-cols { display: flex !important; gap: 6% !important; padding-top: 6mm !important; }
+          .cv-main { width: 60% !important; flex: none !important; margin-top: 0 !important; }
+          .cv-side { width: 34% !important; flex: none !important; margin-top: 0 !important; }
+
+          .cv-head { padding-bottom: 4mm !important; margin-bottom: 0 !important;
+                     border-bottom: 1.5pt solid #0c0c0d !important; gap: 6mm !important;
+                     flex-direction: row !important; align-items: flex-end !important; }
+          .cv-photo { width: 62px !important; height: 62px !important; }
+          .cv-name { font-size: 26pt !important; line-height: 0.92 !important; }
+          .cv-role { font-size: 10pt !important; margin-bottom: 2mm !important; }
+          .cv-contact { font-size: 7.6pt !important; line-height: 1.7 !important; text-align: right !important; }
+
+          .cv-summary { font-size: 9pt !important; line-height: 1.45 !important; margin-bottom: 5mm !important; }
+          .cv-label { font-size: 7.5pt !important; margin-bottom: 3mm !important; padding-bottom: 2mm !important; }
+
+          .cv-entry { margin-bottom: 4mm !important; gap: 4mm !important;
+                      flex-direction: row !important; break-inside: avoid; page-break-inside: avoid; }
+          .cv-period { width: 22mm !important; font-size: 7.6pt !important; padding-top: 0.5mm !important; }
+          .cv-job { font-size: 10.5pt !important; }
+          .cv-org { font-size: 7.8pt !important; margin-top: 0.8mm !important; }
+          .cv-desc { font-size: 8.6pt !important; line-height: 1.4 !important; margin-top: 1.2mm !important; }
+
+          .cv-group { margin-bottom: 3.5mm !important; }
+          .cv-group-title { font-size: 8.5pt !important; margin-bottom: 1.5mm !important; }
+          .cv-chip { font-size: 7.4pt !important; padding: 1pt 4pt !important;
+                     border: 0.5pt solid #b9b9bf !important; background: #fff !important; }
+          .cv-list { font-size: 8.6pt !important; line-height: 1.6 !important; }
+          .cv-block { margin-bottom: 5mm !important; }
         }
       `}</style>
 
-      {/* Toolbar */}
-      <div className="cv-toolbar max-w-[900px] mx-auto mb-5 flex items-center justify-between">
-        <button
-          onClick={() => navigate('/')}
-          className="flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors cursor-pointer"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back
-        </button>
-        <button
-          onClick={() => {
-            const prev = document.title;
-            document.title = 'Daniel_Vagner_CV';
-            window.print();
-            document.title = prev;
-          }}
-          className="flex items-center gap-2 px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white text-sm font-medium rounded-xl transition-colors cursor-pointer"
-        >
-          <Printer className="w-4 h-4" />
-          Save as PDF
-        </button>
+      <div className="cv-toolbar border-b border-line">
+        <div className="shell flex h-[72px] items-center justify-between">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-3 font-mono text-[11px] tracking-[0.08em] text-muted uppercase no-underline transition-colors hover:text-ink"
+          >
+            <ArrowLeft className="h-4 w-4" strokeWidth={2.2} />
+            <span className="hidden sm:inline">{t('cv.back')}</span>
+          </Link>
+          <button
+            type="button"
+            onClick={print}
+            className="inline-flex items-center gap-2.5 bg-accent px-5 py-3 text-[13px] font-semibold tracking-[0.06em] text-on-accent uppercase transition-opacity hover:opacity-85"
+          >
+            <Download className="h-[15px] w-[15px]" strokeWidth={2.2} />
+            {t('cv.download')}
+          </button>
+        </div>
       </div>
 
-      {/* CV Document */}
-      <div className="cv-page max-w-[900px] mx-auto bg-zinc-900 rounded-2xl shadow-xl overflow-hidden flex items-stretch">
-
-        {/* Sidebar */}
-        <div className="cv-sidebar w-[220px] shrink-0 bg-zinc-900 text-white flex flex-col">
-
-          {/* Photo */}
-          <div className="px-6 pt-6 pb-4 flex flex-col items-center text-center border-b border-white/10">
-            <div className="w-24 h-24 rounded-full overflow-hidden ring-2 ring-teal-500/30 mb-3 shrink-0">
-              <img src={profilePic} alt="Daniel Vágner" className="w-full h-full object-cover object-top" />
-            </div>
-            <h1 className="text-base font-bold tracking-tight leading-tight" style={{ fontFamily: 'var(--font-display)' }}>
-              Daniel Vágner
+      <div className="cv-root shell py-10 md:pt-14 md:pb-15">
+        {/* name block — the one round thing on an otherwise square site */}
+        <div className="cv-head flex flex-col gap-5 border-b-2 border-accent pb-7 md:flex-row md:items-end md:justify-between md:gap-10 md:pb-8">
+          <div className="flex items-center gap-5 md:items-end">
+            <img
+              src={profilePic}
+              alt="Daniel Vágner"
+              className="cv-photo h-[76px] w-[76px] shrink-0 rounded-full object-cover md:h-[92px] md:w-[92px]"
+              style={{ objectPosition: '50% 18%' }}
+            />
+            <h1 className="cv-name display m-0 text-[38px] leading-[0.9] md:text-[64px]">
+              Daniel
+              <br />
+              Vágner
             </h1>
-            <p className="text-[11px] text-teal-400/80 font-medium mt-1 leading-snug">
-              Senior Software Engineer
+          </div>
+
+          <div className="md:text-right">
+            <div className="cv-role text-[17px] font-semibold tracking-[-0.01em] md:mb-4 md:text-[19px]">
+              {t('cv.role')}
+            </div>
+            <div className="cv-contact mt-2 font-mono text-[11.5px] leading-[1.9] tracking-[0.03em] text-muted md:mt-0 md:text-xs md:leading-[2]">
+              <div>{CONTACT.email}</div>
+              <div>
+                {CONTACT.linkedinLabel} · {CONTACT.githubLabel}
+              </div>
+              <div>Prague, Czechia · Remote · CS / EN</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="cv-cols pt-8 md:flex md:gap-14 md:pt-10">
+          <div className="cv-main md:w-[700px] md:shrink-0">
+            <p className="cv-summary m-0 mb-8 text-base leading-[1.65] text-body md:mb-10 md:text-[17px]">
+              {t('cv.summary')}
             </p>
+
+            <SectionLabel>{t('cv.experience')}</SectionLabel>
+
+            {JOBS.map((job) => (
+              <div key={job.id} className="cv-entry mb-6 flex flex-col gap-2 md:mb-6.5 md:flex-row md:gap-6">
+                <div className="cv-period shrink-0 pt-1 font-mono text-[11.5px] leading-[1.7] tracking-[0.03em] text-faint md:w-28">
+                  {job.period}
+                  {'current' in job && job.current ? (
+                    <>
+                      <br />
+                      <span className="text-accent-ink">{t('cv.current')}</span>
+                    </>
+                  ) : 'duration' in job && job.duration ? (
+                    <>
+                      <br />
+                      {job.duration}
+                    </>
+                  ) : null}
+                </div>
+                <div>
+                  <div className="cv-job text-[18px] font-semibold tracking-[-0.015em] md:text-[19px]">
+                    {t(`cv.jobs.${job.id}.role`)}{' '}
+                    {t(`cv.jobs.${job.id}.roleNote`, { defaultValue: '' }) && (
+                      <span className="font-normal text-muted">
+                        {t(`cv.jobs.${job.id}.roleNote`, { defaultValue: '' })}
+                      </span>
+                    )}
+                  </div>
+                  <div className="cv-org mt-1.5 font-mono text-xs tracking-[0.06em] text-accent-ink uppercase">
+                    {t(`cv.jobs.${job.id}.org`)}
+                  </div>
+                  <p className="cv-desc m-0 mt-2.5 text-[15px] leading-[1.65] text-muted">
+                    {t(`cv.jobs.${job.id}.desc`)}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
 
-          {/* Contact */}
-          <div className="px-5 py-3.5 border-b border-white/10 space-y-2">
-            <SideLabel>Contact</SideLabel>
-            <SideItem icon={<Mail className="w-3 h-3" />}>
-              <span className="break-all">danielvagner05@gmail.com</span>
-            </SideItem>
-            <SideItem icon={<MapPin className="w-3 h-3" />}>Prague, Czechia</SideItem>
-            <SideItem icon={<Globe className="w-3 h-3" />}>daniel-vagner.dev</SideItem>
-            <SideItem icon={
-              <svg className="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-              </svg>
-            }>
-              linkedin.com/in/danielvagner
-            </SideItem>
-          </div>
+          <div className="cv-side mt-10 md:mt-0 md:grow">
+            <SectionLabel>{t('cv.stack')}</SectionLabel>
 
-          {/* Skills */}
-          <div className="px-5 py-3.5 border-b border-white/10">
-            <SideLabel>Skills</SideLabel>
-            {Object.entries(skills).map(([cat, items]) => (
-              <div key={cat} className="mb-2.5 last:mb-0">
-                <p className="text-[9px] font-semibold text-zinc-400 uppercase tracking-widest mb-1">{cat}</p>
-                <div className="flex flex-wrap gap-1">
-                  {items.map((s) => (
-                    <span key={s} className="px-1.5 py-0.5 rounded text-[9px] bg-white/10 text-zinc-300 border border-white/10">
-                      {s}
+            {(
+              [
+                ['frontend', STACK.frontend],
+                ['mobile', STACK.mobile],
+                ['backend', STACK.backend],
+                ['tools', STACK.tools],
+              ] as const
+            ).map(([key, items]) => (
+              <div key={key} className="cv-group mb-5.5">
+                <div className="cv-group-title mb-2.5 text-sm font-semibold">{t(`cv.${key}`)}</div>
+                <div className="flex flex-wrap gap-1.5">
+                  {items.map((item) => (
+                    <span
+                      key={item}
+                      className="cv-chip border border-line px-2.5 py-1.5 font-mono text-[11px] text-muted"
+                    >
+                      {item}
                     </span>
                   ))}
                 </div>
               </div>
             ))}
-          </div>
 
-          {/* Education */}
-          <div className="px-5 py-3.5 flex-1">
-            <SideLabel>Education</SideLabel>
-            {education.map((ed, i) => (
-              <div key={i}>
-                <p className="text-[11px] font-semibold text-zinc-200 leading-snug">{ed.school}</p>
-                <p className="text-[10px] text-zinc-400 mt-0.5">{ed.degree}</p>
-                {'credential' in ed && <p className="text-[10px] text-zinc-500">{(ed as typeof ed & { credential: string }).credential}</p>}
-                <p className="text-[10px] text-zinc-500">{ed.period}</p>
+            <div className="cv-block mt-8.5">
+              <SectionLabel>{t('cv.shipped')}</SectionLabel>
+              <div className="cv-list mb-8.5 text-[15px] leading-[1.9] text-body">
+                {SHIPPED.map((item) => (
+                  <div key={item}>{item}</div>
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Main content */}
-        <div className="flex-1 min-w-0 bg-white px-8 py-6 space-y-4 flex flex-col">
-
-          {/* Profile */}
-          <section className="cv-section">
-            <SectionTitle>Profile</SectionTitle>
-            <div className="text-[12px] text-zinc-600 leading-relaxed space-y-2">
-              <p>I'm a Senior Software Engineer with a background in front-end development, mobile apps, and software architecture. Most of my work has been with Angular and TypeScript — building single-page applications where I care a lot about clean code, good architecture, and performance. I've also spent time on the back-end with ASP.NET Core and had a stint with NestJS, which gave me a solid feel for structured backend development in TypeScript.</p>
-              <p>For mobile, I mostly work with Ionic + Capacitor and React Native — cross-platform apps for iOS and Android. A lot of my freelance projects have been on the mobile side, which I've been doing since 2015.</p>
-              <p>At CertiCon I eventually moved into a Software Architect role, which meant taking ownership of technical direction, reviewing code, and working closely with the team on bigger decisions. It was a good few years and taught me a lot about how to build things that last.</p>
-              <p>I also care about the design side — I use Figma for prototyping and design handoffs, and I think good UX and good code go hand in hand.</p>
             </div>
-          </section>
 
-          {/* Experience */}
-          <section className="cv-section">
-            <SectionTitle>Experience</SectionTitle>
-            <div className="space-y-3">
-              {experiences.map((exp, i) => (
-                <div key={i} className="cv-exp-item">
-                  <div className="flex items-start justify-between gap-2">
-                    <div>
-                      <p className="font-semibold text-zinc-900 text-[12px] leading-tight">{exp.position}</p>
-                      <p className="text-teal-700 text-[11px] font-medium mt-0.5 flex items-center gap-1.5">
-                        {exp.company}
-                        {exp.current && (
-                          <span className="px-1.5 py-px rounded-full text-[8px] font-semibold bg-emerald-50 text-emerald-600 border border-emerald-200">
-                            Current
-                          </span>
-                        )}
-                      </p>
-                    </div>
-                    <div className="text-right shrink-0">
-                      <p className="text-[11px] text-zinc-500 font-medium">{exp.period}</p>
-                      <p className="text-[10px] text-zinc-400 mt-0.5">{exp.location}</p>
-                    </div>
-                  </div>
-                  {exp.description && (
-                    <p className="text-[11px] text-zinc-500 mt-1 leading-relaxed">{exp.description}</p>
-                  )}
-                  {i < experiences.length - 1 && (
-                    <div className="mt-2.5 border-b border-zinc-100" />
-                  )}
+            <div className="cv-block">
+              <SectionLabel>{t('cv.education')}</SectionLabel>
+              <div className="mb-8.5">
+                <div className="cv-group-title text-[15px] leading-[1.5] font-semibold">
+                  {t('cv.school')}
                 </div>
-              ))}
+                <div className="cv-list mt-1.5 text-[14.5px] text-muted">{t('cv.field')}</div>
+                <div className="cv-period mt-2 font-mono text-[11.5px] text-faint">2010 – 2013</div>
+              </div>
             </div>
-          </section>
 
-          {/* Footer note */}
-          <div className="mt-auto pt-3 border-t border-zinc-100 flex justify-end">
-            <p className="text-[10px] text-zinc-400">
-              Generated from{' '}
-              <span className="text-teal-600/70">daniel-vagner.dev</span>
-            </p>
+            <div className="cv-block">
+              <SectionLabel>{t('cv.languages')}</SectionLabel>
+              <div className="cv-list flex flex-col gap-2.5 text-[15px] text-body">
+                <div className="flex justify-between">
+                  <span>{t('cv.czech')}</span>
+                  <span className="font-mono text-xs text-muted">{t('cv.native')}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>{t('cv.english')}</span>
+                  <span className="font-mono text-xs text-muted">{t('cv.englishLevel')}</span>
+                </div>
+              </div>
+            </div>
           </div>
-
         </div>
       </div>
-    </div>
-  );
-}
-
-function SectionTitle({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="flex items-center gap-3 mb-2.5">
-      <h2 className="text-[9px] font-bold text-zinc-400 uppercase tracking-[0.2em] whitespace-nowrap">
-        {children}
-      </h2>
-      <div className="flex-1 h-px bg-zinc-100" />
-    </div>
-  );
-}
-
-function SideLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="text-[9px] font-bold text-teal-500/60 uppercase tracking-[0.2em] mb-2">
-      {children}
-    </p>
-  );
-}
-
-function SideItem({ icon, children }: { icon: React.ReactNode; children: React.ReactNode }) {
-  return (
-    <div className="flex items-start gap-2 text-[10px] text-zinc-400 leading-snug">
-      <span className="mt-0.5 text-zinc-500 shrink-0">{icon}</span>
-      <span>{children}</span>
     </div>
   );
 }
