@@ -130,6 +130,13 @@
   color: var(--text-muted);
 }
 
+.note {
+  margin: 6px 0 0;
+  font-size: 13px;
+  font-style: italic;
+  color: var(--text-dim);
+}
+
 .blocks {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));

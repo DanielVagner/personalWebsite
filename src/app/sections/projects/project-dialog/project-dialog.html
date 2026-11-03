@@ -21,6 +21,9 @@
           <p class="kicker mono">{{ p.kicker }}</p>
           <h2 class="h title" [id]="titleId">{{ p.title }}</h2>
           <p class="type">{{ p.type }}</p>
+          @if (p.mediaNote) {
+            <p class="note">{{ p.mediaNote }}</p>
+          }
         </header>
 
         <div class="blocks">

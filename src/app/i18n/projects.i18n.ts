@@ -1,6 +1,6 @@
 import { Translated } from '../core/language.service';
 
-export type ProjectId = 'tolion' | 'hudba' | 'mdas' | 'qrticket' | 'findtastic' | 'ccvision' | 'tpodlahy';
+export type ProjectId = 'tolion' | 'hudba' | 'mdas' | 'qrticket' | 'findtastic' | 'ccvision' | 'tpodlahy' | 'erp';
 
 /** Background of the preview frame (see _project-themes.scss). */
 export type ProjectTheme = 'teal' | 'plum' | 'slate' | 'berry' | 'blue' | 'navy' | 'earth';
@@ -40,6 +40,8 @@ export interface ProjectCopy {
   type: string;
   summary: string;
   alt: string;
+  /** Shown under the project type in the case study, e.g. when the visuals are illustrative. */
+  mediaNote?: string;
   phoneAlts?: readonly string[];
   brief: string;
   solution: string;
@@ -133,6 +135,14 @@ export const PROJECTS: readonly ProjectBase[] = [
     tags: ['React', 'TypeScript', 'SCSS'],
     url: 'https://tpodlahy.cz',
   },
+  {
+    id: 'erp',
+    theme: 'navy',
+    media: 'plain',
+    image: img('erp-systemy.webp', 1800, 1200),
+    tags: ['Angular', 'TypeScript', 'RxJS', 'NgXs', 'Material CDK'],
+    featured: true,
+  },
 ];
 
 /** Czech typography: non-breaking space after one-letter prepositions and conjunctions. */
@@ -152,7 +162,7 @@ export const PROJECTS_TEXT: Translated<ProjectsText> = {
     eyebrow: 'Vybrané projekty',
     title: 'Různé produkty.',
     titleMuted: 'Stejná pečlivost.',
-    intro: 'Zdraví mozku, koncerty a vstupenky, zdravotnické přístroje, nakupování online, počítačové vidění i firemní prezentace. Na mobilu, na webu i na desktopu.',
+    intro: 'Zdraví mozku, koncerty a vstupenky, zdravotnické přístroje, ERP a výroba, nakupování online, počítačové vidění i firemní prezentace. Na mobilu, na webu i na desktopu.',
     caseStudy: 'Případová studie',
     openSuffix: ' – otevřít případovou studii',
     tagsLabel: 'Použité technologie',
@@ -285,6 +295,26 @@ export const PROJECTS_TEXT: Translated<ProjectsText> = {
         ],
         role: 'Podílel jsem se na vývoji frontendu v Angularu a TypeScriptu podle návrhů z Adobe XD.',
       },
+      erp: {
+        kicker: 'ERP / VÝROBA',
+        title: 'ERP systémy a řízení výroby',
+        type: 'Webové aplikace',
+        summary:
+          'Interní ERP systémy a nástroj pro řízení výrobní linky v reálném čase: přehled výroby, metriky kvality a podklady pro rozhodování.',
+        mediaNote: 'Ilustrační náhled – skutečné systémy jsou interní a neveřejné.',
+        alt: 'Ilustrační náhled dvou interních systémů: přehled ERP s tržbami, objednávkami a sklady a řízení výrobní linky s výkonem, stavem stanic a vadami',
+        brief:
+          'Firmy potřebovaly interní systémy pro každodenní chod – od běžné firemní agendy až po sledování výrobní linky v reálném čase. Zaměstnanci se v nich musí rychle zorientovat a mít potřebná data vždy po ruce.',
+        solution:
+          'Webové aplikace v Angularu a TypeScriptu. O práci s daty se starají RxJS a NgXs, rozhraní stojí na vlastních komponentách postavených nad Angular Material CDK.',
+        features: [
+          'Interní ERP systém s vlastní knihovnou komponent nad Material CDK',
+          'Řízení výrobní linky v reálném čase',
+          'Sledování toku komponent a metrik kvality',
+          'Podklady pro optimalizaci výrobních procesů',
+        ],
+        role: 'Na ERP systémech jsem pracoval opakovaně – jako frontend vývojář ve Foxconnu a později jako senior engineer v CertiConu. Stavěl jsem uživatelská rozhraní, práci s daty v aplikaci a znovupoužitelné komponenty.',
+      },
       tpodlahy: {
         kicker: 'PODLAHY / WEB',
         title: 'TPodlahy.cz',
@@ -310,7 +340,7 @@ export const PROJECTS_TEXT: Translated<ProjectsText> = {
     eyebrow: 'Selected work',
     title: 'Different products.',
     titleMuted: 'Same level of care.',
-    intro: 'Brain health, concerts and ticketing, medical devices, online shopping, computer vision and a company website – on mobile, web and desktop.',
+    intro: 'Brain health, concerts and ticketing, medical devices, ERP and manufacturing, online shopping, computer vision and a company website – on mobile, web and desktop.',
     caseStudy: 'Case study',
     openSuffix: ' – open case study',
     tagsLabel: 'Technologies used',
@@ -438,6 +468,26 @@ export const PROJECTS_TEXT: Translated<ProjectsText> = {
         solution: 'A web application in Angular and TypeScript, with the interface designed in Adobe XD.',
         features: ['Real-time object detection and recognition', 'Integration with various hardware platforms'],
         role: 'I contributed to the Angular and TypeScript front end, built from Adobe XD designs.',
+      },
+      erp: {
+        kicker: 'ERP / MANUFACTURING',
+        title: 'ERP and production systems',
+        type: 'Web apps',
+        summary:
+          'Internal ERP systems and a real-time production line tool: production overview, quality metrics and the data to run day-to-day operations.',
+        mediaNote: 'Illustrative preview – the real systems are internal and not public.',
+        alt: 'Illustrative preview of two internal systems: an ERP overview with revenue, orders and warehouses, and production line monitoring with output, station status and defects',
+        brief:
+          'Companies needed internal systems for day-to-day operations – from records and business processes to monitoring a production line in real time. People have to find their way around quickly and have the data they need at hand.',
+        solution:
+          'Web apps in Angular and TypeScript, with RxJS and NgXs for state management and custom components built on the Angular Material CDK.',
+        features: [
+          'Internal ERP system with a custom component library on the Material CDK',
+          'Real-time production line management',
+          'Tracking of component flow and quality metrics',
+          'Data for optimizing manufacturing processes',
+        ],
+        role: 'I have worked on ERP systems several times – as a front-end developer at Foxconn and later as a senior engineer at CertiCon – building the user interfaces, application state management and reusable components.',
       },
       tpodlahy: {
         kicker: 'FLOORING / WEB',
