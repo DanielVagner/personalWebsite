@@ -1,0 +1,205 @@
+@use 'sass:map';
+@use 'mixins' as *;
+@use '../project-themes' as *;
+
+:host {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  container-type: inline-size;
+  background: map.get($project-themes, 'slate');
+
+  @include project-theme-backgrounds;
+  @include project-glow;
+}
+
+.stage {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+/* Screenshot in a window frame */
+.frame {
+  overflow: hidden;
+  min-width: 0;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.bar {
+  @include window-bar;
+}
+
+.frame--plain {
+  border-radius: 14px;
+}
+
+/* Logo on a light panel */
+.logo {
+  flex: 0 1 auto;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+
+  img {
+    object-fit: contain;
+  }
+}
+
+.phones {
+  display: flex;
+  gap: 12px;
+  min-width: 0;
+}
+
+.phone {
+  min-width: 0;
+  border-radius: 14px;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+}
+
+/* ── Card variant: fixed height, tilted, peeking from the bottom ── */
+:host([data-variant='card']) {
+  height: 300px;
+
+  @include down($bp-sm) {
+    height: 220px;
+  }
+
+  .kicker {
+    position: absolute;
+    top: 16px;
+    left: 20px;
+    right: 20px;
+    z-index: 1;
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.82);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .stage {
+    height: 100%;
+    align-items: flex-start;
+    padding: 48px 20px 0;
+    transform: rotate(-2deg);
+    transform-origin: 50% 100%;
+
+    @include down($bp-sm) {
+      padding-top: 42px;
+    }
+
+    @include motion {
+      transition: transform 0.6s var(--ease-out);
+    }
+  }
+
+  .frame {
+    width: min(80%, 620px);
+
+    @include down($bp-sm) {
+      width: 88%;
+    }
+  }
+}
+
+:host([data-variant='card'].is-featured) {
+  height: 380px;
+
+  @include down($bp-sm) {
+    height: 240px;
+  }
+
+  .frame {
+    width: min(72%, 820px);
+
+    @include down($bp-md) {
+      width: min(86%, 620px);
+    }
+
+    @include down($bp-sm) {
+      width: 88%;
+    }
+  }
+}
+
+:host([data-variant='card'][data-media='logo']) .stage {
+  align-items: center;
+  padding-top: 24px;
+}
+
+:host([data-variant='card'][data-media='logo']) .logo {
+  width: min(64%, 380px);
+  padding: clamp(18px, 4vw, 30px) clamp(20px, 5vw, 38px);
+}
+
+:host([data-variant='card'][data-media='logo-phones']) {
+  .stage {
+    gap: clamp(14px, 4%, 36px);
+  }
+
+  .logo {
+    align-self: center;
+    width: min(42%, 280px);
+    padding: clamp(10px, 2.5vw, 20px);
+    margin-top: -24px;
+  }
+
+  .phone {
+    width: clamp(72px, 20cqi, 140px);
+
+    &:last-child {
+      transform: translateY(22px) rotate(3deg);
+    }
+  }
+}
+
+/* Hover and keyboard focus on the parent card */
+@include motion {
+  :host-context(.project-card:hover) .stage,
+  :host-context(.project-card:focus-within) .stage {
+    transform: scale(1.03) rotate(-1deg);
+  }
+}
+
+/* ── Detail variant: everything fully visible ── */
+:host([data-variant='detail']) {
+  padding: clamp(24px, 5vw, 52px) clamp(16px, 5vw, 52px);
+
+  .stage {
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px 24px;
+  }
+
+  .frame {
+    width: 100%;
+    max-width: 860px;
+  }
+
+  .logo {
+    width: min(100%, 420px);
+    padding: clamp(22px, 5vw, 40px);
+  }
+
+  .phone {
+    width: clamp(110px, 26vw, 210px);
+  }
+}

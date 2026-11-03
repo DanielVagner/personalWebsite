@@ -1,0 +1,888 @@
+@use 'mixins' as *;
+
+// Light "app" palette for the mock screens
+$ink: #1d1f24;
+$muted: #6b7080;
+$paper: #f5f6fa;
+$card: #fff;
+$border: #e3e5ec;
+$brand: #0071e3;
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-width: 0;
+  padding: 7px 10px;
+  overflow: hidden;
+  background:
+    radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px) 0 0 / 14px 14px,
+    #181818;
+  color: $ink;
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  font-size: 10px;
+  line-height: 1.3;
+  user-select: none;
+}
+
+.pv-ellipsis {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pv-dim {
+  color: $muted;
+}
+
+/* Clickable parts of the mock screens: real buttons that keep the mock's look. */
+.pv-btn {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  text-align: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+
+  // Bigger hit area than the miniature element (at least 32 px tall by default).
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100%, var(--hit-w, 0px));
+    height: max(100%, var(--hit-h, 32px));
+    transform: translate(-50%, -50%);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $brand;
+    outline-offset: 2px;
+  }
+}
+
+// Code line under the mouse in the editor → outline its element (like DevTools).
+.is-inspect {
+  outline: 2px solid rgba(61, 155, 255, 0.6);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.pv-h1 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.pv-card {
+  border: 1px solid $border;
+  border-radius: 8px;
+  background: $card;
+}
+
+.pv-card__title {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 9.5px;
+  font-weight: 600;
+}
+
+.pv-cta {
+  display: block;
+  padding: 8px;
+  border-radius: 9px;
+  background: $brand;
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+
+  &:active {
+    background: #0058b8;
+  }
+}
+
+/* ── Phone ── */
+.pv-phone {
+  flex: 0 0 auto;
+  width: 180px;
+  height: 364px;
+  max-height: 100%;
+  padding: 6px;
+  border: 1px solid #3a3a3e;
+  border-radius: 30px;
+  background: #0b0b0d;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+}
+
+.pv-screen {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+  padding: 6px 10px 16px;
+  overflow: hidden;
+  border-radius: 24px;
+  background: $paper;
+}
+
+.pv-island {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  width: 46px;
+  height: 13px;
+  transform: translateX(-50%);
+  border-radius: 8px;
+  background: #0b0b0d;
+}
+
+.pv-statusbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 14px;
+  padding: 0 6px;
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.pv-sys {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.pv-signal {
+  width: 10px;
+  height: 7px;
+  background: linear-gradient(
+    90deg,
+    $ink 0 2px,
+    transparent 2px 3px,
+    $ink 3px 5px,
+    transparent 5px 6px,
+    $ink 6px 8px,
+    transparent 8px
+  );
+  clip-path: polygon(0 100%, 100% 0, 100% 100%);
+}
+
+.pv-battery {
+  width: 14px;
+  height: 7px;
+  border: 1px solid $ink;
+  border-radius: 2px;
+  background: linear-gradient(90deg, $ink 70%, transparent 70%) 1px 1px / calc(100% - 2px)
+    calc(100% - 2px) no-repeat;
+}
+
+.pv-home {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  width: 54px;
+  height: 3px;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  background: $ink;
+  opacity: 0.85;
+}
+
+.pv-appbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: 2px;
+
+  .pv-h1 {
+    font-size: 15px;
+  }
+}
+
+.pv-avatar {
+  flex: 0 0 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #a8bdff, $brand);
+}
+
+.pv-days {
+  display: flex;
+  gap: 4px;
+}
+
+.pv-day {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  padding: 4px 0 5px;
+  border: 1px solid $border;
+  border-radius: 9px;
+  background: $card;
+  color: $muted;
+  font-size: 8px;
+
+  strong {
+    color: $ink;
+    font-size: 11.5px;
+  }
+
+  &.is-active {
+    border-color: $brand;
+    background: $brand;
+    color: rgba(255, 255, 255, 0.85);
+
+    strong {
+      color: #fff;
+    }
+  }
+}
+
+.pv-heading {
+  margin-top: 2px;
+  font-size: 10.5px;
+  font-weight: 650;
+}
+
+.pv-slots {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pv-slot {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 8px;
+  border: 1px solid $border;
+  border-radius: 10px;
+  background: $card;
+
+  &.is-active {
+    border-color: $brand;
+    background: #eef5ff;
+    box-shadow: inset 0 0 0 1px $brand;
+  }
+}
+
+.pv-slot__time {
+  flex: 0 0 auto;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.pv-slot__info {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-width: 0;
+  font-size: 9.5px;
+
+  .pv-dim {
+    font-size: 8.5px;
+  }
+}
+
+.pv-cta--phone {
+  margin-top: auto;
+  padding: 9px;
+  border-radius: 12px;
+  font-size: 11px;
+}
+
+// "Booked: Wed 10:30" confirmation above the button
+.pv-toast {
+  position: absolute;
+  right: 10px;
+  bottom: 54px;
+  left: 10px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 9px;
+  border-radius: 10px;
+  background: rgba(29, 31, 36, 0.94);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  color: #fff;
+  font-size: 9.5px;
+  font-weight: 600;
+
+  svg {
+    flex: 0 0 auto;
+    color: #4cd480;
+  }
+}
+
+/* ── Mini browser ── */
+.pv-browser {
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid #3a3a3e;
+  border-radius: 10px;
+  background: $paper;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+
+.pv-browser__bar {
+  display: flex;
+  flex: 0 0 24px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px;
+  background: #e6e7eb;
+}
+
+.pv-dots {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 4px;
+
+  span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #c4c6cd;
+  }
+}
+
+.pv-url {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 15px;
+  padding: 0 8px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #fff;
+  color: #555a66;
+  font-size: 8.5px;
+  line-height: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pv-page {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 9px;
+  min-height: 0;
+  padding: 11px 12px;
+  overflow: hidden;
+}
+
+/* Dashboard */
+.pv-dash__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 8px;
+}
+
+.pv-tag {
+  flex: 0 0 auto;
+  padding: 1px 7px;
+  border: 1px solid #f0d9a2;
+  border-radius: 999px;
+  background: #fff5dd;
+  color: #7a5200;
+  font-size: 8px;
+  font-weight: 600;
+}
+
+.pv-kpis {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.pv-kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  padding: 6px;
+
+  &.is-active {
+    border-color: $brand;
+    background: #f3f8ff;
+    box-shadow: inset 0 0 0 1px $brand;
+  }
+}
+
+.pv-kpi__label {
+  color: $muted;
+  font-size: 8px;
+}
+
+.pv-kpi__value {
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+.pv-chart {
+  padding: 7px 9px 6px;
+}
+
+.pv-bars {
+  display: flex;
+  gap: 6px;
+  height: 66px;
+}
+
+.pv-bar {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  min-width: 0;
+}
+
+.pv-bar__track {
+  position: relative;
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: 18px;
+}
+
+.pv-bar__fill {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 3px 3px 1px 1px;
+  background: linear-gradient(180deg, #5aa2ff, $brand);
+  transform-origin: bottom;
+
+  .has-pick .pv-bar:not(.is-active) & {
+    opacity: 0.45;
+  }
+
+  .pv-bar.is-active & {
+    background: linear-gradient(180deg, #2f7ff0, #0058b8);
+  }
+}
+
+.pv-bar__day {
+  color: $muted;
+  font-size: 7.5px;
+  white-space: nowrap;
+
+  .pv-bar.is-active & {
+    color: $ink;
+    font-weight: 700;
+  }
+}
+
+// Value of the picked bar (sample data)
+.pv-tip {
+  position: absolute;
+  bottom: calc(var(--h, 50%) + 3px);
+  left: 50%;
+  z-index: 1;
+  padding: 1px 4px;
+  transform: translateX(-50%);
+  border-radius: 4px;
+  background: $ink;
+  color: #fff;
+  font-size: 7.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.pv-table {
+  padding: 7px 9px 4px;
+}
+
+.pv-rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.pv-row {
+  --hit-h: 0px; // rows touch each other, so the row itself is the target
+
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  width: calc(100% + 8px);
+  margin: 0 -4px;
+  padding: 6px 4px;
+  border-radius: 5px;
+  font-size: 9.5px;
+
+  & + & {
+    border-top: 1px solid #eef0f4;
+  }
+
+  &.is-active {
+    background: #eef5ff;
+  }
+}
+
+.pv-row__total {
+  font-weight: 600;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.pv-pill {
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: #e6efff;
+  color: #1f5fbf;
+  font-size: 8px;
+  font-weight: 600;
+
+  &[data-tone='paid'] {
+    background: #e2f5e9;
+    color: #1c7440;
+  }
+}
+
+/* Product page */
+.pv-shopbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid $border;
+}
+
+.pv-logo {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.pv-cart {
+  position: relative;
+  display: flex;
+  flex: 0 0 auto;
+}
+
+.pv-badge {
+  position: absolute;
+  top: -5px;
+  right: -7px;
+  min-width: 12px;
+  height: 12px;
+  padding: 0 3px;
+  border-radius: 6px;
+  background: #e5484d;
+  color: #fff;
+  font-size: 7.5px;
+  font-weight: 700;
+  line-height: 12px;
+  text-align: center;
+}
+
+.pv-product {
+  display: grid;
+  gap: 10px;
+}
+
+.pv-gallery {
+  display: grid;
+  place-items: center;
+  height: 104px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f3ebdf, #e2d1b6);
+
+  svg {
+    height: 86%;
+  }
+}
+
+.pv-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  min-width: 0;
+
+  > * {
+    max-width: 100%;
+  }
+
+  .pv-cta {
+    align-self: stretch;
+    margin-top: 3px;
+  }
+}
+
+.pv-rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 8.5px;
+}
+
+.pv-stars {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 0;
+  color: #f5a623;
+
+  svg {
+    display: block;
+    fill: currentColor;
+  }
+}
+
+.pv-star {
+  --hit-h: 32px; // 18 × 32 px per star
+
+  display: flex;
+  padding: 0 3px;
+
+  &.is-off {
+    color: #d3d6de;
+  }
+}
+
+.pv-price {
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.pv-stock {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #1c7440;
+  font-size: 9px;
+  font-weight: 600;
+
+  &::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+}
+
+.pv-colors {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 8.5px;
+}
+
+.pv-swatches {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 9px;
+}
+
+.pv-swatch {
+  --hit-w: 22px; // = the swatch pitch
+  --hit-h: 32px;
+
+  width: 13px;
+  height: 13px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 50%;
+
+  &.is-active {
+    box-shadow:
+      0 0 0 2px $paper,
+      0 0 0 3px $ink;
+  }
+}
+
+// Hover feedback for mice and trackpads
+@media (hover: hover) {
+  .pv-cta:hover {
+    background: #0066cc;
+  }
+
+  // Pressed state must win over hover (it is the only press feedback with reduced motion).
+  .pv-cta:active {
+    background: #0058b8;
+  }
+
+  .pv-day:not(.is-active):hover,
+  .pv-slot:not(.is-active):hover,
+  .pv-kpi:not(.is-active):hover {
+    border-color: #b8c2d4;
+  }
+
+  .pv-row:not(.is-active):hover {
+    background: #f3f5f9;
+  }
+
+  .pv-bar:not(.is-active):hover .pv-bar__fill {
+    opacity: 0.8;
+  }
+}
+
+// Roomier browser previews (desktop and wide phones)
+@container (min-width: 300px) {
+  .pv-h1 {
+    font-size: 14px;
+  }
+
+  .pv-kpi {
+    padding: 7px 8px;
+  }
+
+  .pv-kpi__value {
+    font-size: 12.5px;
+  }
+}
+
+@container (min-width: 340px) {
+  .pv-product {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    align-items: start;
+    gap: 12px;
+  }
+
+  .pv-gallery {
+    height: auto;
+    aspect-ratio: 1;
+  }
+}
+
+/* ── Build-up: elements appear as their code line is typed ── */
+.pv-in {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.pv-in--scale {
+  transform: scale(0.94);
+}
+
+.pv-in--pop {
+  transform: scale(0.85);
+}
+
+.pv-stagger > * {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.pv-bar__fill {
+  transform: scaleY(0);
+}
+
+.pv-in.is-in,
+.pv-stagger.is-in > * {
+  opacity: 1;
+  transform: none;
+}
+
+.is-in .pv-bar__fill {
+  transform: none;
+}
+
+@include motion {
+  .pv-in.is-in,
+  .pv-stagger.is-in > * {
+    transition:
+      opacity 0.45s var(--ease-out),
+      transform 0.55s var(--ease-out);
+  }
+
+  .pv-stagger.is-in > * {
+    transition-delay: calc(var(--i, 0) * 90ms + 60ms);
+  }
+
+  .is-in .pv-bar__fill {
+    transition:
+      transform 0.6s var(--ease-out) calc(var(--i, 0) * 60ms + 120ms),
+      opacity 0.2s;
+  }
+
+  .pv-btn {
+    transition:
+      background-color 0.15s,
+      border-color 0.15s,
+      color 0.15s,
+      box-shadow 0.15s;
+  }
+
+  .pv-cta.is-in:active {
+    transform: scale(0.97);
+    transition-duration: 0.08s;
+  }
+
+  .pv-tint {
+    transition:
+      fill 0.3s,
+      stroke 0.3s;
+  }
+
+  .pv-toast {
+    animation: pv-rise 0.3s var(--ease-out);
+  }
+
+  .pv-tip {
+    animation: pv-fade 0.2s ease-out;
+  }
+
+  .pv-badge {
+    animation: pv-bump 0.35s var(--ease-out);
+  }
+
+  // Alternating names restart the bump on every added item.
+  .pv-badge--odd {
+    animation-name: pv-bump-odd;
+  }
+}
+
+@keyframes pv-rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+@keyframes pv-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes pv-bump {
+  40% {
+    transform: scale(1.35);
+  }
+}
+
+@keyframes pv-bump-odd {
+  40% {
+    transform: scale(1.35);
+  }
+}

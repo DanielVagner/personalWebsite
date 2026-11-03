@@ -1,0 +1,143 @@
+@use 'mixins' as *;
+
+$stack-bp: 900px;
+
+:host {
+  display: block;
+}
+
+.about__grid {
+  display: grid;
+  gap: 48px;
+
+  @media (min-width: $stack-bp) {
+    grid-template-columns: minmax(260px, 360px) minmax(0, 1fr);
+    gap: 48px 72px;
+    align-items: start;
+  }
+}
+
+.about__media {
+  min-width: 0;
+  width: 100%;
+  max-width: 360px;
+  margin-inline: auto;
+
+  @media (min-width: $stack-bp) {
+    margin-inline: 0;
+  }
+}
+
+.about__photo {
+  position: relative;
+
+  // Soft blue glow behind the portrait.
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 8% 0 -4%;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(127, 162, 255, 0.16), transparent);
+    filter: blur(24px);
+    pointer-events: none;
+  }
+
+  img {
+    position: relative;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: 50% 30%;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--line-strong);
+    background: #0f1116;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
+  }
+}
+
+.about__badge {
+  position: absolute;
+  right: -12px;
+  bottom: -12px;
+  display: inline-flex;
+  padding: 4px;
+  border-radius: 15px;
+  background: var(--surface);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+.about__content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+.about__title {
+  font-size: clamp(34px, 4vw, 56px);
+  line-height: 1.05;
+}
+
+.about__lead {
+  margin: 0;
+  max-width: 640px;
+  font-size: 17px;
+  line-height: 1.7;
+  color: #c2c6d0;
+}
+
+.about__body {
+  margin: 0;
+  max-width: 640px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+.about__facts {
+  display: grid;
+  // 2 × 2 with moderately wide tiles (full width on phones).
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+
+  @include up($bp-sm) {
+    grid-template-columns: repeat(2, minmax(0, 300px));
+  }
+}
+
+.fact {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  padding: 20px;
+  border-radius: var(--radius);
+  background: var(--card);
+
+  @include motion {
+    transition: background-color 0.25s;
+  }
+
+  &:hover {
+    background: var(--card-hover);
+  }
+}
+
+.fact__value {
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text);
+}
+
+.fact__label {
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  line-height: 1.4;
+  color: var(--text-dim);
+}
+

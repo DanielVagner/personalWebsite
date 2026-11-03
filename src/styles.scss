@@ -1,0 +1,317 @@
+@use 'mixins' as *;
+
+/* ── Design tokens ─────────────────────────────────────────── */
+:root {
+  color-scheme: dark;
+
+  --bg: #08090d;
+  --surface: #15171c;
+  --surface-alt: #111318;
+  --card: #202329;
+  --card-hover: #262a31;
+  --text: #f0f1f5;
+  --text-muted: #a0a4ae;
+  --text-dim: #8d92a0;
+  --accent: #0071e3;
+  --accent-hover: #0066cc;
+  --accent-light: #a8bdff;
+  --link: #3d9bff;
+  --focus: #3d9bff;
+  --line: rgba(255, 255, 255, 0.07);
+  --line-strong: rgba(255, 255, 255, 0.12);
+
+  --grad-text: linear-gradient(95deg, #dce5ff 0%, #a8bdff 45%, #7fa2ff 100%);
+
+  --font-sans: 'Inter Variable', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --container: 1268px;
+  --gutter: clamp(16px, 5vw, 86px);
+  --header-h: 72px;
+  --radius-sm: 6px;
+  --radius: 14px;
+  --radius-lg: 18px;
+  --ease-out: cubic-bezier(0.16, 0.84, 0.24, 1);
+}
+
+/* ── Base ──────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + 8px);
+
+  @include motion {
+    scroll-behavior: smooth;
+  }
+}
+
+// The phone assembly scene places one snap point per step; proximity keeps the
+// rest of the page scrolling freely.
+@include motion {
+  html:has(.asm__snap) {
+    scroll-snap-type: y proximity;
+  }
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  overflow-wrap: break-word;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: rgba(0, 113, 227, 0.45);
+}
+
+/* ── Layout helpers ────────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: calc(var(--container) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: clamp(72px, 10vw, 120px);
+}
+
+.section--surface {
+  background: var(--surface);
+}
+
+/* Section heading pattern: eyebrow, two-line title (second line muted), intro */
+.section-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  text-align: center;
+}
+
+.section-head__muted {
+  color: var(--text-dim);
+}
+
+.section-intro {
+  margin: 26px 0 0 auto;
+  max-width: 430px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-muted);
+  text-align: right;
+
+  @include down($bp-md) {
+    margin-inline: auto;
+    text-align: center;
+  }
+}
+
+/* ── Typography ────────────────────────────────────────────── */
+.h {
+  margin: 0;
+  font-weight: 650;
+  letter-spacing: -0.035em;
+}
+
+.h2 {
+  font-size: clamp(36px, 4.6vw, 66px);
+  line-height: 1.05;
+}
+
+.grad {
+  background: var(--grad-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 2px;
+  font-weight: 600;
+  color: #a6acba;
+  text-transform: uppercase;
+}
+
+.muted {
+  color: var(--text-muted);
+}
+
+/* ── Buttons & links ───────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 12px 22px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+
+  @include motion {
+    transition:
+      transform 0.3s var(--ease-out),
+      background-color 0.25s,
+      border-color 0.25s;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.btn--primary {
+  background: var(--accent);
+  color: #fff;
+
+  &:hover {
+    background: var(--accent-hover);
+  }
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--line-strong);
+
+  &:hover {
+    border-color: rgba(168, 189, 255, 0.45);
+  }
+}
+
+.btn--lg {
+  min-height: 52px;
+  padding: 16px 28px;
+  font-size: 16px;
+}
+
+.link {
+  color: var(--link);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: var(--radius-sm);
+  padding: 5px 9px;
+  font-size: 12px;
+  line-height: 1.3;
+  color: #a9aebb;
+}
+
+/* ── Scroll reveal (driven by appReveal directive) ─────────── */
+@include motion {
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition:
+      opacity 0.8s var(--ease-out),
+      transform 0.8s var(--ease-out);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── Accessibility ─────────────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  transform: translateY(-150%);
+
+  &:focus {
+    transform: none;
+  }
+}
+
+@include reduced-motion {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

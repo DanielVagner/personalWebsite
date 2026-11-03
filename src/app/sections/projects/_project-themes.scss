@@ -1,0 +1,48 @@
+// Gradient backgrounds for project previews, keyed by ProjectTheme.
+$project-themes: (
+  'teal': linear-gradient(160deg, #11525a 0%, #082a30 100%),
+  'plum': linear-gradient(160deg, #3d2249 0%, #170d20 100%),
+  'slate': linear-gradient(160deg, #2a2e37 0%, #1a1d24 100%),
+  'berry': linear-gradient(160deg, #47183a 0%, #1c0c1a 100%),
+  'blue': linear-gradient(160deg, #0d4fd6 0%, #0a2470 100%),
+  'navy': linear-gradient(160deg, #1b2b4a 0%, #0f1a2e 100%),
+  'earth': linear-gradient(160deg, #4a2c16 0%, #1c130c 100%),
+);
+
+// Emits `&[data-theme='x'] { background: ... }` for every theme.
+@mixin project-theme-backgrounds {
+  @each $name, $bg in $project-themes {
+    &[data-theme='#{$name}'] {
+      background: $bg;
+    }
+  }
+}
+
+// Soft light spot over the gradient, as in the design reference.
+@mixin project-glow {
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 20%, rgba(255, 255, 255, 0.08), transparent 60%);
+    pointer-events: none;
+  }
+}
+
+// Window chrome above a screenshot.
+@mixin window-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 22px;
+  padding-inline: 10px;
+  background: #16181e;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+  i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.22);
+  }
+}

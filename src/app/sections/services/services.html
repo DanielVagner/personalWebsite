@@ -1,0 +1,53 @@
+<section id="services" class="section section--surface" aria-labelledby="services-title">
+  <div class="container">
+    <div class="section-head" appReveal>
+      <span class="eyebrow">{{ t().eyebrow }}</span>
+      <h2 id="services-title" class="h h2">
+        {{ t().titleTop }}<br />
+        <span class="section-head__muted">{{ t().titleBottom }}</span>
+      </h2>
+    </div>
+    <p class="section-intro" appReveal [revealDelay]="80">{{ t().intro }}</p>
+
+    <ul class="grid" role="list">
+      @for (card of cards(); track card.id) {
+        <li class="grid__cell" appReveal [revealDelay]="$index * 120">
+          <article class="card">
+            <span class="card__icon" aria-hidden="true">
+              @switch (card.id) {
+                @case ('web') {
+                  <span class="mono">&lt;/&gt;</span>
+                }
+                @case ('mobile') {
+                  <svg viewBox="0 0 20 28" width="20" height="28" focusable="false">
+                    <rect x="2" y="1.5" width="16" height="25" rx="3.6" fill="none" stroke="currentColor" stroke-width="2.2" />
+                    <path d="M7.5 22.2h5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+                  </svg>
+                }
+                @case ('lead') {
+                  <span class="mono">&#123; &#125;</span>
+                }
+              }
+            </span>
+            <span class="card__no mono" aria-hidden="true">{{ card.no }}</span>
+
+            <h3 class="h card__title">{{ card.title }}</h3>
+            <p class="card__text">{{ card.text }}</p>
+
+            <ul class="card__points" role="list">
+              @for (point of card.points; track point) {
+                <li>{{ point }}</li>
+              }
+            </ul>
+
+            <ul class="card__tags" role="list">
+              @for (tag of card.tags; track tag) {
+                <li class="tag">{{ tag }}</li>
+              }
+            </ul>
+          </article>
+        </li>
+      }
+    </ul>
+  </div>
+</section>

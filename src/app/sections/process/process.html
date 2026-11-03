@@ -1,0 +1,41 @@
+<section id="process" class="section process" [attr.aria-labelledby]="idPrefix + '-title'">
+  <div class="container process__grid">
+    <div class="process__head" appReveal>
+      <span class="eyebrow">{{ t().eyebrow }}</span>
+      <h2 class="h process__title" [id]="idPrefix + '-title'">
+        {{ t().titleLine1 }}<br />
+        <span class="section-head__muted">{{ t().titleLine2 }}</span>
+      </h2>
+      <p class="process__intro">{{ t().intro }}</p>
+    </div>
+
+    <div class="process__steps" appReveal [revealDelay]="120">
+      @for (step of t().steps; track $index) {
+        @let isOpen = open()[$index] ?? false;
+        @let triggerId = idPrefix + '-trigger-' + $index;
+        @let panelId = idPrefix + '-panel-' + $index;
+        <div class="step" [class.is-open]="isOpen">
+          <h3 class="step__heading">
+            <button
+              type="button"
+              class="step__trigger"
+              [id]="triggerId"
+              [attr.aria-expanded]="isOpen"
+              [attr.aria-controls]="panelId"
+              (click)="toggle($index)"
+            >
+              <span class="step__num mono" aria-hidden="true">{{ stepNumber($index) }}</span>
+              <span class="step__title">{{ step.title }}</span>
+              <span class="step__icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="step__panel" role="region" [id]="panelId" [attr.aria-labelledby]="triggerId">
+            <div class="step__inner">
+              <p class="step__text">{{ step.text }}</p>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
