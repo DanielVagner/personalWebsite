@@ -23,8 +23,7 @@ export interface NavText {
   brandTld: string;
   homeLabel: string;
   navLabel: string;
-  /** Small heading above the mobile menu items. */
-  menuHeading: string;
+  mobileNavLabel: string;
   /** Tag on the mobile menu item of the section currently in view. */
   menuHere: string;
   items: NavItem[];
@@ -51,7 +50,7 @@ export const NAV_TEXT: Translated<NavText> = {
     brandTld: '.dev',
     homeLabel: 'daniel-vagner.dev – úvod',
     navLabel: 'Hlavní navigace',
-    menuHeading: 'Na této stránce',
+    mobileNavLabel: 'Menu',
     menuHere: 'Jste tady',
     items: [
       { id: 'services', label: 'Služby', desc: 'Webové a mobilní aplikace, architektura' },
@@ -71,7 +70,7 @@ export const NAV_TEXT: Translated<NavText> = {
     brandTld: '.dev',
     homeLabel: 'daniel-vagner.dev – home',
     navLabel: 'Main navigation',
-    menuHeading: 'On this page',
+    mobileNavLabel: 'Menu',
     menuHere: 'You are here',
     items: [
       { id: 'services', label: 'Services', desc: 'Web and mobile apps, architecture' },

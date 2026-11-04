@@ -387,30 +387,10 @@ $bp-nav: 1080px;
     padding-top: 28px;
   }
 
-  // Short screens (small phones, landscape): drop the heading and keep rows tight.
+  // Short screens (small phones, landscape): keep rows tight.
   @media (max-height: 600px) {
     padding-top: 10px;
     padding-bottom: 8px;
-  }
-}
-
-.menu__heading {
-  margin: 0 0 8px;
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.06em;
-  line-height: 1.4;
-  text-transform: uppercase;
-  color: var(--text-dim);
-
-  // Short screens: kept for screen readers (it labels the nav), hidden visually.
-  @media (max-height: 600px) {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
   }
 }
 

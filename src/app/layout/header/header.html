@@ -46,8 +46,7 @@
   </div>
 
   <div id="site-menu" class="menu" [class.menu--open]="open()" (click)="onMenuBackdrop($event)">
-    <nav class="menu__scroll container" aria-labelledby="menu-heading">
-      <h2 class="menu__heading mono" id="menu-heading">{{ t().menuHeading }}</h2>
+    <nav class="menu__scroll container" [attr.aria-label]="t().mobileNavLabel">
       <ul class="menu__list" role="list">
         @for (item of t().items; track item.id; let i = $index) {
           <li [style.--i]="i">
