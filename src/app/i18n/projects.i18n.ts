@@ -117,8 +117,8 @@ export const PROJECTS: readonly ProjectBase[] = [
   {
     id: 'qrticket',
     theme: 'berry',
-    media: 'logo',
-    image: img('qr-ticket.webp', 533, 239),
+    media: 'plain',
+    image: img('xticket-aplikace.webp', 1800, 1200),
     tags: ['React Native'],
   },
   {
@@ -243,7 +243,7 @@ export const PROJECTS_TEXT: Translated<ProjectsText> = {
         type: 'Mobilní aplikace',
         summary:
           'Aplikace pro odbavení návštěvníků na akcích: skenování QR vstupenek online i offline, přehled návštěvnosti a exporty pro pořadatele.',
-        alt: 'Logo xticket.cz',
+        alt: 'Tři obrazovky aplikace xTicket: výběr online nebo offline kontroly, platná vstupenka a už použitá vstupenka',
         brief:
           'Pořadatelé akcí potřebovali rychle a spolehlivě odbavovat návštěvníky u vstupu – i tam, kde je slabý nebo žádný signál – a mít po akci k dispozici přehled o návštěvnosti.',
         solution: 'Mobilní aplikace v React Native navržená tak, aby fungovala i bez připojení (offline-first).',
@@ -420,7 +420,7 @@ export const PROJECTS_TEXT: Translated<ProjectsText> = {
         type: 'Mobile app',
         summary:
           'Event check-in app: QR ticket scanning online or offline, attendance tracking and exports for organizers.',
-        alt: 'xticket.cz logo',
+        alt: 'Three xTicket app screens: choosing online or offline check-in, a valid ticket and an already used ticket',
         brief:
           'Event organizers needed fast, reliable check-in at the entrance – even where the signal is weak or missing – and a clear picture of attendance once the event is over.',
         solution: 'A React Native mobile app designed to work without a connection (offline-first).',
