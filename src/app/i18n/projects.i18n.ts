@@ -119,7 +119,7 @@ export const PROJECTS: readonly ProjectBase[] = [
     theme: 'berry',
     media: 'plain',
     image: img('xticket-aplikace.webp', 1800, 1200),
-    tags: ['React Native'],
+    tags: ['Angular', 'Ionic + Capacitor'],
   },
   {
     id: 'ccvision',
@@ -246,14 +246,14 @@ export const PROJECTS_TEXT: Translated<ProjectsText> = {
         alt: 'Tři obrazovky aplikace xTicket: výběr online nebo offline kontroly, platná vstupenka a už použitá vstupenka',
         brief:
           'Pořadatelé akcí potřebovali rychle a spolehlivě odbavovat návštěvníky u vstupu – i tam, kde je slabý nebo žádný signál – a mít po akci k dispozici přehled o návštěvnosti.',
-        solution: 'Mobilní aplikace v React Native navržená tak, aby fungovala i bez připojení (offline-first).',
+        solution: 'Mobilní aplikace postavená na Ionicu, Angularu a Capacitoru a navržená tak, aby fungovala i bez připojení (offline-first).',
         features: [
           'Skenování QR kódů vstupenek',
           'Online i offline režim',
           'Průběžný přehled návštěvnosti',
           'Export přehledů pro pořadatele',
         ],
-        role: 'Vyvíjel jsem mobilní aplikaci v React Native, včetně skenování QR kódů, práce s daty bez připojení, přehledů návštěvnosti a exportů.',
+        role: 'Vyvíjel jsem mobilní aplikaci v Ionicu a Angularu, včetně skenování QR kódů, práce s daty bez připojení, přehledů návštěvnosti a exportů.',
         extraTags: ['Offline režim', 'Skenování QR', 'Analytika', 'Exporty'],
       },
       findtastic: {
@@ -423,14 +423,14 @@ export const PROJECTS_TEXT: Translated<ProjectsText> = {
         alt: 'Three xTicket app screens: choosing online or offline check-in, a valid ticket and an already used ticket',
         brief:
           'Event organizers needed fast, reliable check-in at the entrance – even where the signal is weak or missing – and a clear picture of attendance once the event is over.',
-        solution: 'A React Native mobile app designed to work without a connection (offline-first).',
+        solution: 'A mobile app built with Ionic, Angular and Capacitor, designed to work without a connection (offline-first).',
         features: [
           'QR ticket scanning',
           'Online and offline mode',
           'Real-time attendance tracking',
           'Exportable reports for organizers',
         ],
-        role: 'Development of the React Native app: QR scanning, offline-first data handling, attendance overviews and exports.',
+        role: 'Development of the Ionic and Angular app: QR scanning, offline-first data handling, attendance overviews and exports.',
         extraTags: ['Offline mode', 'QR scanning', 'Analytics', 'Exports'],
       },
       findtastic: {
